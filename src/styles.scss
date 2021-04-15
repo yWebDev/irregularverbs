@@ -1,0 +1,104 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$iverbs-primary: mat-palette($mat-indigo);
+$iverbs-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$iverbs-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$iverbs-theme: mat-light-theme((
+  color: (
+    primary: $iverbs-primary,
+    accent: $iverbs-accent,
+    warn: $iverbs-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($iverbs-theme);
+
+/* Styles */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #181818;
+}
+
+.header {
+  text-align: center;
+  padding: 0.475em 0;
+  font-size: 3rem;
+  border-bottom: 1px solid #ccc;
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 3px 0px #a0a0a0;
+}
+.header h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  margin-bottom: 0;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffff2;
+}
+
+.input {
+  width: 50%;
+  padding: 0.5em;
+  font-size: 2rem;
+  font-family: 'Noticia Text', serif;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.25em 2em;
+  border-top: 1px solid #ccc;
+  background-color: #f9f1f1;
+  font-family: 'Dancing Script', cursive;
+}
+
+.btn-donate {
+  font-size: 1.2rem;
+  padding: 0.5em 1.5em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: #F44336;
+  color: #fff;
+  border-radius: 5px;
+  display: inline-block;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.link-contact {
+  text-decoration: none;
+  color: #181818;
+  font-size: 1.5rem;
+;
+}
