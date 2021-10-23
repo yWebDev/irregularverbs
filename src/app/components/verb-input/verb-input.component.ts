@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { VerbsService } from '../../services/verbs/verbs.service';
 
 @Component({
   selector: 'app-verb-input',
@@ -11,7 +12,8 @@ export class VerbInputComponent implements OnInit {
   options: string[] = ['Arise', 'Run', 'Be'];
   myControl = new FormControl();
 
-  constructor() { }
+  constructor(private verbsService: VerbsService) {
+  }
 
   ngOnInit(): void {
   }
