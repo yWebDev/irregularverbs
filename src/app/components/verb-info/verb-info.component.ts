@@ -7,11 +7,7 @@ import {VerbDetails} from '../../model/verb-details';
   styleUrls: ['./verb-info.component.scss']
 })
 export class VerbInfoComponent implements OnInit {
-  @Input() details: VerbDetails = {
-    verb: 'Arise',
-    past: 'Arose',
-    participle: 'Arisen'
-  };
+  @Input() details!: VerbDetails;
 
   constructor() { }
 

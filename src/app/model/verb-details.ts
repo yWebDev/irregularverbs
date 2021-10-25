@@ -1,5 +1,5 @@
 export interface VerbDetails {
-  verb: string;
-  past: string;
-  participle: string;
+  base: string;
+  pastSimple: string;
+  pastParticiple: string;
 }
