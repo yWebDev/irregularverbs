@@ -3,3 +3,7 @@ export interface VerbDetails {
   pastSimple: string;
   pastParticiple: string;
 }
+
+export interface VerbSearchOption extends VerbDetails {
+  matched: keyof VerbDetails;
+}
