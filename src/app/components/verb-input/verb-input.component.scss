@@ -8,11 +8,20 @@
   }
 
   .input {
-    width: 50%;
     padding: 0.5em;
     font-size: 2rem;
     font-family: 'Noticia Text', serif;
   }
+
+  .form-field {
+    width: 50%;
+
+    @media only screen
+    and (max-width : 768px) {
+      width: 90%;
+    }
+  }
 }
+
 
 
