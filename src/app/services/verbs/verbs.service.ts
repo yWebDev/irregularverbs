@@ -11,6 +11,10 @@ export class VerbsService {
   constructor(private httpClient: HttpClient) { }
 
   search(term: string): Observable<VerbSearchOption[]> {
-    return this.httpClient.get<VerbSearchOption[]>(`/api/verbs/${term}`);
+    return this.httpClient.get<VerbSearchOption[]>(`/api/verbs/`, {
+      params: {
+        term
+      }
+    });
   }
 }

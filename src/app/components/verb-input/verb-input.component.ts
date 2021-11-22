@@ -21,7 +21,7 @@ export class VerbInputComponent implements OnInit {
     this.options$ = this.myControl.valueChanges.pipe(
       debounceTime(150),
       switchMap(term => {
-        if (term.length < 2) {
+        if (typeof term !== 'string' || term.length < 2) {
           return of([]);
         }
         return this.verbsService.search(term);
@@ -38,6 +38,11 @@ export class VerbInputComponent implements OnInit {
 
   getOptionLabel(option: VerbSearchOption): string {
     return option?.[option?.matched];
+  }
+
+  clearSelectedValue(): void {
+    this.myControl.setValue(null);
+    this.onVerbSelect.emit(null);
   }
 
 }

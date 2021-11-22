@@ -6,7 +6,7 @@
            matInput
            [formControl]="myControl"
            [matAutocomplete]="auto"
-           (input)="onVerbSelect.emit(null)" />
+           (input)="onVerbSelect.emit(null)"/>
     <mat-autocomplete
       #auto="matAutocomplete"
       [displayWith]="getOptionLabel"
@@ -16,6 +16,10 @@
         {{option[option.matched]}}
       </mat-option>
     </mat-autocomplete>
+    <button *ngIf="myControl.value" type="button" mat-button  matSuffix mat-icon-button aria-label="Clear"
+            (click)="clearSelectedValue()">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
 </form>
 
