@@ -1,0 +1,11 @@
+:host {
+  width: 100%;
+
+  section {
+    width: 100%;
+
+    &.search {
+      margin-bottom: 3rem;
+    }
+  }
+}

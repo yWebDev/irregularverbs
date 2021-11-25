@@ -7,7 +7,5 @@ import { VerbDetails } from './model/verb-details';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  selected!: VerbDetails | null;
-
   constructor() {}
 }

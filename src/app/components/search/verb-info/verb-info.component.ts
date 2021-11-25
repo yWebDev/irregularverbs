@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {VerbDetails} from '../../model/verb-details';
+import {VerbDetails} from '../../../model/verb-details';
 
 @Component({
   selector: 'app-verb-info',

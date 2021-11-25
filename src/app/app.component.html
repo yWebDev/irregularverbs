@@ -1,15 +1,15 @@
 <header class="header">
-  <h1>Irregular Verbs</h1>
+  <h1><a routerLink="/">Irregular Verbs</a></h1>
 </header>
 <main class="main" cdkScrollable>
-  <section class="search">
-    <app-verb-input (onVerbSelect)="selected = $event"></app-verb-input>
-  </section>
-  <section class="details">
-    <app-verb-info [details]="selected"></app-verb-info>
-  </section>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  <nav class="navigation">
+    <a routerLink="/game">Check your knowledge</a>
+  </nav>
 </main>
 <footer class="footer">
   <span>Created by <a class="link-contact" title="yWebDev" href="https://github.com/yWebDev">yWebDev</a></span>
-<!--  <a type="button" class="btn-donate" title="Donate">Donate</a>-->
+  <!--  <a type="button" class="btn-donate" title="Donate">Donate</a>-->
 </footer>
