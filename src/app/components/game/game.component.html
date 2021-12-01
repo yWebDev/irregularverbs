@@ -1,1 +1,27 @@
-<p>game works!</p>
+<div class="game">
+  <div class="game-push-area">
+    <div class="game-push-area-header">
+      <div>I</div>
+      <div>II</div>
+      <div>III</div>
+    </div>
+    <div class="game-push-area-target"
+         cdkDropListGroup>
+      <div id="list-one" cdkDropList [cdkDropListConnectedTo]="['item-one', 'item-two', 'item-three']"></div>
+      <div id="list-two" cdkDropList [cdkDropListConnectedTo]="['item-one', 'item-two', 'item-three']"></div>
+      <div id="list-three" cdkDropList [cdkDropListConnectedTo]="['item-one', 'item-two', 'item-three']"></div>
+    </div>
+  </div>
+  <div class="game-pull-area">
+    <div cdkDropList id="item-one" [cdkDropListConnectedTo]="['list-one', 'list-two', 'list-three']">
+      <span class="drag-item" cdkDrag>be</span>
+    </div>
+    <div cdkDropList id="item-two" [cdkDropListConnectedTo]="['list-one', 'list-two', 'list-three']">
+      <span class="drag-item" cdkDrag>was/were</span>
+    </div>
+    <div cdkDropList id="item-three" [cdkDropListConnectedTo]="['list-one', 'list-two', 'list-three']">
+      <span class="drag-item" cdkDrag>been</span>
+    </div>
+  </div>
+</div>
+

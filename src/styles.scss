@@ -39,7 +39,6 @@ html, body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .body {
@@ -47,6 +46,7 @@ body {
   display: flex;
   flex-direction: column;
   color: #181818;
+  font-family: 'Noticia Text', serif;
 }
 
 a {
