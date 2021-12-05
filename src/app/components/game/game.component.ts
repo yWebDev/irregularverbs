@@ -47,7 +47,6 @@ export class GameComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>, key: keyof VerbDetails): void {
-    console.log(event);
     this.selected[key] = this.items[event.item.data.index];
     delete this.items[event.item.data.index];
   }

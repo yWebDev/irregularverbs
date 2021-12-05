@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { GameComponent } from './components/game/game.component';
 import { SearchComponent } from './components/search/search.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LoginComponent } from './components/game/login/login.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -22,21 +24,23 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     VerbInputComponent,
     VerbInfoComponent,
     GameComponent,
-    SearchComponent
+    SearchComponent,
+    LoginComponent
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        DragDropModule,
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    DragDropModule,
+    MatMenuModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

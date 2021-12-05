@@ -44,7 +44,10 @@
 
 .navigation {
   width: 100%;
-  padding: 0 2rem 2rem;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   li {
     display: inline-block;
@@ -109,6 +112,18 @@
 .link-contact {
   text-decoration: none;
   color: #F44336;
+}
+
+.account {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 2rem;
+}
+
+.delete-action {
+  color: #ea1c0d;
 }
 
 
