@@ -43,12 +43,30 @@
 }
 
 .navigation {
-  text-align: center;
+  width: 100%;
   padding: 0 2rem 2rem;
+
+  li {
+    display: inline-block;
+    margin-right: 0.5rem;
+
+    &:not(:last-of-type) {
+      &::after {
+        content: '|';
+        margin-left: 0.5rem;
+      }
+    }
+  }
 
   a {
     color: #F44336;
     font-size: 1rem;
+
+    &.is-active {
+      color: #300d0a;
+      pointer-events: none;
+      text-decoration: none;
+    }
   }
 }
 

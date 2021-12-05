@@ -2,12 +2,20 @@
   <h1><a routerLink="/">Irregular Verbs</a></h1>
 </header>
 <main class="main" cdkScrollable>
+  <nav class="navigation">
+    <ul>
+      <li>
+        <a routerLink="/" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }">Verbs
+          Search</a>
+      </li>
+      <li>
+        <a routerLink="/game" [routerLinkActive]="['is-active']">Verbs Game</a>
+      </li>
+    </ul>
+  </nav>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
-  <nav class="navigation">
-    <a routerLink="/game">Check your knowledge</a>
-  </nav>
 </main>
 <footer class="footer">
   <span>Created by <a class="link-contact" title="yWebDev" href="https://github.com/yWebDev">yWebDev</a></span>
