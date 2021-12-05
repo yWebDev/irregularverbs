@@ -1,0 +1,6 @@
+<section class="search">
+  <app-verb-input (onVerbSelect)="selected = $event"></app-verb-input>
+</section>
+<section class="details">
+  <app-verb-info [details]="selected"></app-verb-info>
+</section>

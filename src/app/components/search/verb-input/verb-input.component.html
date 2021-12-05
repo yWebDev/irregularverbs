@@ -1,0 +1,26 @@
+<form>
+  <mat-form-field class="form-field" appearance="fill">
+    <input class="input"
+           placeholder="Type a verb..."
+           aria-label="Verb"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto"
+           (input)="onVerbSelect.emit(null)"/>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      [displayWith]="getOptionLabel"
+      (optionSelected)="onSelect($event)"
+    >
+      <mat-option *ngFor="let option of (options$ | async)" [value]="option">
+        {{option[option.matched]}}
+      </mat-option>
+    </mat-autocomplete>
+    <button *ngIf="myControl.value" type="button" mat-button  matSuffix mat-icon-button aria-label="Clear"
+            (click)="clearSelectedValue()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+
+

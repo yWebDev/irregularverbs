@@ -1,0 +1,34 @@
+<div class="game">
+  <div class="game-push-area">
+    <div class="game-push-area-header">
+      <div>I</div>
+      <div>II</div>
+      <div>III</div>
+    </div>
+    <div class="game-push-area-target"
+         cdkDropListGroup>
+      <div id="list-one" cdkDropList (cdkDropListDropped)="drop($event, 'base')"
+           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']">
+        <span *ngIf="selected.base" class="selected-item">{{selected.base}}</span>
+      </div>
+      <div id="list-two" cdkDropList (cdkDropListDropped)="drop($event, 'pastSimple')"
+           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']">
+        <span *ngIf="selected.pastSimple" class="selected-item">{{selected.pastSimple}}</span>
+      </div>
+      <div id="list-three" cdkDropList (cdkDropListDropped)="drop($event, 'pastParticiple')"
+           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']">
+        <span *ngIf="selected.pastParticiple" class="selected-item">{{selected.pastParticiple}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="game-pull-area">
+    <div *ngFor="let item of items; index as i" cdkDropList id="item-{{i}}"
+         [cdkDropListConnectedTo]="['list-one', 'list-two', 'list-three']">
+      <span *ngIf="item" class="drag-item" cdkDrag [cdkDragData]="{ item: item, index: i }">{{item}}</span>
+    </div>
+  </div>
+  <div class="game-actions">
+    <button mat-raised-button [disabled]="!isSelected" (click)="onCheck()">Check</button>
+  </div>
+</div>
+

@@ -1,0 +1,19 @@
+<form #form=ngForm class="login-form" (ngSubmit)="onSubmit(form.valid)">
+  <p>Please choose your username</p>
+  <p>
+    <mat-form-field>
+      <input #input=ngModel name="username" matInput placeholder="Username" [(ngModel)]="username" required
+             minlength="6"
+             pattern="[0-9A-Za-z]*">
+      <mat-error *ngIf="input.hasError('pattern')">
+        Only contains <strong>alphanumeric</strong> characters
+      </mat-error>
+      <mat-error *ngIf="input.hasError('minlength')">
+        Minimal length is <strong>6</strong> characters
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <button mat-raised-button type="submit" [disabled]="!form.valid">Start</button>
+  </p>
+</form>

@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-
-// Firebase App (the core Firebase SDK) is always required and must be listed first
-import { initializeApp } from 'firebase/app';
-
-// Add the Firebase products that you want to use
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { VerbDetails } from './model/verb-details';
+import { AuthService } from './services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +9,14 @@ import { getFirestore } from 'firebase/firestore';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'iverbs';
+  get username(): string | null {
+    return this.authService.username;
+  };
 
-  constructor() {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  onDelete(): void {
+    this.authService.delete();
+    this.router.navigate(['']);
+  }
 }

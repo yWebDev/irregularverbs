@@ -1,15 +1,36 @@
 <header class="header">
-  <h1>Irregular Verbs</h1>
+  <h1><a routerLink="/">Irregular Verbs</a></h1>
 </header>
-<main class="main">
-  <section class="search">
-    <app-verb-input></app-verb-input>
-  </section>
-  <section class="details">
-    <app-verb-info></app-verb-info>
-  </section>
+<main class="main" cdkScrollable>
+  <nav class="navigation">
+    <ul>
+      <li>
+        <a routerLink="/" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }">Verbs
+          Search</a>
+      </li>
+      <li>
+        <a routerLink="/game" [routerLinkActive]="['is-active']">Verbs Game</a>
+      </li>
+    </ul>
+    <div>
+      <a *ngIf="username" class="account" [matMenuTriggerFor]="menu" aria-label="Account Menu">
+        <span>{{username}}</span>
+        <mat-icon>account_circle</mat-icon>
+      </a>
+      <mat-menu #menu="matMenu">
+        <button class="delete-action" mat-menu-item (click)="onDelete()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 </main>
 <footer class="footer">
   <span>Created by <a class="link-contact" title="yWebDev" href="https://github.com/yWebDev">yWebDev</a></span>
-  <a type="button" class="btn-donate" title="Donate">Donate</a>
+  <!--  <a type="button" class="btn-donate" title="Donate">Donate</a>-->
 </footer>
