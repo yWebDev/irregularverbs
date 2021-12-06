@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { VerbDetails } from '../../model/verb-details';
+import { VerbsService } from '../../services/verbs/verbs.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -17,33 +19,17 @@ export class GameComponent implements OnInit {
   items: string[] = [];
   verbDetails?: VerbDetails;
   currentIndex = 0;
-  verbs = [
-    {
-      base: 'arise',
-      pastSimple: 'arose',
-      pastParticiple: 'arisen'
-    },
-    {
-      base: 'awake',
-      pastSimple: 'awoke',
-      pastParticiple: 'awoken'
-    },
-    {
-      base: 'be',
-      pastSimple: 'was/were',
-      pastParticiple: 'been'
-    },
-  ];
+  verbs: VerbDetails[] = [];
 
   get isSelected(): boolean {
     return Object.values(this.selected).some(Boolean);
   }
 
-  constructor() {
+  constructor(private verbsService: VerbsService) {
   }
 
   ngOnInit(): void {
-    this.initValues();
+    this.prepareVerbsForGame();
   }
 
   drop(event: CdkDragDrop<string[]>, key: keyof VerbDetails): void {
@@ -78,5 +64,13 @@ export class GameComponent implements OnInit {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+
+
+  private prepareVerbsForGame(): void {
+    this.verbsService.getVerbsForGame().subscribe(verbs => {
+      this.verbs = verbs;
+      this.initValues();
+    });
   }
 }

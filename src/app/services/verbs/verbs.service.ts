@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VerbSearchOption } from '../../model/verb-details';
+import { VerbDetails, VerbSearchOption } from '../../model/verb-details';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +16,9 @@ export class VerbsService {
         term
       }
     });
+  }
+
+  getVerbsForGame(): Observable<VerbDetails[]> {
+    return this.httpClient.get<VerbDetails[]>(`/api/verbs/game`);
   }
 }
