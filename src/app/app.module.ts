@@ -17,6 +17,7 @@ import { SearchComponent } from './components/search/search.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginComponent } from './components/game/login/login.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     DragDropModule,
     MatMenuModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

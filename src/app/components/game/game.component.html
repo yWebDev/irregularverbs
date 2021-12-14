@@ -7,23 +7,25 @@
     </div>
     <div class="game-push-area-target"
          cdkDropListGroup>
-      <div id="list-one" cdkDropList (cdkDropListDropped)="drop($event, 'base')"
-           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']">
-        <span *ngIf="selected.base" class="selected-item">{{selected.base}}</span>
-      </div>
-      <div id="list-two" cdkDropList (cdkDropListDropped)="drop($event, 'pastSimple')"
-           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']">
-        <span *ngIf="selected.pastSimple" class="selected-item">{{selected.pastSimple}}</span>
-      </div>
-      <div id="list-three" cdkDropList (cdkDropListDropped)="drop($event, 'pastParticiple')"
-           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']">
-        <span *ngIf="selected.pastParticiple" class="selected-item">{{selected.pastParticiple}}</span>
+      <div
+        *ngFor="let key of keys"
+        id="{{key}}"
+        cdkDropList
+        [cdkDropListEnterPredicate]="enterPredicate"
+        [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']"
+        (cdkDropListDropped)="drop($event, key)"
+      >
+        <span *ngIf="selected[key]" class="selected-item">{{selected[key]}}</span>
       </div>
     </div>
   </div>
   <div class="game-pull-area">
-    <div *ngFor="let item of items; index as i" cdkDropList id="item-{{i}}"
-         [cdkDropListConnectedTo]="['list-one', 'list-two', 'list-three']">
+    <div
+      *ngFor="let item of items; index as i"
+      id="item-{{i}}"
+      cdkDropList
+      [cdkDropListConnectedTo]="['base', 'pastSimple', 'pastParticiple']"
+    >
       <span *ngIf="item" class="drag-item" cdkDrag [cdkDragData]="{ item: item, index: i }">{{item}}</span>
     </div>
   </div>

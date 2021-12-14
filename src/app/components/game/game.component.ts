@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { VerbDetails } from '../../model/verb-details';
 import { VerbsService } from '../../services/verbs/verbs.service';
-import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-game',
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  readonly defaultSelectedItem = {
+  readonly defaultSelectedItem: Partial<VerbDetails> = {
     base: undefined,
     pastSimple: undefined,
     pastParticiple: undefined,
@@ -21,11 +21,15 @@ export class GameComponent implements OnInit {
   currentIndex = 0;
   verbs: VerbDetails[] = [];
 
+  get keys(): (keyof VerbDetails)[] {
+    return Object.keys(this.defaultSelectedItem) as (keyof VerbDetails)[];
+  }
+
   get isSelected(): boolean {
     return Object.values(this.selected).some(Boolean);
   }
 
-  constructor(private verbsService: VerbsService) {
+  constructor(private verbsService: VerbsService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -44,12 +48,16 @@ export class GameComponent implements OnInit {
 
     const isCorrect = Object.keys(this.verbDetails)
       .every((key => this.verbDetails && this.selected[key as keyof VerbDetails] === this.verbDetails[key as keyof VerbDetails]));
-    alert(isCorrect ? 'Correct!' : 'Sorry but no');
+    this.showSnack();
 
     if (isCorrect) {
       this.currentIndex += 1;
       this.initValues();
     }
+  }
+
+  enterPredicate = (drag: CdkDrag, drop: CdkDropList): boolean => {
+    return !this.selected?.[drop.id as keyof VerbDetails];
   }
 
   private initValues(): void {
@@ -71,6 +79,15 @@ export class GameComponent implements OnInit {
     this.verbsService.getVerbsForGame().subscribe(verbs => {
       this.verbs = verbs;
       this.initValues();
+    });
+  }
+
+  private showSnack(): void {
+    const message = this.shuffleArray(['Correct!', 'You\'re right!', 'Awesome!', 'Good job!'])[0];
+    this.snackBar.open(message, '', {
+      verticalPosition: 'top',
+      panelClass: 'success',
+      duration: 3000
     });
   }
 }

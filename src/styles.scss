@@ -59,6 +59,14 @@ a {
 }
 
 // MD
-.mat-button, .mat-raised-button {
-  font-family: 'Noticia Text', serif;
+.body {
+  .mat-button, .mat-raised-button, .mat-simple-snackbar {
+    font-family: 'Noticia Text', serif;
+  }
+
+  .mat-snack-bar-container.success {
+    background-color: #449d44;
+    color: #fff;
+  }
 }
+
