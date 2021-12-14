@@ -18,6 +18,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginComponent } from './components/game/login/login.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { GameOverDialogComponent } from './components/game/game-over-dialog/game-over-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     VerbInfoComponent,
     GameComponent,
     SearchComponent,
-    LoginComponent
+    LoginComponent,
+    GameOverDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     DragDropModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

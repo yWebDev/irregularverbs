@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { VerbDetails } from '../../model/verb-details';
 import { VerbsService } from '../../services/verbs/verbs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-game',
@@ -10,6 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
+  @ViewChild('submitBtn') submitBtn?: MatButton;
+
   readonly defaultSelectedItem: Partial<VerbDetails> = {
     base: undefined,
     pastSimple: undefined,
@@ -20,6 +25,7 @@ export class GameComponent implements OnInit {
   verbDetails?: VerbDetails;
   currentIndex = 0;
   verbs: VerbDetails[] = [];
+  startTime = 0;
 
   get keys(): (keyof VerbDetails)[] {
     return Object.keys(this.defaultSelectedItem) as (keyof VerbDetails)[];
@@ -29,16 +35,25 @@ export class GameComponent implements OnInit {
     return Object.values(this.selected).some(Boolean);
   }
 
-  constructor(private verbsService: VerbsService, private snackBar: MatSnackBar) {
+  constructor(
+    private verbsService: VerbsService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {
   }
 
   ngOnInit(): void {
     this.prepareVerbsForGame();
+    this.startTime = performance.now();
   }
 
   drop(event: CdkDragDrop<string[]>, key: keyof VerbDetails): void {
     this.selected[key] = this.items[event.item.data.index];
     delete this.items[event.item.data.index];
+
+    setTimeout(() => {
+      this.submitBtn?.focus();
+    });
   }
 
   onCheck(): void {
@@ -48,11 +63,19 @@ export class GameComponent implements OnInit {
 
     const isCorrect = Object.keys(this.verbDetails)
       .every((key => this.verbDetails && this.selected[key as keyof VerbDetails] === this.verbDetails[key as keyof VerbDetails]));
-    this.showSnack();
 
     if (isCorrect) {
+      this.showSnack();
       this.currentIndex += 1;
       this.initValues();
+    } else {
+      const time = ((performance.now() - this.startTime) / 1000).toFixed(1);
+      this.dialog.open(GameOverDialogComponent, {
+        data: {
+          score: this.currentIndex,
+          time
+        }
+      });
     }
   }
 
@@ -73,7 +96,6 @@ export class GameComponent implements OnInit {
     }
     return array;
   }
-
 
   private prepareVerbsForGame(): void {
     this.verbsService.getVerbsForGame().subscribe(verbs => {
