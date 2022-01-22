@@ -56,3 +56,19 @@ span.drag-item {
   margin-top: 2rem;
   text-align: center;
 }
+
+.game-counter {
+  text-align: center;
+}
+
+.game-scorer {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.game-time, .game-score {
+  color: var(--active-color);
+  display: inline-block;
+  width: 4em;
+  text-align: left;
+}

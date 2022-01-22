@@ -25,7 +25,10 @@ export class GameComponent implements OnInit {
   verbDetails?: VerbDetails;
   currentIndex = 0;
   verbs: VerbDetails[] = [];
-  startTime = 0;
+  time = '00:00:00';
+
+  private timeValue = 0;
+  private interval: number;
 
   get keys(): (keyof VerbDetails)[] {
     return Object.keys(this.defaultSelectedItem) as (keyof VerbDetails)[];
@@ -40,11 +43,11 @@ export class GameComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {
+    this.interval = this.startTimer();
   }
 
   ngOnInit(): void {
     this.prepareVerbsForGame();
-    this.startTime = performance.now();
   }
 
   drop(event: CdkDragDrop<string[]>, key: keyof VerbDetails): void {
@@ -69,11 +72,11 @@ export class GameComponent implements OnInit {
       this.currentIndex += 1;
       this.initValues();
     } else {
-      const time = ((performance.now() - this.startTime) / 1000).toFixed(1);
+      clearInterval(this.interval);
       this.dialog.open(GameOverDialogComponent, {
         data: {
           score: this.currentIndex,
-          time
+          time: this.time
         }
       });
     }
@@ -111,5 +114,19 @@ export class GameComponent implements OnInit {
       panelClass: 'success',
       duration: 3000
     });
+  }
+
+  private startTimer(): number {
+    const format = (value: number): string => {
+      const hours = Math.floor(value / 3600);
+      const minutes = Math.floor((value - (hours * 3600)) / 60);
+      const seconds = value - (hours * 3600) - (minutes * 60);
+      return `${hours > 9 ? hours : '0' + hours}:${minutes > 9 ? minutes : '0' + minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
+    };
+
+    return setInterval(() => {
+      this.timeValue++;
+      this.time = format(this.timeValue);
+    }, 1000);
   }
 }

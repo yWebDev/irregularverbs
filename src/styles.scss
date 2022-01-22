@@ -33,6 +33,10 @@ $iverbs-theme: mat-light-theme((
 @include angular-material-theme($iverbs-theme);
 
 /* Styles */
+:root {
+  --active-color: #F44336;
+}
+
 html, body {
   height: 100%;
 }
@@ -56,6 +60,11 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+// Text-Utils
+.text-active {
+  color: var(--active-color);
 }
 
 // MD
