@@ -1,5 +1,9 @@
 .game {
   padding: 0.2rem 2rem;
+
+  @media only screen and (max-device-width: 768px) {
+    padding: 0.2rem;
+  }
 }
 
 .game-push-area {

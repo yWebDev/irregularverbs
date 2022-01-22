@@ -4,6 +4,7 @@ import { GameComponent } from './components/game/game.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/game/login/login.component';
 import { AuthorizationGuard } from './guards/authorization.guard';
+import { GamePromoComponent } from './components/game/game-promo/game-promo.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        component: GamePromoComponent,
+        canActivate: [AuthorizationGuard]
+      },
+      {
+        path: 'active',
         component: GameComponent,
         canActivate: [AuthorizationGuard]
       },

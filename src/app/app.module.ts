@@ -20,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { GameOverDialogComponent } from './components/game/game-over-dialog/game-over-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { GamePromoComponent } from './components/game/game-promo/game-promo.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     GameComponent,
     SearchComponent,
     LoginComponent,
-    GameOverDialogComponent
+    GameOverDialogComponent,
+    GamePromoComponent
   ],
   imports: [
     BrowserModule,

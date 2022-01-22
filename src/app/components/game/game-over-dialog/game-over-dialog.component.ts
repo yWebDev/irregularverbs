@@ -7,6 +7,7 @@ export interface DialogData {
   time: number;
   correctVerb: VerbDetails;
   selected: VerbDetails;
+  isCompleted: boolean;
 }
 
 @Component({

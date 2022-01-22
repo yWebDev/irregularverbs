@@ -27,6 +27,8 @@ export class GameComponent implements OnInit {
   verbs: VerbDetails[] = [];
   time = '00:00:00';
 
+  private readonly MAX_NUMBER = 50;
+
   private timeValue = 0;
   private interval: number;
 
@@ -68,15 +70,21 @@ export class GameComponent implements OnInit {
       .every((key => this.verbDetails && this.selected[key as keyof VerbDetails] === this.verbDetails[key as keyof VerbDetails]));
 
     if (isCorrect) {
-      this.showSnack();
       this.currentIndex += 1;
+    }
+
+    const isCompleted = this.currentIndex === this.MAX_NUMBER;
+
+    if (isCorrect && !isCompleted) {
+      this.showSnack();
       this.initValues();
     } else {
       clearInterval(this.interval);
       this.dialog.open(GameOverDialogComponent, {
         data: {
           score: this.currentIndex,
-          time: this.time
+          time: this.time,
+          isCompleted
         }
       });
     }
