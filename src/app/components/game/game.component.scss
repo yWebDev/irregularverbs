@@ -50,6 +50,10 @@ span.drag-item, span.selected-item {
   user-select: none;
   max-height: 1rem;
   text-align: center;
+
+  @media only screen and (max-device-width: 576px) {
+    padding: 0.1rem 0.2rem;
+  }
 }
 
 span.drag-item {

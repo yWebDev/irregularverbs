@@ -10,6 +10,10 @@ table {
   td {
     padding: 1rem;
     text-align: center;
+
+    @media only screen and (max-device-width: 576px) {
+      padding: 0.4rem;
+    }
   }
 
   .form-sign {
@@ -25,6 +29,7 @@ table {
   .verb {
     font-size: 2rem;
     color: #F44336;
+    line-height: 1;
   }
 }
 

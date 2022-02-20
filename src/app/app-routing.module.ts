@@ -29,7 +29,8 @@ const routes: Routes = [
         component: LoginComponent,
       },
     ]
-  }
+  },
+  { path: '**',  redirectTo: '', pathMatch: 'full'  },
 ];
 
 @NgModule({

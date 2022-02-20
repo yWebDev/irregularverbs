@@ -140,6 +140,10 @@
 
   @media only screen and (max-device-width: 375px) {
     margin-right: .2rem;
+
+    & > span {
+      display: none;
+    }
   }
 }
 

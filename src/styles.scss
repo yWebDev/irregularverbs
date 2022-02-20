@@ -39,6 +39,13 @@ $iverbs-theme: mat-light-theme((
 
 html, body {
   height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+
+  @media only screen and (max-device-width: 576px) {
+    font-size: 12px;
+  }
 }
 
 body {
