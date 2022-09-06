@@ -11,8 +11,8 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   templateUrl: './verb-input.component.html',
   styleUrls: ['./verb-input.component.scss']
 })
-export class VerbInputComponent implements OnInit {
-  @Output() onVerbSelect = new EventEmitter<VerbDetails | null>();
+export class VerbInputComponent {
+  @Output() verbSelect = new EventEmitter<VerbDetails>();
 
   options$!: Observable<VerbSearchOption[]>;
   myControl = new FormControl();
@@ -29,11 +29,8 @@ export class VerbInputComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-  }
-
   onSelect(event: MatAutocompleteSelectedEvent): void {
-    this.onVerbSelect.emit(event.option.value);
+    this.verbSelect.emit(event.option.value);
   }
 
   getOptionLabel(option: VerbSearchOption): string {
@@ -42,7 +39,7 @@ export class VerbInputComponent implements OnInit {
 
   clearSelectedValue(): void {
     this.myControl.setValue(null);
-    this.onVerbSelect.emit(null);
+    this.verbSelect.emit();
   }
 
 }

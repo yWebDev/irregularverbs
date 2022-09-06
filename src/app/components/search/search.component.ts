@@ -6,12 +6,6 @@ import { VerbDetails } from '../../model/verb-details';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
-  selected!: VerbDetails | null;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class SearchComponent {
+  selected?: VerbDetails;
 }

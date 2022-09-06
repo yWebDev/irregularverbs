@@ -12,5 +12,4 @@ export class GamePromoComponent {
   constructor(private authService: AuthService) {
     this.name = this.authService.username;
   }
-
 }

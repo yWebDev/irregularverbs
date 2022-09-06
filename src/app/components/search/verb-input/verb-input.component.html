@@ -6,7 +6,7 @@
            matInput
            [formControl]="myControl"
            [matAutocomplete]="auto"
-           (input)="onVerbSelect.emit(null)"/>
+           (input)="verbSelect.emit()"/>
     <mat-autocomplete
       #auto="matAutocomplete"
       [displayWith]="getOptionLabel"

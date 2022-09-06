@@ -7,13 +7,10 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   username = '';
 
   constructor(private authService: AuthService, private router: Router) {
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(isValid: boolean | null): void {

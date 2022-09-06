@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {VerbDetails} from '../../../model/verb-details';
 
 @Component({
@@ -6,12 +6,6 @@ import {VerbDetails} from '../../../model/verb-details';
   templateUrl: './verb-info.component.html',
   styleUrls: ['./verb-info.component.scss']
 })
-export class VerbInfoComponent implements OnInit {
-  @Input() details!: VerbDetails | null;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class VerbInfoComponent {
+  @Input() details?: VerbDetails;
 }
