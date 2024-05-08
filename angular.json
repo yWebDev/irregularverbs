@@ -76,23 +76,23 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "iverbs:build",
+            "buildTarget": "iverbs:build",
             "proxyConfig": "src/proxy/proxy.conf.json"
           },
           "configurations": {
             "staging": {
-              "browserTarget": "iverbs:build:staging",
+              "buildTarget": "iverbs:build:staging",
               "proxyConfig": "src/proxy/staging.proxy.conf.json"
             },
             "production": {
-              "browserTarget": "iverbs:build:production"
+              "buildTarget": "iverbs:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "iverbs:build"
+            "buildTarget": "iverbs:build"
           }
         },
         "test": {
