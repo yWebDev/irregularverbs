@@ -1,25 +1,25 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$iverbs-primary: mat-palette($mat-indigo);
-$iverbs-accent: mat-palette($mat-pink, A200, A100, A400);
+$iverbs-primary: mat.define-palette(mat.$indigo-palette, 500);
+$iverbs-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$iverbs-warn: mat-palette($mat-red);
+$iverbs-warn:  mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$iverbs-theme: mat-light-theme((
+$iverbs-theme: mat.define-light-theme((
   color: (
     primary: $iverbs-primary,
     accent: $iverbs-accent,
@@ -30,7 +30,7 @@ $iverbs-theme: mat-light-theme((
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($iverbs-theme);
+@include mat.all-component-themes($iverbs-theme);
 
 /* Styles */
 :root {
@@ -80,16 +80,16 @@ a {
 
 // MD
 .body {
-  .mat-button, .mat-raised-button, .mat-simple-snackbar, .mat-dialog-container, .mat-dialog-title {
+  .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-simple-snack-bar, .mat-mdc-dialog-container, .mat-mdc-dialog-title {
     font-family: 'Noticia Text', serif;
   }
 
-  .mat-snack-bar-container.success {
+  .mat-mdc-snack-bar-container.success {
     background-color: #449d44;
     color: #fff;
   }
 
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     background-color: #fffff2;
     min-width: 50vw;
   }
