@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://irregular-verbs-1.herokuapp.com",
+    "target": "https://irregverbs-1381.uc.r.appspot.com",
     "secure": false,
     "changeOrigin": true
   }
