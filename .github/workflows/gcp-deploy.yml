@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Build Node Project
-        run: npm build:prod
+        run: npm run build:prod
 
       - name: Google Cloud Auth
         uses: 'google-github-actions/auth@v2'
