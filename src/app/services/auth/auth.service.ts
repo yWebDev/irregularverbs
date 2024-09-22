@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly USERNAME_KEY = 'iv-username';
 
-  constructor() { }
+  constructor() {}
 
   get username(): string | null {
     return localStorage.getItem(this.USERNAME_KEY);

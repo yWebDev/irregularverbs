@@ -8,9 +8,8 @@ describe('GameOverDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameOverDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [GameOverDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
