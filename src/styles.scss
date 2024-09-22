@@ -1,6 +1,6 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -15,17 +15,19 @@ $iverbs-primary: mat.m2-define-palette(mat.$m2-indigo-palette, 500);
 $iverbs-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$iverbs-warn:  mat.m2-define-palette(mat.$m2-red-palette);
+$iverbs-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$iverbs-theme: mat.m2-define-light-theme((
-  color: (
-    primary: $iverbs-primary,
-    accent: $iverbs-accent,
-    warn: $iverbs-warn,
+$iverbs-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $iverbs-primary,
+      accent: $iverbs-accent,
+      warn: $iverbs-warn,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -34,10 +36,11 @@ $iverbs-theme: mat.m2-define-light-theme((
 
 /* Styles */
 :root {
-  --active-color: #F44336;
+  --active-color: #f44336;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -57,7 +60,7 @@ body {
   display: flex;
   flex-direction: column;
   color: #181818;
-  font-family: 'Noticia Text', serif;
+  font-family: "Noticia Text", serif;
 }
 
 a {
@@ -80,8 +83,12 @@ a {
 
 // MD
 .body {
-  .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-simple-snack-bar, .mat-mdc-dialog-container, .mat-mdc-dialog-title {
-    font-family: 'Noticia Text', serif;
+  .mat-mdc-button,
+  .mat-mdc-raised-button,
+  .mat-mdc-simple-snack-bar,
+  .mat-mdc-dialog-container,
+  .mat-mdc-dialog-title {
+    font-family: "Noticia Text", serif;
   }
 
   .mat-mdc-snack-bar-container.success {
@@ -94,4 +101,3 @@ a {
     min-width: 50vw;
   }
 }
-

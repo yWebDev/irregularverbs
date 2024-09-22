@@ -8,9 +8,8 @@ describe('VerbInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VerbInputComponent ]
-    })
-    .compileComponents();
+      declarations: [VerbInputComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

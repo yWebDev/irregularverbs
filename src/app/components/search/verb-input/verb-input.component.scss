@@ -4,22 +4,21 @@
   text-align: center;
   /* TODO(mdc-migration): The following rule targets internal classes of option that may no longer apply for the MDC version. */
   .mat-option-text {
-    font-family: 'Noticia Text', serif;
+    font-family: "Noticia Text", serif;
   }
 
   .input {
     padding: 0.5em;
     font-size: 2rem;
-    font-family: 'Noticia Text', serif;
+    font-family: "Noticia Text", serif;
   }
 
   .form-field {
     width: 50%;
 
-    @media only screen
-    and (max-width : 768px) {
+    @media only screen and (max-width: 768px) {
       width: 100%;
-      padding: 0 .2rem;
+      padding: 0 0.2rem;
     }
   }
   ::ng-deep {
@@ -29,6 +28,3 @@
     }
   }
 }
-
-
-

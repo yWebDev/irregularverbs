@@ -9,7 +9,7 @@ import { GamePromoComponent } from './components/game/game-promo/game-promo.comp
 const routes: Routes = [
   {
     path: '',
-    component: SearchComponent
+    component: SearchComponent,
   },
   {
     path: 'game',
@@ -17,24 +17,24 @@ const routes: Routes = [
       {
         path: '',
         component: GamePromoComponent,
-        canActivate: [AuthorizationGuard]
+        canActivate: [AuthorizationGuard],
       },
       {
         path: 'active',
         component: GameComponent,
-        canActivate: [AuthorizationGuard]
+        canActivate: [AuthorizationGuard],
       },
       {
         path: 'login',
         component: LoginComponent,
       },
-    ]
+    ],
   },
-  { path: '**',  redirectTo: '', pathMatch: 'full'  },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
