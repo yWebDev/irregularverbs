@@ -3,14 +3,18 @@
   <p>
     <mat-form-field>
       <input #input=ngModel name="username" matInput placeholder="Username" [(ngModel)]="username" required
-             minlength="6"
-             pattern="[0-9A-Za-z]*">
-      <mat-error *ngIf="input.hasError('pattern')">
-        Only contains <strong>alphanumeric</strong> characters
-      </mat-error>
-      <mat-error *ngIf="input.hasError('minlength')">
-        Minimal length is <strong>6</strong> characters
-      </mat-error>
+        minlength="6"
+        pattern="[0-9A-Za-z]*">
+      @if (input.hasError('pattern')) {
+        <mat-error>
+          Only contains <strong>alphanumeric</strong> characters
+        </mat-error>
+      }
+      @if (input.hasError('minlength')) {
+        <mat-error>
+          Minimal length is <strong>6</strong> characters
+        </mat-error>
+      }
     </mat-form-field>
   </p>
   <p>
