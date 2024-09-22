@@ -8,28 +8,34 @@
       <div>III</div>
     </div>
     <div class="game-push-area-target"
-         cdkDropListGroup>
-      <div
-        *ngFor="let key of keys"
-        id="{{key}}"
-        cdkDropList
-        [cdkDropListEnterPredicate]="enterPredicate"
-        [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']"
-        (cdkDropListDropped)="drop($event, key)"
-      >
-        <span *ngIf="selected[key]" class="selected-item">{{selected[key]}}</span>
-      </div>
+      cdkDropListGroup>
+      @for (key of keys; track key) {
+        <div
+          id="{{key}}"
+          cdkDropList
+          [cdkDropListEnterPredicate]="enterPredicate"
+          [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']"
+          (cdkDropListDropped)="drop($event, key)"
+          >
+          @if (selected[key]) {
+            <span class="selected-item">{{selected[key]}}</span>
+          }
+        </div>
+      }
     </div>
   </div>
   <div class="game-pull-area">
-    <div
-      *ngFor="let item of items; index as i"
-      id="item-{{i}}"
-      cdkDropList
-      [cdkDropListConnectedTo]="['base', 'pastSimple', 'pastParticiple']"
-    >
-      <span *ngIf="item" class="drag-item" cdkDrag [cdkDragData]="{ item: item, index: i }">{{item}}</span>
-    </div>
+    @for (item of items; track item; let i = $index) {
+      <div
+        id="item-{{i}}"
+        cdkDropList
+        [cdkDropListConnectedTo]="['base', 'pastSimple', 'pastParticiple']"
+        >
+        @if (item) {
+          <span class="drag-item" cdkDrag [cdkDragData]="{ item: item, index: i }">{{item}}</span>
+        }
+      </div>
+    }
   </div>
   <div class="game-actions">
     <button #submitBtn mat-raised-button [disabled]="!isSelected" (click)="onCheck()">Check</button>

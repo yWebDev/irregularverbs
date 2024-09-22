@@ -1,6 +1,8 @@
 <h2 class="title" mat-dialog-title>{{data.isCompleted ? 'Congratulations!' : 'Game Over'}}</h2>
 <mat-dialog-content>
-  <p *ngIf="data.isCompleted">Well done! You managed to drop all forms correctly!</p>
+  @if (data.isCompleted) {
+    <p>Well done! You managed to drop all forms correctly!</p>
+  }
   <p>Your Time:&nbsp;<span class="text-active">{{data.time}}</span> sec</p>
   <p>Your Score:&nbsp;<span class="text-active">{{data.score}}</span></p>
 </mat-dialog-content>
