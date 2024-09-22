@@ -10,7 +10,7 @@ import { MatButton } from '@angular/material/button';
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
   @ViewChild('submitBtn') submitBtn?: MatButton;
@@ -43,7 +43,7 @@ export class GameComponent implements OnInit {
   constructor(
     private verbsService: VerbsService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.interval = this.startTimer();
   }
@@ -66,8 +66,12 @@ export class GameComponent implements OnInit {
       return;
     }
 
-    const isCorrect = Object.keys(this.verbDetails)
-      .every((key => this.verbDetails && this.selected[key as keyof VerbDetails] === this.verbDetails[key as keyof VerbDetails]));
+    const isCorrect = Object.keys(this.verbDetails).every(
+      (key) =>
+        this.verbDetails &&
+        this.selected[key as keyof VerbDetails] ===
+          this.verbDetails[key as keyof VerbDetails],
+    );
 
     if (isCorrect) {
       this.currentIndex += 1;
@@ -84,18 +88,18 @@ export class GameComponent implements OnInit {
         data: {
           score: this.currentIndex,
           time: this.time,
-          isCompleted
-        }
+          isCompleted,
+        },
       });
     }
   }
 
   enterPredicate = (drag: CdkDrag, drop: CdkDropList): boolean => {
     return !this.selected?.[drop.id as keyof VerbDetails];
-  }
+  };
 
   private initValues(): void {
-    this.selected = {...this.defaultSelectedItem};
+    this.selected = { ...this.defaultSelectedItem };
     this.verbDetails = this.verbs[this.currentIndex];
     this.items = this.shuffleArray(Object.values(this.verbDetails));
   }
@@ -109,26 +113,31 @@ export class GameComponent implements OnInit {
   }
 
   private prepareVerbsForGame(): void {
-    this.verbsService.getVerbsForGame().subscribe(verbs => {
+    this.verbsService.getVerbsForGame().subscribe((verbs) => {
       this.verbs = verbs;
       this.initValues();
     });
   }
 
   private showSnack(): void {
-    const message = this.shuffleArray(['Correct!', 'You\'re right!', 'Awesome!', 'Good job!'])[0];
+    const message = this.shuffleArray([
+      'Correct!',
+      "You're right!",
+      'Awesome!',
+      'Good job!',
+    ])[0];
     this.snackBar.open(message, '', {
       verticalPosition: 'top',
       panelClass: 'success',
-      duration: 3000
+      duration: 3000,
     });
   }
 
   private startTimer(): number {
     const format = (value: number): string => {
       const hours = Math.floor(value / 3600);
-      const minutes = Math.floor((value - (hours * 3600)) / 60);
-      const seconds = value - (hours * 3600) - (minutes * 60);
+      const minutes = Math.floor((value - hours * 3600) / 60);
+      const seconds = value - hours * 3600 - minutes * 60;
       return `${hours > 9 ? hours : '0' + hours}:${minutes > 9 ? minutes : '0' + minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
     };
 

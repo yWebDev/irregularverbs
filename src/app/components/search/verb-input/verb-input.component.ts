@@ -9,7 +9,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 @Component({
   selector: 'app-verb-input',
   templateUrl: './verb-input.component.html',
-  styleUrls: ['./verb-input.component.scss']
+  styleUrls: ['./verb-input.component.scss'],
 })
 export class VerbInputComponent {
   @Output() verbSelect = new EventEmitter<VerbDetails>();
@@ -20,7 +20,7 @@ export class VerbInputComponent {
   constructor(private verbsService: VerbsService) {
     this.options$ = this.myControl.valueChanges.pipe(
       debounceTime(150),
-      switchMap(term => {
+      switchMap((term) => {
         if (typeof term !== 'string' || term.length < 2) {
           return of([]);
         }
@@ -41,5 +41,4 @@ export class VerbInputComponent {
     this.myControl.setValue(null);
     this.verbSelect.emit();
   }
-
 }

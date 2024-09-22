@@ -5,8 +5,12 @@
   <nav class="navigation">
     <ul>
       <li>
-        <a routerLink="/" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }">Verbs
-        Search</a>
+        <a
+          routerLink="/"
+          [routerLinkActive]="['is-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Verbs Search</a
+        >
       </li>
       <li>
         <a routerLink="/game" [routerLinkActive]="['is-active']">Verbs Game</a>
@@ -15,7 +19,7 @@
     <div>
       @if (username) {
         <a class="account" [matMenuTriggerFor]="menu" aria-label="Account Menu">
-          <span>{{username}}</span>
+          <span>{{ username }}</span>
           <mat-icon>account_circle</mat-icon>
         </a>
       }
@@ -32,6 +36,11 @@
   </div>
 </main>
 <footer class="footer">
-  <span>Created by <a class="link-contact" title="yWebDev" href="https://github.com/yWebDev">yWebDev</a></span>
+  <span
+    >Created by
+    <a class="link-contact" title="yWebDev" href="https://github.com/yWebDev"
+      >yWebDev</a
+    ></span
+  >
   <!--  <a type="button" class="btn-donate" title="Donate">Donate</a>-->
 </footer>

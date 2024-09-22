@@ -3,10 +3,9 @@ import { initializeApp } from 'firebase/app';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DbService {
-
   constructor() {
     const firebaseApp = initializeApp(environment.fb);
 

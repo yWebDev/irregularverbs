@@ -1,24 +1,27 @@
 <div class="game">
-  <div class="game-counter">Time spent:&nbsp;<span class="game-time">{{time}}</span></div>
-  <div class="game-scorer">Your Score:&nbsp;<span class="game-score">{{currentIndex}}</span></div>
+  <div class="game-counter">
+    Time spent:&nbsp;<span class="game-time">{{ time }}</span>
+  </div>
+  <div class="game-scorer">
+    Your Score:&nbsp;<span class="game-score">{{ currentIndex }}</span>
+  </div>
   <div class="game-push-area">
     <div class="game-push-area-header">
       <div>I</div>
       <div>II</div>
       <div>III</div>
     </div>
-    <div class="game-push-area-target"
-      cdkDropListGroup>
+    <div class="game-push-area-target" cdkDropListGroup>
       @for (key of keys; track key) {
         <div
-          id="{{key}}"
+          id="{{ key }}"
           cdkDropList
           [cdkDropListEnterPredicate]="enterPredicate"
           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']"
           (cdkDropListDropped)="drop($event, key)"
-          >
+        >
           @if (selected[key]) {
-            <span class="selected-item">{{selected[key]}}</span>
+            <span class="selected-item">{{ selected[key] }}</span>
           }
         </div>
       }
@@ -27,18 +30,29 @@
   <div class="game-pull-area">
     @for (item of items; track item; let i = $index) {
       <div
-        id="item-{{i}}"
+        id="item-{{ i }}"
         cdkDropList
         [cdkDropListConnectedTo]="['base', 'pastSimple', 'pastParticiple']"
-        >
+      >
         @if (item) {
-          <span class="drag-item" cdkDrag [cdkDragData]="{ item: item, index: i }">{{item}}</span>
+          <span
+            class="drag-item"
+            cdkDrag
+            [cdkDragData]="{ item: item, index: i }"
+            >{{ item }}</span
+          >
         }
       </div>
     }
   </div>
   <div class="game-actions">
-    <button #submitBtn mat-raised-button [disabled]="!isSelected" (click)="onCheck()">Check</button>
+    <button
+      #submitBtn
+      mat-raised-button
+      [disabled]="!isSelected"
+      (click)="onCheck()"
+    >
+      Check
+    </button>
   </div>
 </div>
-

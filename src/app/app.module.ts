@@ -8,7 +8,10 @@ import { VerbInputComponent } from './components/search/verb-input/verb-input.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { VerbInfoComponent } from './components/search/verb-info/verb-info.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,28 +25,33 @@ import { GameOverDialogComponent } from './components/game/game-over-dialog/game
 import { MatDialogModule } from '@angular/material/dialog';
 import { GamePromoComponent } from './components/game/game-promo/game-promo.component';
 
-@NgModule({ declarations: [
-        AppComponent,
-        VerbInputComponent,
-        VerbInfoComponent,
-        GameComponent,
-        SearchComponent,
-        LoginComponent,
-        GameOverDialogComponent,
-        GamePromoComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        DragDropModule,
-        MatMenuModule,
-        MatSnackBarModule,
-        MatDialogModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
-export class AppModule {
-}
+@NgModule({
+  declarations: [
+    AppComponent,
+    VerbInputComponent,
+    VerbInfoComponent,
+    GameComponent,
+    SearchComponent,
+    LoginComponent,
+    GameOverDialogComponent,
+    GamePromoComponent,
+  ],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    DragDropModule,
+    MatMenuModule,
+    MatSnackBarModule,
+    MatDialogModule,
+  ],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
+})
+export class AppModule {}
