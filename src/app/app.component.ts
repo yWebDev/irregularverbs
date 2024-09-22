@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { VerbDetails } from './model/verb-details';
 import { AuthService } from './services/auth/auth.service';
 import { Router } from '@angular/router';
 

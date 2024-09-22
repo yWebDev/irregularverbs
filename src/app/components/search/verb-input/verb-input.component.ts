@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { VerbsService } from '../../../services/verbs/verbs.service';
 import { Observable, of } from 'rxjs';
-import { debounceTime, filter, map, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { VerbDetails, VerbSearchOption } from '../../../model/verb-details';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
