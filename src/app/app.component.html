@@ -6,17 +6,19 @@
     <ul>
       <li>
         <a routerLink="/" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }">Verbs
-          Search</a>
+        Search</a>
       </li>
       <li>
         <a routerLink="/game" [routerLinkActive]="['is-active']">Verbs Game</a>
       </li>
     </ul>
     <div>
-      <a *ngIf="username" class="account" [matMenuTriggerFor]="menu" aria-label="Account Menu">
-        <span>{{username}}</span>
-        <mat-icon>account_circle</mat-icon>
-      </a>
+      @if (username) {
+        <a class="account" [matMenuTriggerFor]="menu" aria-label="Account Menu">
+          <span>{{username}}</span>
+          <mat-icon>account_circle</mat-icon>
+        </a>
+      }
       <mat-menu #menu="matMenu">
         <button class="delete-action" mat-menu-item (click)="onDelete()">
           <mat-icon>delete</mat-icon>
