@@ -8,8 +8,8 @@ describe('VerbInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VerbInfoComponent],
-    }).compileComponents();
+    imports: [VerbInfoComponent],
+}).compileComponents();
   });
 
   beforeEach(() => {
