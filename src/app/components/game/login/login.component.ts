@@ -7,17 +7,11 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: true,
-    imports: [
-        FormsModule,
-        MatFormField,
-        MatInput,
-        MatError,
-        MatButton,
-    ],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [FormsModule, MatFormField, MatInput, MatError, MatButton],
 })
 export class LoginComponent {
   username = '';
