@@ -1,5 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
 import { VerbDetails } from '../../../model/verb-details';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatButton } from '@angular/material/button';
@@ -13,18 +19,18 @@ export interface DialogData {
 }
 
 @Component({
-    selector: 'app-game-over-dialog',
-    templateUrl: './game-over-dialog.component.html',
-    styleUrls: ['./game-over-dialog.component.scss'],
-    standalone: true,
-    imports: [
-        MatDialogTitle,
-        CdkScrollable,
-        MatDialogContent,
-        MatDialogActions,
-        MatButton,
-        MatDialogClose,
-    ],
+  selector: 'app-game-over-dialog',
+  templateUrl: './game-over-dialog.component.html',
+  styleUrls: ['./game-over-dialog.component.scss'],
+  standalone: true,
+  imports: [
+    MatDialogTitle,
+    CdkScrollable,
+    MatDialogContent,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+  ],
 })
 export class GameOverDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}

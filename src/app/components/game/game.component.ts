@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  CdkDropListGroup,
+} from '@angular/cdk/drag-drop';
 import { VerbDetails } from '../../model/verb-details';
 import { VerbsService } from '../../services/verbs/verbs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,16 +13,11 @@ import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.com
 import { MatButton } from '@angular/material/button';
 
 @Component({
-    selector: 'app-game',
-    templateUrl: './game.component.html',
-    styleUrls: ['./game.component.scss'],
-    standalone: true,
-    imports: [
-        CdkDropListGroup,
-        CdkDropList,
-        CdkDrag,
-        MatButton,
-    ],
+  selector: 'app-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.scss'],
+  standalone: true,
+  imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton],
 })
 export class GameComponent implements OnInit {
   @ViewChild('submitBtn') submitBtn?: MatButton;
