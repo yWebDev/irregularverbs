@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
@@ -33,5 +33,5 @@ export interface DialogData {
   ],
 })
 export class GameOverDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  protected data: DialogData = inject(MAT_DIALOG_DATA);
 }

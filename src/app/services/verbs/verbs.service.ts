@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { VerbDetails, VerbSearchOption } from '../../model/verb-details';
@@ -7,7 +7,7 @@ import { VerbDetails, VerbSearchOption } from '../../model/verb-details';
   providedIn: 'root',
 })
 export class VerbsService {
-  constructor(private httpClient: HttpClient) {}
+  private readonly httpClient = inject(HttpClient);
 
   search(term: string): Observable<VerbSearchOption[]> {
     return this.httpClient.get<VerbSearchOption[]>(`/api/verbs/`, {

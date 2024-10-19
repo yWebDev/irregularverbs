@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { GameComponent } from './components/game/game.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/game/login/login.component';
-import { AuthorizationGuard } from './guards/authorization.guard';
 import { GamePromoComponent } from './components/game/game-promo/game-promo.component';
+import canAuthorize from './guards/authorization.guard';
 
 const routes: Routes = [
   {
@@ -17,12 +17,12 @@ const routes: Routes = [
       {
         path: '',
         component: GamePromoComponent,
-        canActivate: [AuthorizationGuard],
+        canActivate: [canAuthorize],
       },
       {
         path: 'active',
         component: GameComponent,
-        canActivate: [AuthorizationGuard],
+        canActivate: [canAuthorize],
       },
       {
         path: 'login',

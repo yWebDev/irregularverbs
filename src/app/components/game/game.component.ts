@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -20,7 +20,7 @@ import { MatButton } from '@angular/material/button';
   imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton],
 })
 export class GameComponent implements OnInit {
-  @ViewChild('submitBtn') submitBtn?: MatButton;
+  private readonly submitBtn = viewChild<MatButton>('submitBtn');
 
   readonly defaultSelectedItem: Partial<VerbDetails> = {
     base: undefined,
@@ -64,7 +64,7 @@ export class GameComponent implements OnInit {
     delete this.items[event.item.data.index];
 
     setTimeout(() => {
-      this.submitBtn?.focus();
+      this.submitBtn()?.focus();
     });
   }
 

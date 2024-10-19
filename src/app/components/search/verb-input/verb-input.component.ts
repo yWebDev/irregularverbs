@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VerbsService } from '../../../services/verbs/verbs.service';
 import { Observable, of } from 'rxjs';
@@ -37,22 +37,19 @@ import { AsyncPipe } from '@angular/common';
   ],
 })
 export class VerbInputComponent {
-  @Output() verbSelect = new EventEmitter<VerbDetails>();
+  protected readonly verbSelect = output<VerbDetails | null>();
+  private readonly verbsService = inject(VerbsService);
 
-  options$!: Observable<VerbSearchOption[]>;
   myControl = new FormControl();
-
-  constructor(private verbsService: VerbsService) {
-    this.options$ = this.myControl.valueChanges.pipe(
-      debounceTime(150),
-      switchMap((term) => {
-        if (typeof term !== 'string' || term.length < 2) {
-          return of([]);
-        }
-        return this.verbsService.search(term);
-      }),
-    );
-  }
+  options$: Observable<VerbSearchOption[]> = this.myControl.valueChanges.pipe(
+    debounceTime(150),
+    switchMap((term) => {
+      if (typeof term !== 'string' || term.length < 2) {
+        return of([]);
+      }
+      return this.verbsService.search(term);
+    }),
+  );
 
   onSelect(event: MatAutocompleteSelectedEvent): void {
     this.verbSelect.emit(event.option.value);
@@ -64,6 +61,6 @@ export class VerbInputComponent {
 
   clearSelectedValue(): void {
     this.myControl.setValue(null);
-    this.verbSelect.emit();
+    this.verbSelect.emit(null);
   }
 }
