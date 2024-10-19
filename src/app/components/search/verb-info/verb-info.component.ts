@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { VerbDetails } from '../../../model/verb-details';
 
 @Component({
@@ -8,5 +8,5 @@ import { VerbDetails } from '../../../model/verb-details';
   standalone: true,
 })
 export class VerbInfoComponent {
-  @Input() details?: VerbDetails;
+  details = input<VerbDetails | null>();
 }

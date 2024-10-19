@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -13,7 +13,9 @@ import { RouterLink } from '@angular/router';
 export class GamePromoComponent {
   name: string | null;
 
-  constructor(private authService: AuthService) {
+  private readonly authService = inject(AuthService);
+
+  constructor() {
     this.name = this.authService.username;
   }
 }
