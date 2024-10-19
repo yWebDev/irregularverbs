@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
 import {
   Router,
@@ -27,14 +27,12 @@ import { MatIcon } from '@angular/material/icon';
   ],
 })
 export class AppComponent {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
   get username(): string | null {
     return this.authService.username;
   }
-
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
 
   onDelete(): void {
     this.authService.delete();

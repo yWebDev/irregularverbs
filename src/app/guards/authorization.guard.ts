@@ -1,27 +1,12 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
+import { Router, CanActivateFn } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthorizationGuard implements CanActivate {
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-  ) {}
+const canAuthorize: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-  canActivate():
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    if (this.authService.isAuthorized()) {
-      return true;
-    }
+  return authService.isAuthorized() || router.createUrlTree(['game', 'login']);
+};
 
-    this.router.navigate(['game', 'login']);
-    return false;
-  }
-}
+export default canAuthorize;
