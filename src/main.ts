@@ -5,7 +5,7 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { AppRoutingModule } from './app/app-routing.module';
+import routes from './app/app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -17,6 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
 
 if (environment.production) {
   enableProdMode();
@@ -26,7 +27,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
       BrowserModule,
-      AppRoutingModule,
       FormsModule,
       ReactiveFormsModule,
       MatAutocompleteModule,
@@ -38,6 +38,7 @@ bootstrapApplication(AppComponent, {
       MatSnackBarModule,
       MatDialogModule,
     ),
+    provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
   ],
