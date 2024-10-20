@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -14,14 +14,12 @@ import { MatButton } from '@angular/material/button';
   imports: [FormsModule, MatFormField, MatInput, MatError, MatButton],
 })
 export class LoginComponent {
-  username = '';
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+  protected username = '';
 
-  onSubmit(isValid: boolean | null): void {
+  protected onSubmit(isValid: boolean | null): void {
     if (!isValid) {
       return;
     }
