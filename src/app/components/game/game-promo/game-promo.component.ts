@@ -11,11 +11,7 @@ import { RouterLink } from '@angular/router';
   imports: [MatButton, RouterLink],
 })
 export class GamePromoComponent {
-  name: string | null;
-
   private readonly authService = inject(AuthService);
 
-  constructor() {
-    this.name = this.authService.username;
-  }
+  protected name: string | null = this.authService.username;
 }

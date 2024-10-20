@@ -11,5 +11,5 @@ import { VerbInfoComponent } from './verb-info/verb-info.component';
   imports: [VerbInputComponent, VerbInfoComponent],
 })
 export class SearchComponent {
-  selected: VerbDetails | null = null;
+  protected selected: VerbDetails | null = null;
 }
