@@ -1,31 +1,39 @@
 import { Routes } from '@angular/router';
-import { GameComponent } from './components/game/game.component';
-import { SearchComponent } from './components/search/search.component';
-import { LoginComponent } from './components/game/login/login.component';
-import { GamePromoComponent } from './components/game/game-promo/game-promo.component';
 import canAuthorize from './guards/authorization.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: SearchComponent,
+    loadComponent: () =>
+      import('./components/search/search.component').then(
+        (m) => m.SearchComponent,
+      ),
   },
   {
     path: 'game',
     children: [
       {
         path: '',
-        component: GamePromoComponent,
+        loadComponent: () =>
+          import('./components/game/game-promo/game-promo.component').then(
+            (m) => m.GamePromoComponent,
+          ),
         canActivate: [canAuthorize],
       },
       {
         path: 'active',
-        component: GameComponent,
+        loadComponent: () =>
+          import('./components/game/game.component').then(
+            (m) => m.GameComponent,
+          ),
         canActivate: [canAuthorize],
       },
       {
         path: 'login',
-        component: LoginComponent,
+        loadComponent: () =>
+          import('./components/game/login/login.component').then(
+            (m) => m.LoginComponent,
+          ),
       },
     ],
   },
