@@ -40,26 +40,27 @@ export class VerbInputComponent {
   protected readonly verbSelect = output<VerbDetails | null>();
   private readonly verbsService = inject(VerbsService);
 
-  myControl = new FormControl();
-  options$: Observable<VerbSearchOption[]> = this.myControl.valueChanges.pipe(
-    debounceTime(150),
-    switchMap((term) => {
-      if (typeof term !== 'string' || term.length < 2) {
-        return of([]);
-      }
-      return this.verbsService.search(term);
-    }),
-  );
+  protected myControl: FormControl = new FormControl();
+  protected options$: Observable<VerbSearchOption[]> =
+    this.myControl.valueChanges.pipe(
+      debounceTime(150),
+      switchMap((term) => {
+        if (typeof term !== 'string' || term.length < 2) {
+          return of([]);
+        }
+        return this.verbsService.search(term);
+      }),
+    );
 
-  onSelect(event: MatAutocompleteSelectedEvent): void {
+  protected onSelect(event: MatAutocompleteSelectedEvent): void {
     this.verbSelect.emit(event.option.value);
   }
 
-  getOptionLabel(option: VerbSearchOption): string {
+  protected getOptionLabel(option: VerbSearchOption): string {
     return option?.[option?.matched];
   }
 
-  clearSelectedValue(): void {
+  protected clearSelectedValue(): void {
     this.myControl.setValue(null);
     this.verbSelect.emit(null);
   }

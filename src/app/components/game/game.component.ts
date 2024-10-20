@@ -1,4 +1,4 @@
-import { Component, OnInit, viewChild } from '@angular/core';
+import { Component, OnInit, viewChild, inject } from '@angular/core';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -21,21 +21,24 @@ import { MatButton } from '@angular/material/button';
 })
 export class GameComponent implements OnInit {
   private readonly submitBtn = viewChild<MatButton>('submitBtn');
+  private readonly verbsService = inject(VerbsService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly dialog = inject(MatDialog);
 
-  readonly defaultSelectedItem: Partial<VerbDetails> = {
+  protected selected: Partial<VerbDetails> = {};
+  protected items: string[] = [];
+  protected currentIndex = 0;
+  protected time = '00:00:00';
+
+  private readonly defaultSelectedItem: Partial<VerbDetails> = {
     base: undefined,
     pastSimple: undefined,
     pastParticiple: undefined,
   };
-  selected: Partial<VerbDetails> = {};
-  items: string[] = [];
-  verbDetails?: VerbDetails;
-  currentIndex = 0;
-  verbs: VerbDetails[] = [];
-  time = '00:00:00';
-
   private readonly MAX_NUMBER = 50;
 
+  private verbDetails?: VerbDetails;
+  private verbs: VerbDetails[] = [];
   private timeValue = 0;
   private interval: number;
 
@@ -47,11 +50,7 @@ export class GameComponent implements OnInit {
     return Object.values(this.selected).some(Boolean);
   }
 
-  constructor(
-    private verbsService: VerbsService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog,
-  ) {
+  constructor() {
     this.interval = this.startTimer();
   }
 
@@ -59,7 +58,7 @@ export class GameComponent implements OnInit {
     this.prepareVerbsForGame();
   }
 
-  drop(event: CdkDragDrop<string[]>, key: keyof VerbDetails): void {
+  protected drop(event: CdkDragDrop<string[]>, key: keyof VerbDetails): void {
     this.selected[key] = this.items[event.item.data.index];
     delete this.items[event.item.data.index];
 
@@ -68,7 +67,7 @@ export class GameComponent implements OnInit {
     });
   }
 
-  onCheck(): void {
+  protected onCheck(): void {
     if (!this.verbDetails) {
       return;
     }
@@ -101,7 +100,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  enterPredicate = (drag: CdkDrag, drop: CdkDropList): boolean => {
+  protected enterPredicate = (drag: CdkDrag, drop: CdkDropList): boolean => {
     return !this.selected?.[drop.id as keyof VerbDetails];
   };
 
