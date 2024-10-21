@@ -30,6 +30,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+
+      & > .close-icon {
+        position: absolute;
+        right: 0.25rem;
+        cursor: pointer;
+      }
     }
   }
 }
