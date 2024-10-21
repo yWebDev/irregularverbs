@@ -11,13 +11,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.component';
 import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
   standalone: true,
-  imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton],
+  imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton, MatIcon],
 })
 export class GameComponent implements OnInit {
   private readonly submitBtn = viewChild<MatButton>('submitBtn');
@@ -43,7 +44,9 @@ export class GameComponent implements OnInit {
   private interval: number;
 
   get keys(): (keyof VerbDetails)[] {
-    return Object.keys(this.defaultSelectedItem) as (keyof VerbDetails)[];
+    return Object.keys(this.defaultSelectedItem).filter(
+      (key: string) => key !== 'id',
+    ) as (keyof VerbDetails)[];
   }
 
   get isSelected(): boolean {
@@ -56,6 +59,26 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareVerbsForGame();
+  }
+
+  protected onSelectedItemCloseClick(key: keyof VerbDetails): void {
+    if (this.selected[key]) {
+      const index = this.items.findIndex((val) => !val);
+      this.items[index] = this.selected[key];
+      delete this.selected[key];
+    }
+  }
+
+  protected onItemClick(index: number): void {
+    const key = this.keys.find(
+      (key: keyof VerbDetails) => this.selected[key] === undefined,
+    );
+    this.selected[key!] = this.items[index];
+    delete this.items[index];
+
+    setTimeout(() => {
+      this.submitBtn()?.focus();
+    });
   }
 
   protected drop(event: CdkDragDrop<string[]>, key: keyof VerbDetails): void {
@@ -72,12 +95,14 @@ export class GameComponent implements OnInit {
       return;
     }
 
-    const isCorrect = Object.keys(this.verbDetails).every(
-      (key) =>
-        this.verbDetails &&
-        this.selected[key as keyof VerbDetails] ===
-          this.verbDetails[key as keyof VerbDetails],
-    );
+    const isCorrect = Object.keys(this.verbDetails)
+      .filter((key: string) => key !== 'id')
+      .every(
+        (key) =>
+          this.verbDetails &&
+          this.selected[key as keyof VerbDetails] ===
+            this.verbDetails[key as keyof VerbDetails],
+      );
 
     if (isCorrect) {
       this.currentIndex += 1;
@@ -107,7 +132,11 @@ export class GameComponent implements OnInit {
   private initValues(): void {
     this.selected = { ...this.defaultSelectedItem };
     this.verbDetails = this.verbs[this.currentIndex];
-    this.items = this.shuffleArray(Object.values(this.verbDetails));
+    this.items = this.shuffleArray(
+      Object.entries(this.verbDetails)
+        .filter(([key]: [string, string]) => key !== 'id')
+        .map(([, val]: [string, string]) => val),
+    );
   }
 
   private shuffleArray(array: string[]): string[] {

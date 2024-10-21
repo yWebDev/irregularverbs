@@ -22,6 +22,9 @@
         >
           @if (selected[key]) {
             <span class="selected-item">{{ selected[key] }}</span>
+            <mat-icon (click)="onSelectedItemCloseClick(key)" class="close-icon"
+              >close</mat-icon
+            >
           }
         </div>
       }
@@ -39,6 +42,7 @@
             class="drag-item"
             cdkDrag
             [cdkDragData]="{ item: item, index: i }"
+            (click)="onItemClick(i)"
             >{{ item }}</span
           >
         }
