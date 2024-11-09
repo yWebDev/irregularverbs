@@ -34,11 +34,6 @@ $iverbs-theme: mat.m2-define-light-theme(
 // that you are using.
 @include mat.all-component-themes($iverbs-theme);
 
-/* Styles */
-:root {
-  --active-color: #f44336;
-}
-
 html,
 body {
   height: 100%;
@@ -97,7 +92,7 @@ a {
   }
 
   .mat-mdc-dialog-container {
-    background-color: #fffff2;
+    background-color: var(--primary-bg-color);
     min-width: 50vw;
   }
 }
