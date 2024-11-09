@@ -1,19 +1,5 @@
 @if (details()) {
-  <table>
-    <tr>
-      <td class="form-sign">I</td>
-      <td class="form-name">verb</td>
-      <td class="verb">{{ details()!.base }}</td>
-    </tr>
-    <tr>
-      <td class="form-sign">II</td>
-      <td class="form-name">past</td>
-      <td class="verb">{{ details()!.pastSimple }}</td>
-    </tr>
-    <tr>
-      <td class="form-sign">III</td>
-      <td class="form-name">participle</td>
-      <td class="verb">{{ details()!.pastParticiple }}</td>
-    </tr>
-  </table>
+  <div class="wrapper">
+    <app-verb-examples [details]="details()!"></app-verb-examples>
+  </div>
 }

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --configuration=staging",
-    "start:local": "ng serve --open",
+    "start": "ng serve --configuration=staging  --open",
+    "start:dev": "ng serve --open",
     "build": "ng build",
     "build:prod": "ng build --configuration=production",
     "test": "ng test",

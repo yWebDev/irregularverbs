@@ -1,0 +1,44 @@
+.panel {
+  background-color: var(--primary-bg-color);
+}
+
+.panel-header {
+  align-items: center;
+  padding: 1rem;
+}
+
+.panel-title {
+  flex-grow: 2;
+}
+
+.panel-description {
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.form-sign {
+  font-size: 2rem;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.form-name {
+  font-size: 1rem;
+  font-style: italic;
+  width: 50%;
+  text-align: center;
+}
+
+.verb {
+  font-size: 2rem;
+  color: var(--active-color);
+  line-height: 1;
+}
+
+.examples {
+  font-size: 0.9rem;
+}
+
+.example-header {
+  color: var(--active-color);
+}
