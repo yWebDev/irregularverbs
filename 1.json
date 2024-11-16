@@ -1,0 +1,53 @@
+{
+  "candidates": [
+    {
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "Here are 3 examples using the base form \"bend\" of the irregular verb \"bend\":\n\n1. **Please bend your knees when you lift the box.**\n2. **The metal pipe was so old it would bend easily.**\n3. **The road bends sharply to the left, so be careful.** \n"
+          }
+        ]
+      },
+      "finishReason": "STOP",
+      "safetyRatings": [
+        {
+          "category": "HARM_CATEGORY_HATE_SPEECH",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.09423828,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.05493164
+        },
+        {
+          "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.25585938,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.11425781
+        },
+        {
+          "category": "HARM_CATEGORY_HARASSMENT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.18457031,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.061767578
+        },
+        {
+          "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+          "probability": "NEGLIGIBLE",
+          "probabilityScore": 0.15820313,
+          "severity": "HARM_SEVERITY_NEGLIGIBLE",
+          "severityScore": 0.078125
+        }
+      ],
+      "avgLogprobs": -0.2857815424601237,
+      "index": 0
+    }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 12,
+    "candidatesTokenCount": 66,
+    "totalTokenCount": 78
+  },
+  "modelVersion": "gemini-1.5-flash-001"
+}
