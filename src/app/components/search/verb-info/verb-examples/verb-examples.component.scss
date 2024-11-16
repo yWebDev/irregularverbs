@@ -42,3 +42,7 @@
 .example-header {
   color: var(--active-color);
 }
+
+.example {
+  white-space: pre-wrap; /* Preserves whitespace and line breaks */
+}

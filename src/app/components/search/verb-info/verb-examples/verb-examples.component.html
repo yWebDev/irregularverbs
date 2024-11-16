@@ -11,11 +11,16 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptates
-        dolor aspernatur iusto natus rem vel nihil, autem ipsam numquam earum,
-        officia alias, sit molestiae quisquam dolores! Vel, odit vitae?
-      </p>
+      @if (
+        getBaseVerbExamples(details().base, "base first") | async;
+        as baseFormExample
+      ) {
+        <h4 class="example-header">Examples</h4>
+
+        <p class="example">
+          {{ baseFormExample }}
+        </p>
+      }
     </ng-template>
   </mat-expansion-panel>
 
@@ -31,11 +36,19 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptates
-        dolor aspernatur iusto natus rem vel nihil, autem ipsam numquam earum,
-        officia alias, sit molestiae quisquam dolores! Vel, odit vitae?
-      </p>
+      @if (
+        getPastVerbExamples(
+          details().pastSimple,
+          "past simple second irregular"
+        ) | async;
+        as pastFormExample
+      ) {
+        <h4 class="example-header">Examples</h4>
+
+        <p class="example">
+          {{ pastFormExample }}
+        </p>
+      }
     </ng-template>
   </mat-expansion-panel>
 
@@ -51,33 +64,19 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <h4 class="example-header">Definition</h4>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptates
-        dolor aspernatur iusto natus rem vel nihil, autem ipsam numquam earum,
-        officia alias, sit molestiae quisquam dolores! Vel, odit vitae?
-      </p>
+      @if (
+        getParticipleVerbExamples(
+          details().pastParticiple,
+          "past participle third irregular"
+        ) | async;
+        as participleFormExample
+      ) {
+        <h4 class="example-header">Examples</h4>
 
-      <h4 class="example-header">Example 1</h4>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptates
-        dolor aspernatur iusto natus rem vel nihil, autem ipsam numquam earum,
-        officia alias, sit molestiae quisquam dolores! Vel, odit vitae?
-      </p>
-
-      <h4 class="example-header">Example 2</h4>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptates
-        dolor aspernatur iusto natus rem vel nihil, autem ipsam numquam earum,
-        officia alias, sit molestiae quisquam dolores! Vel, odit vitae?
-      </p>
-
-      <h4 class="example-header">Example 3</h4>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptates
-        dolor aspernatur iusto natus rem vel nihil, autem ipsam numquam earum,
-        officia alias, sit molestiae quisquam dolores! Vel, odit vitae?
-      </p>
+        <p class="example">
+          {{ participleFormExample }}
+        </p>
+      }
     </ng-template>
   </mat-expansion-panel>
 </mat-accordion>
