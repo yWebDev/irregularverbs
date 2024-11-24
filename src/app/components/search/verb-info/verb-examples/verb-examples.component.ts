@@ -7,8 +7,9 @@ import {
   signal,
 } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { VerbDetails } from 'src/app/model/verb-details';
 import { PromptService } from 'src/app/services/prompt/prompt.service';
 
@@ -21,35 +22,39 @@ import { PromptService } from 'src/app/services/prompt/prompt.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerbExamplesComponent {
-  protected readonly promptService = inject(PromptService);
+  private readonly promptService = inject(PromptService);
+  private readonly sanitizer = inject(DomSanitizer);
 
   details = input.required<VerbDetails>();
 
   panelOpenState = signal(false);
 
-  baseFormExample$?: Observable<string>;
-  pastFormExample$?: Observable<string>;
-  participleFormExample$?: Observable<string>;
+  baseFormExample$?: Observable<SafeHtml>;
+  pastFormExample$?: Observable<SafeHtml>;
+  participleFormExample$?: Observable<SafeHtml>;
 
-  getVerbExamples(verb: string, form: string): Observable<string> {
-    return this.promptService.getVerbExamples(verb, form).pipe(shareReplay(1));
+  getVerbExamples(verb: string, form: string): Observable<SafeHtml> {
+    return this.promptService.getVerbExamples(verb, form).pipe(
+      map((resp) => this.sanitizer.bypassSecurityTrustHtml(resp)),
+      shareReplay(1),
+    );
   }
 
-  getBaseVerbExamples(verb: string, form: string): Observable<string> {
+  getBaseVerbExamples(verb: string, form: string): Observable<SafeHtml> {
     if (!this.baseFormExample$) {
       this.baseFormExample$ = this.getVerbExamples(verb, form);
     }
     return this.baseFormExample$;
   }
 
-  getPastVerbExamples(verb: string, form: string): Observable<string> {
+  getPastVerbExamples(verb: string, form: string): Observable<SafeHtml> {
     if (!this.pastFormExample$) {
       this.pastFormExample$ = this.getVerbExamples(verb, form);
     }
     return this.pastFormExample$;
   }
 
-  getParticipleVerbExamples(verb: string, form: string): Observable<string> {
+  getParticipleVerbExamples(verb: string, form: string): Observable<SafeHtml> {
     if (!this.participleFormExample$) {
       this.participleFormExample$ = this.getVerbExamples(verb, form);
     }
