@@ -16,10 +16,9 @@
         as baseFormExample
       ) {
         <h4 class="example-header">Examples</h4>
-
-        <p class="example">
-          {{ baseFormExample }}
-        </p>
+        <p class="example" [innerHTML]="baseFormExample"></p>
+      } @else {
+        Loading...
       }
     </ng-template>
   </mat-expansion-panel>
@@ -44,10 +43,9 @@
         as pastFormExample
       ) {
         <h4 class="example-header">Examples</h4>
-
-        <p class="example">
-          {{ pastFormExample }}
-        </p>
+        <p class="example" [innerHTML]="pastFormExample"></p>
+      } @else {
+        Loading...
       }
     </ng-template>
   </mat-expansion-panel>
@@ -72,10 +70,9 @@
         as participleFormExample
       ) {
         <h4 class="example-header">Examples</h4>
-
-        <p class="example">
-          {{ participleFormExample }}
-        </p>
+        <p class="example" [innerHTML]="participleFormExample"></p>
+      } @else {
+        Loading...
       }
     </ng-template>
   </mat-expansion-panel>

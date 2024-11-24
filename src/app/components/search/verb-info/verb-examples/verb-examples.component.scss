@@ -43,6 +43,12 @@
   color: var(--active-color);
 }
 
-.example {
-  white-space: pre-wrap; /* Preserves whitespace and line breaks */
+::ng-deep .example {
+  b {
+    color: var(--active-color);
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
 }
