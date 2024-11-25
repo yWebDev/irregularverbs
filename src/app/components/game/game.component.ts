@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.component';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { HowToPlayComponent } from './how-to-play/how-to-play.component';
 
 @Component({
   selector: 'app-game',
@@ -128,6 +129,10 @@ export class GameComponent implements OnInit {
   protected enterPredicate = (drag: CdkDrag, drop: CdkDropList): boolean => {
     return !this.selected?.[drop.id as keyof VerbDetails];
   };
+
+  protected onHowToPlayClick(): void {
+    this.dialog.open(HowToPlayComponent);
+  }
 
   private initValues(): void {
     this.selected = { ...this.defaultSelectedItem };
