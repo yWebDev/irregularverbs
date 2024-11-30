@@ -48,6 +48,12 @@
     color: var(--active-color);
   }
 
+  ul {
+    @media only screen and (max-device-width: 768px) {
+      padding-left: 0;
+    }
+  }
+
   li {
     margin-bottom: 1rem;
   }
