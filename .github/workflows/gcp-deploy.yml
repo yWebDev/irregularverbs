@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Clear Node.js cache
+        run: npm cache clean --force
+
       - name: Install dependencies
         run: npm install
 
@@ -38,4 +41,4 @@ jobs:
 
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy client.yaml dispatch.yaml --quiet
+          gcloud app deploy client.yaml dispatch.yaml --quiet --no-cache
