@@ -6,5 +6,9 @@
   .wrapper {
     width: 50%;
     margin-bottom: 1rem;
+
+    @media only screen and (max-device-width: 768px) {
+      width: 90%;
+    }
   }
 }
