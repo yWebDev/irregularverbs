@@ -18,7 +18,7 @@
     </ul>
     <div>
       @if (username) {
-        <a class="account" [matMenuTriggerFor]="menu" aria-label="Account Menu">
+        <a rel="nofollow" class="account" [matMenuTriggerFor]="menu">
           <span>{{ username }}</span>
           <mat-icon>account_circle</mat-icon>
         </a>
@@ -38,9 +38,22 @@
 <footer class="footer">
   <span
     >Created by
-    <a class="link-contact" title="yWebDev" href="https://github.com/yWebDev"
+    <a
+      class="link-contact"
+      title="yWebDev"
+      href="https://github.com/yWebDev/irregularverbs"
+      rel="noopener noreferrer"
+      target="_blank"
       >yWebDev</a
     ></span
   >
-  <!--  <a type="button" class="btn-donate" title="Donate">Donate</a>-->
+  <a
+    type="button"
+    class="btn-donate"
+    title="Donate"
+    href="https://donatello.to/iverbs"
+    rel="noopener noreferrer"
+    target="_blank"
+    >Donate</a
+  >
 </footer>
