@@ -31,6 +31,7 @@ export class GameComponent implements OnInit {
   protected items: string[] = [];
   protected currentIndex = 0;
   protected time = '00:00:00';
+  protected isGameOver = false;
 
   private readonly defaultSelectedItem: Partial<VerbDetails> = {
     base: undefined,
@@ -115,6 +116,7 @@ export class GameComponent implements OnInit {
       this.showSnack();
       this.initValues();
     } else {
+      this.isGameOver = true;
       clearInterval(this.interval);
       this.dialog.open(GameOverDialogComponent, {
         data: {

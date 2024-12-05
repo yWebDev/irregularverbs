@@ -22,9 +22,13 @@
         >
           @if (selected[key]) {
             <span class="selected-item">{{ selected[key] }}</span>
-            <mat-icon (click)="onSelectedItemCloseClick(key)" class="close-icon"
-              >close</mat-icon
-            >
+            @if (!isGameOver) {
+              <mat-icon
+                (click)="onSelectedItemCloseClick(key)"
+                class="close-icon"
+                >close</mat-icon
+              >
+            }
           }
         </div>
       }
@@ -53,7 +57,7 @@
     <button
       #submitBtn
       mat-raised-button
-      [disabled]="!isSelected"
+      [disabled]="!isSelected || isGameOver"
       (click)="onCheck()"
     >
       Check
