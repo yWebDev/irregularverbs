@@ -14,12 +14,11 @@ import { VerbDetails } from 'src/app/model/verb-details';
 import { PromptService } from 'src/app/services/prompt/prompt.service';
 
 @Component({
-  selector: 'app-verb-examples',
-  standalone: true,
-  imports: [MatExpansionModule, AsyncPipe],
-  templateUrl: './verb-examples.component.html',
-  styleUrl: './verb-examples.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-verb-examples',
+    imports: [MatExpansionModule, AsyncPipe],
+    templateUrl: './verb-examples.component.html',
+    styleUrl: './verb-examples.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VerbExamplesComponent {
   private readonly promptService = inject(PromptService);

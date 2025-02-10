@@ -15,11 +15,10 @@ import { MatIcon } from '@angular/material/icon';
 import { HowToPlayComponent } from './how-to-play/how-to-play.component';
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss'],
-  standalone: true,
-  imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton, MatIcon],
+    selector: 'app-game',
+    templateUrl: './game.component.html',
+    styleUrls: ['./game.component.scss'],
+    imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton, MatIcon]
 })
 export class GameComponent implements OnInit {
   private readonly submitBtn = viewChild<MatButton>('submitBtn');
