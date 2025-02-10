@@ -17,24 +17,23 @@ import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-verb-input',
-  templateUrl: './verb-input.component.html',
-  styleUrls: ['./verb-input.component.scss'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatFormField,
-    MatInput,
-    MatAutocompleteTrigger,
-    ReactiveFormsModule,
-    MatAutocomplete,
-    MatOption,
-    MatButton,
-    MatIconButton,
-    MatSuffix,
-    MatIcon,
-    AsyncPipe,
-  ],
+    selector: 'app-verb-input',
+    templateUrl: './verb-input.component.html',
+    styleUrls: ['./verb-input.component.scss'],
+    imports: [
+        FormsModule,
+        MatFormField,
+        MatInput,
+        MatAutocompleteTrigger,
+        ReactiveFormsModule,
+        MatAutocomplete,
+        MatOption,
+        MatButton,
+        MatIconButton,
+        MatSuffix,
+        MatIcon,
+        AsyncPipe,
+    ]
 })
 export class VerbInputComponent {
   protected readonly verbSelect = output<VerbDetails | null>();
