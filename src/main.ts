@@ -1,4 +1,9 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
+import {
+  enableProdMode,
+  importProvidersFrom,
+  inject,
+  provideAppInitializer,
+} from '@angular/core';
 import { environment } from './environments/environment';
 import {
   provideHttpClient,
@@ -18,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
+import { ConfigService } from './app/services/config/config.service';
 
 if (environment.production) {
   enableProdMode();
@@ -41,5 +47,9 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
+    provideAppInitializer(() => {
+      const configService = inject(ConfigService);
+      configService.loadConfig();
+    }),
   ],
 }).catch((err) => console.error(err));
