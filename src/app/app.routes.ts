@@ -37,6 +37,13 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'verbs',
+    loadComponent: () =>
+      import('./components/verbs/verbs.component').then(
+        (m) => m.VerbsComponent,
+      ),
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

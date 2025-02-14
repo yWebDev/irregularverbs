@@ -1,0 +1,30 @@
+<section class="verbs">
+  <h2>All Verbs</h2>
+  <div>
+    <table mat-table [dataSource]="($verbs | async)!" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Base Column -->
+      <ng-container matColumnDef="base">
+        <th mat-header-cell *matHeaderCellDef>Base</th>
+        <td mat-cell *matCellDef="let element">{{ element.base }}</td>
+      </ng-container>
+
+      <!-- pastSimple Column -->
+      <ng-container matColumnDef="pastSimple">
+        <th mat-header-cell *matHeaderCellDef>Past Simple</th>
+        <td mat-cell *matCellDef="let element">{{ element.pastSimple }}</td>
+      </ng-container>
+
+      <!-- pastParticiple Column -->
+      <ng-container matColumnDef="pastParticiple">
+        <th mat-header-cell *matHeaderCellDef>Past Participle</th>
+        <td mat-cell *matCellDef="let element">{{ element.pastParticiple }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</section>
