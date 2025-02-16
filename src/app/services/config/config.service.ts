@@ -7,17 +7,18 @@ import { inject, Injectable } from '@angular/core';
 export class ConfigService {
   private readonly http: HttpClient = inject(HttpClient);
 
-  private API_SECRET_KEY!: string;
+  #API_KEY!: string;
+  #SALT = 'ig-verbs';
 
   loadConfig() {
     return this.http
-      .get<{ API_SECRET_KEY: string }>('/assets/config.json')
+      .get<{ API_KEY: string }>('/assets/config.json')
       .subscribe((data) => {
-        this.API_SECRET_KEY = data?.API_SECRET_KEY;
+        this.#API_KEY = data?.API_KEY;
       });
   }
 
   get apiKey() {
-    return this.API_SECRET_KEY;
+    return this.#API_KEY + this.#SALT;
   }
 }
