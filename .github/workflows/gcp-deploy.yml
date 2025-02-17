@@ -27,13 +27,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create assets/config.json
-        run: |
-          mkdir -p assets
-          echo '{"API_KEY": "${{ secrets.API_SECRET_KEY }}"}' > assets/config.json
-
       - name: Build Node Project
         run: npm run build:prod
+
+      - name: Create assets/config.json
+        run: |
+          mkdir -p dist/browser/assets
+          echo '{"API_KEY": "${{ secrets.API_SECRET_KEY }}"}' > dist/browser/assets/config.json
 
       - name: Google Cloud Auth
         uses: "google-github-actions/auth@v2"
