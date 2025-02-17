@@ -27,6 +27,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Create assets/config.json
+        run: |
+          mkdir -p assets
+          echo '{"API_KEY": "${{ secrets.API_SECRET_KEY }}"}' > assets/config.json
+
       - name: Build Node Project
         run: npm run build:prod
 

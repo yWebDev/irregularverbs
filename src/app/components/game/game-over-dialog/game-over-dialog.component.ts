@@ -19,18 +19,17 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-game-over-dialog',
-  templateUrl: './game-over-dialog.component.html',
-  styleUrls: ['./game-over-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    CdkScrollable,
-    MatDialogContent,
-    MatDialogActions,
-    MatButton,
-    MatDialogClose,
-  ],
+    selector: 'app-game-over-dialog',
+    templateUrl: './game-over-dialog.component.html',
+    styleUrls: ['./game-over-dialog.component.scss'],
+    imports: [
+        MatDialogTitle,
+        CdkScrollable,
+        MatDialogContent,
+        MatDialogActions,
+        MatButton,
+        MatDialogClose,
+    ]
 })
 export class GameOverDialogComponent {
   protected data: DialogData = inject(MAT_DIALOG_DATA);

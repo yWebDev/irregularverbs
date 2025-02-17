@@ -13,12 +13,12 @@ import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.com
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { HowToPlayComponent } from './how-to-play/how-to-play.component';
+import { MetaService } from 'src/app/services/meta/meta.service';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
-  standalone: true,
   imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton, MatIcon],
 })
 export class GameComponent implements OnInit {
@@ -26,6 +26,10 @@ export class GameComponent implements OnInit {
   private readonly verbsService = inject(VerbsService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
+  private readonly metaService = inject(MetaService).updateMeta(
+    'Learn Through Play',
+    'Boost your knowledge with a fun and interactive game!',
+  );
 
   protected selected: Partial<VerbDetails> = {};
   protected items: string[] = [];
