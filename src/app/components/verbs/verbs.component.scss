@@ -14,7 +14,7 @@ section {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 70px);
   height: 100%;
   z-index: 10;
 }
@@ -32,4 +32,31 @@ section {
   @media screen and (min-width: 768px) {
     width: 60%;
   }
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-description {
+  padding: 16px;
+  opacity: 0.5;
+}
+
+.detail-row {
+  height: 0;
+  overflow: hidden;
+}
+
+.expanded-row .detail-row {
+  height: auto;
 }
