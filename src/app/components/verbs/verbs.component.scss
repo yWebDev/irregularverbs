@@ -14,7 +14,7 @@ section {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 70px);
   height: 100%;
   z-index: 10;
 }
@@ -32,4 +32,55 @@ section {
   @media screen and (min-width: 768px) {
     width: 60%;
   }
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-description {
+  padding: 0 1rem;
+  opacity: 0.8;
+}
+
+.detail-row {
+  height: 0;
+  overflow: hidden;
+}
+
+.expanded-row .detail-row {
+  height: auto;
+}
+
+.example-header {
+  color: var(--active-color);
+}
+
+::ng-deep .verb-examples {
+  b {
+    color: var(--active-color);
+  }
+
+  ul {
+    @media only screen and (max-device-width: 768px) {
+      padding-left: 0;
+    }
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+}
+
+.loading {
+  padding-bottom: 1rem;
 }
