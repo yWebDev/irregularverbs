@@ -48,8 +48,8 @@ tr.detail-row {
 }
 
 .element-description {
-  padding: 16px;
-  opacity: 0.5;
+  padding: 0 1rem;
+  opacity: 0.8;
 }
 
 .detail-row {
@@ -59,4 +59,28 @@ tr.detail-row {
 
 .expanded-row .detail-row {
   height: auto;
+}
+
+.example-header {
+  color: var(--active-color);
+}
+
+::ng-deep .verb-examples {
+  b {
+    color: var(--active-color);
+  }
+
+  ul {
+    @media only screen and (max-device-width: 768px) {
+      padding-left: 0;
+    }
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+}
+
+.loading {
+  padding-bottom: 1rem;
 }
