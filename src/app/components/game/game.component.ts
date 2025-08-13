@@ -26,10 +26,7 @@ export class GameComponent implements OnInit {
   private readonly verbsService = inject(VerbsService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
-  private readonly metaService = inject(MetaService).updateMeta(
-    'Learn Through Play',
-    'Boost your knowledge with a fun and interactive game!',
-  );
+  private readonly metaService = inject(MetaService);
 
   protected selected: Partial<VerbDetails> = {};
   protected items: string[] = [];
@@ -60,6 +57,12 @@ export class GameComponent implements OnInit {
   }
 
   constructor() {
+    this.metaService.updateMeta({
+      title: 'Learn Through Play',
+      description: 'Boost your knowledge with a fun and interactive game!',
+      keywords: 'irregular verbs game, English learning game, ESL game, verb practice',
+      url: 'https://iverbs.info/game/active'
+    });
     this.interval = this.startTimer();
   }
 

@@ -15,10 +15,16 @@ import { MetaService } from 'src/app/services/meta/meta.service';
 export class GamePromoComponent {
   private readonly authService = inject(AuthService);
   private readonly dialog = inject(MatDialog);
-  private readonly metaService = inject(MetaService).updateMeta(
-    'Start Learning Through Play',
-    'Boost your knowledge with a fun and interactive game!',
-  );
+  private readonly metaService = inject(MetaService);
+
+  constructor() {
+    this.metaService.updateMeta({
+      title: 'Start Learning Through Play',
+      description: 'Boost your knowledge with a fun and interactive game!',
+      keywords: 'irregular verbs game, English learning game, ESL game, verb practice',
+      url: 'https://iverbs.info/game'
+    });
+  }
 
   protected name: string | null = this.authService.username;
 
