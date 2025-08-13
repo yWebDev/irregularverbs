@@ -24,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { ConfigService } from './app/services/config/config.service';
+import { PerformanceService } from './app/services/performance/performance.service';
 
 if (environment.production) {
   enableProdMode();
@@ -50,6 +51,14 @@ bootstrapApplication(AppComponent, {
     provideAppInitializer(() => {
       const configService = inject(ConfigService);
       configService.loadConfig();
+    }),
+    provideAppInitializer(() => {
+      const performanceService = inject(PerformanceService);
+      // Initialize performance optimizations
+      performanceService.addResourceHints();
+      performanceService.optimizeFontLoading();
+      performanceService.measurePerformance();
+      return () => {};
     }),
   ],
 }).catch((err) => console.error(err));

@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
+import { SeoService } from './services/seo/seo.service';
 import {
   Router,
   RouterLink,
@@ -25,9 +26,15 @@ import { MatIcon } from '@angular/material/icon';
     RouterOutlet,
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly seoService = inject(SeoService);
+
+  ngOnInit() {
+    // Initialize SEO for the current page
+    this.seoService.updateHomePageSEO();
+  }
 
   get username(): string | null {
     return this.authService.username;
