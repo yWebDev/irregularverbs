@@ -58,7 +58,6 @@ bootstrapApplication(AppComponent, {
       performanceService.addResourceHints();
       performanceService.optimizeFontLoading();
       performanceService.measurePerformance();
-      return () => {};
     }),
   ],
 }).catch((err) => console.error(err));

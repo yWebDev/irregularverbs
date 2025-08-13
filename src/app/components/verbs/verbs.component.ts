@@ -34,10 +34,17 @@ import { VerbsService } from 'src/app/services/verbs/verbs.service';
   ],
 })
 export class VerbsComponent {
-  private readonly metaService = inject(MetaService).updateMeta(
-    'Complete List of Irregular Verbs',
-    'Explore a comprehensive table of irregular verbs to enhance your English skills!',
-  );
+  private readonly metaService = inject(MetaService);
+
+  constructor() {
+    this.metaService.updateMeta({
+      title: 'Complete List of Irregular Verbs',
+      description: 'Explore a comprehensive table of irregular verbs to enhance your English skills!',
+      keywords: 'irregular verbs list, English verb forms, verb conjugation, ESL resources',
+      url: 'https://iverbs.info/verbs'
+    });
+  }
+
   private readonly promptService = inject(PromptService);
 
   $verbs = inject(VerbsService).getAllVerbs();

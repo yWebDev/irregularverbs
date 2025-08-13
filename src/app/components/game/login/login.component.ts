@@ -16,10 +16,16 @@ import { MetaService } from 'src/app/services/meta/meta.service';
 export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly metaService = inject(MetaService).updateMeta(
-    'Choose your username',
-    'Please choose your username',
-  );
+  private readonly metaService = inject(MetaService);
+
+  constructor() {
+    this.metaService.updateMeta({
+      title: 'Choose your username',
+      description: 'Please choose your username',
+      keywords: 'login, username, irregular verbs game',
+      url: 'https://iverbs.info/game/login'
+    });
+  }
 
   protected username = '';
 
