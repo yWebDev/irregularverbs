@@ -1,11 +1,42 @@
 runtime: nodejs20
 service: default
+
 handlers:
-  # Serve all static files with urls ending with a file extension
+  # Explicit handlers for important bot files (no caching)
+  - url: /robots\.txt
+    static_files: dist/browser/robots.txt
+    upload: dist/browser/robots.txt
+    http_headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+
+  - url: /ads\.txt
+    static_files: dist/browser/ads.txt
+    upload: dist/browser/ads.txt
+    http_headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+
+  - url: /sitemap\.xml
+    static_files: dist/browser/sitemap.xml
+    upload: dist/browser/sitemap.xml
+    http_headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+
+  # Serve all static files with urls ending with a file extension (can be cached)
   - url: /(.*\..+)$
     static_files: dist/browser/\1
     upload: dist/browser/(.*\..+)$
-    # catch all handler to index.html
+    http_headers:
+      Cache-Control: "public, max-age=31536000"  # 1 year for static assets
+
+  # Catch-all: serve Angular index.html (short cache)
   - url: /.*
     static_files: dist/browser/index.html
     upload: dist/browser/index.html
+    http_headers:
+      Cache-Control: "no-cache"
+
+automatic_scaling:
+  min_instances: 1   # Keep one warm instance for bots
+  max_instances: 5
+  target_cpu_utilization: 0.65
+  target_throughput_utilization: 0.75
