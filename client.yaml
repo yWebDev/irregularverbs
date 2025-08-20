@@ -1,11 +1,32 @@
 runtime: nodejs20
 service: default
+
 handlers:
+  # Explicit handlers for important bot files
+  - url: /robots\.txt
+    static_files: dist/browser/robots.txt
+    upload: dist/browser/robots.txt
+
+  - url: /ads\.txt
+    static_files: dist/browser/ads.txt
+    upload: dist/browser/ads.txt
+
+  - url: /sitemap\.xml
+    static_files: dist/browser/sitemap.xml
+    upload: dist/browser/sitemap.xml
+
   # Serve all static files with urls ending with a file extension
   - url: /(.*\..+)$
     static_files: dist/browser/\1
     upload: dist/browser/(.*\..+)$
-    # catch all handler to index.html
+
+  # Catch-all: serve Angular index.html
   - url: /.*
     static_files: dist/browser/index.html
     upload: dist/browser/index.html
+
+automatic_scaling:
+  min_instances: 1   # Keep one instance always running (important for bots)
+  max_instances: 5   # Adjust based on your traffic
+  target_cpu_utilization: 0.65
+  target_throughput_utilization: 0.75
