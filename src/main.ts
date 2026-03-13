@@ -3,6 +3,7 @@ import {
   importProvidersFrom,
   inject,
   provideAppInitializer,
+  provideZoneChangeDetection,
 } from '@angular/core';
 import { environment } from './environments/environment';
 import {
@@ -32,6 +33,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideZoneChangeDetection(),
     importProvidersFrom(
       BrowserModule,
       FormsModule,
