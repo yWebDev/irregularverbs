@@ -52,7 +52,8 @@ bootstrapApplication(AppComponent, {
     ...(environment.sentryDsn
       ? [
           { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
-          { provide: Sentry.TraceService, useClass: Sentry.TraceService, deps: [Router] },
+          Sentry.TraceService,
+          provideAppInitializer(() => { inject(Sentry.TraceService); }),
         ]
       : []),
     importProvidersFrom(
