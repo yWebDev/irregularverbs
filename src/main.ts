@@ -33,12 +33,15 @@ import { errorInterceptor } from './app/interceptors/error.interceptor';
 if (environment.sentryDsn) {
   Sentry.init({
     dsn: environment.sentryDsn,
-    integrations: [
-      Sentry.browserTracingIntegration(),
-      Sentry.replayIntegration(),
-    ],
+    integrations: [Sentry.browserTracingIntegration()],
     tracesSampleRate: 1.0,
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1.0,
     environment: environment.production ? 'production' : 'development',
+  });
+
+  Sentry.lazyLoadIntegration('replayIntegration').then((replayIntegration) => {
+    Sentry.addIntegration(replayIntegration());
   });
 }
 
