@@ -50,10 +50,10 @@ export class VerbsComponent {
   $verbs = inject(VerbsService).getAllVerbs();
 
   expandedElement = signal<VerbDetails | null>(null);
-  formsExamplesResource$ = rxResource({
-    request: () => this.expandedElement(),
-    loader: ({ request }) =>
-      request ? this.promptService.getVerbFormsExamples(request) : of(null),
+  formsExamplesResource$ = rxResource<string | null, VerbDetails | null>({
+    params: () => this.expandedElement(),
+    stream: ({ params }: { params: VerbDetails | null }) =>
+      params ? this.promptService.getVerbFormsExamples(params) : of(null),
   });
 
   protected readonly displayedColumns: string[] = [
