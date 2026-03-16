@@ -5,10 +5,11 @@ import {
   provideAppInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { ErrorHandler } from '@angular/core';
 import { environment } from './environments/environment';
 import {
   provideHttpClient,
-  withInterceptorsFromDi,
+  withInterceptors,
 } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import routes from './app/app.routes';
@@ -23,9 +24,23 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
+import * as Sentry from '@sentry/angular';
 import { ConfigService } from './app/services/config/config.service';
 import { PerformanceService } from './app/services/performance/performance.service';
+import { errorInterceptor } from './app/interceptors/error.interceptor';
+
+if (environment.sentryDsn) {
+  Sentry.init({
+    dsn: environment.sentryDsn,
+    integrations: [
+      Sentry.browserTracingIntegration(),
+      Sentry.replayIntegration(),
+    ],
+    tracesSampleRate: 1.0,
+    environment: environment.production ? 'production' : 'development',
+  });
+}
 
 if (environment.production) {
   enableProdMode();
@@ -34,6 +49,12 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     provideZoneChangeDetection(),
+    ...(environment.sentryDsn
+      ? [
+          { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
+          { provide: Sentry.TraceService, useClass: Sentry.TraceService, deps: [Router] },
+        ]
+      : []),
     importProvidersFrom(
       BrowserModule,
       FormsModule,
@@ -48,7 +69,7 @@ bootstrapApplication(AppComponent, {
       MatDialogModule,
     ),
     provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptors([errorInterceptor])),
     provideAnimations(),
     provideAppInitializer(() => {
       const configService = inject(ConfigService);

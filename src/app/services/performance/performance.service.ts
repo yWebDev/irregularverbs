@@ -1,9 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { onLCP, onINP, onCLS, onFCP, onTTFB } from 'web-vitals';
+import * as Sentry from '@sentry/angular';
+import { environment } from '../../../environments/environment';
+
+type MetricRating = 'good' | 'needs-improvement' | 'poor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PerformanceService {
+  private readonly http = inject(HttpClient);
 
   constructor() { }
 
@@ -68,23 +75,25 @@ export class PerformanceService {
     });
   }
 
-  // Measure and log performance metrics
+  // Measure and report Web Vitals (LCP, INP, CLS, FCP, TTFB)
   measurePerformance() {
-    if ('performance' in window) {
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-          const paint = performance.getEntriesByType('paint');
-          
-          console.log('Performance Metrics:', {
-            'DOM Content Loaded': navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
-            'Load Complete': navigation.loadEventEnd - navigation.loadEventStart,
-            'First Paint': paint.find(p => p.name === 'first-paint')?.startTime,
-            'First Contentful Paint': paint.find(p => p.name === 'first-contentful-paint')?.startTime
-          });
-        }, 0);
-      });
-    }
+    const reportMetric = (metric: { name: string; value: number; id?: string; rating?: MetricRating; delta?: number; navigationType?: string }) => {
+      if (environment.sentryDsn) {
+        const SentryWithMetrics = Sentry as typeof Sentry & { metrics?: { distribution: (name: string, value: number, unit?: string) => void } };
+        if (SentryWithMetrics.metrics?.distribution) {
+          SentryWithMetrics.metrics.distribution(`web_vitals.${metric.name.toLowerCase()}`, metric.value);
+        } else {
+          Sentry.addBreadcrumb({ category: 'web-vitals', message: `${metric.name}: ${metric.value}`, data: metric });
+        }
+      }
+      this.http.post('/api/metrics', metric).subscribe({ error: () => {} });
+    };
+
+    onLCP(reportMetric as (m: unknown) => void);
+    onINP(reportMetric as (m: unknown) => void);
+    onCLS(reportMetric as (m: unknown) => void);
+    onFCP(reportMetric as (m: unknown) => void);
+    onTTFB(reportMetric as (m: unknown) => void);
   }
 
   // Implement resource hints
