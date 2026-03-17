@@ -10,6 +10,7 @@ import { environment } from './environments/environment';
 import {
   provideHttpClient,
   withInterceptors,
+  withXsrfConfiguration,
 } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import routes from './app/app.routes';
@@ -73,7 +74,10 @@ bootstrapApplication(AppComponent, {
       MatDialogModule,
     ),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([errorInterceptor])),
+    provideHttpClient(
+      withInterceptors([errorInterceptor]),
+      withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
+    ),
     provideAnimations(),
     provideAppInitializer(() => {
       const configService = inject(ConfigService);
