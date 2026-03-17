@@ -12,8 +12,6 @@ type MetricRating = 'good' | 'needs-improvement' | 'poor';
 export class PerformanceService {
   private readonly http = inject(HttpClient);
 
-  constructor() { }
-
   // Preload critical resources
   preloadCriticalResources() {
     // Preload critical CSS
@@ -39,14 +37,14 @@ export class PerformanceService {
     const link = document.createElement('link');
     link.rel = 'preload';
     link.href = href;
-    link.as = as as any;
+    link.as = as;
     document.head.appendChild(link);
   }
 
   // Lazy load images when they come into viewport
   lazyLoadImages() {
     if ('IntersectionObserver' in window) {
-      const imageObserver = new IntersectionObserver((entries, observer) => {
+      const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target as HTMLImageElement;
@@ -86,7 +84,7 @@ export class PerformanceService {
           Sentry.addBreadcrumb({ category: 'web-vitals', message: `${metric.name}: ${metric.value}`, data: metric });
         }
       }
-      this.http.post('/api/metrics', metric).subscribe({ error: () => {} });
+      this.http.post('/api/metrics', metric).subscribe({ error: () => { /* silently ignore metric delivery failures */ } });
     };
 
     onLCP(reportMetric as (m: unknown) => void);

@@ -11,6 +11,12 @@
     <button routerLink="/game/active" mat-raised-button>Play</button>
   </p>
   <p>
-    <a (click)="onHowToPlayClick()">How to play?</a>
+    <a
+      (click)="onHowToPlayClick()"
+      (keyup.enter)="onHowToPlayClick()"
+      (keyup.space)="onHowToPlayClick()"
+      role="button"
+      tabindex="0"
+    >How to play?</a>
   </p>
 </section>

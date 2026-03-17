@@ -25,7 +25,11 @@
             @if (!isGameOver) {
               <mat-icon
                 (click)="onSelectedItemCloseClick(key)"
+                (keyup.enter)="onSelectedItemCloseClick(key)"
+                (keyup.space)="onSelectedItemCloseClick(key)"
                 class="close-icon"
+                role="button"
+                tabindex="0"
                 >close</mat-icon
               >
             }
@@ -47,6 +51,10 @@
             cdkDrag
             [cdkDragData]="{ item: item, index: i }"
             (click)="onItemClick(i)"
+            (keyup.enter)="onItemClick(i)"
+            (keyup.space)="onItemClick(i)"
+            role="button"
+            tabindex="0"
             >{{ item }}</span
           >
         }
@@ -64,6 +72,12 @@
     </button>
   </div>
   <p class="how-to-play text-active text-center">
-    <a (click)="onHowToPlayClick()">How to play?</a>
+    <a
+      (click)="onHowToPlayClick()"
+      (keyup.enter)="onHowToPlayClick()"
+      (keyup.space)="onHowToPlayClick()"
+      role="button"
+      tabindex="0"
+    >How to play?</a>
   </p>
 </div>

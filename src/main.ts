@@ -25,7 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app/app.component';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import * as Sentry from '@sentry/angular';
 import { ConfigService } from './app/services/config/config.service';
 import { PerformanceService } from './app/services/performance/performance.service';
