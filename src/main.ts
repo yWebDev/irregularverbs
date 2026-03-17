@@ -54,10 +54,10 @@ bootstrapApplication(AppComponent, {
     provideZoneChangeDetection(),
     ...(environment.sentryDsn
       ? [
-          { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
-          Sentry.TraceService,
-          provideAppInitializer(() => { inject(Sentry.TraceService); }),
-        ]
+        { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
+        Sentry.TraceService,
+        provideAppInitializer(() => { inject(Sentry.TraceService); }),
+      ]
       : []),
     importProvidersFrom(
       BrowserModule,
