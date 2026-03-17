@@ -4,6 +4,7 @@ import {
   Component,
   inject,
   input,
+  SecurityContext,
   signal,
 } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -34,7 +35,13 @@ export class VerbExamplesComponent {
 
   getVerbExamples(verb: string, form: string): Observable<SafeHtml> {
     return this.promptService.getVerbExamples(verb, form).pipe(
-      map((resp) => this.sanitizer.bypassSecurityTrustHtml(resp)),
+      map((resp) => {
+        // Strip dangerous tags/attributes (scripts, event handlers) from
+        // AI-generated content, then mark the sanitized result as trusted HTML
+        // so Angular renders formatting tags like <b> and <i>.
+        const sanitized = this.sanitizer.sanitize(SecurityContext.HTML, resp) ?? '';
+        return this.sanitizer.bypassSecurityTrustHtml(sanitized);
+      }),
       shareReplay(1),
     );
   }

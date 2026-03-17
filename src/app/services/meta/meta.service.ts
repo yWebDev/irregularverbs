@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Meta } from '@angular/platform-browser';
+import { inject, Injectable } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 
 export interface SEOData {
   title: string;
@@ -18,13 +17,11 @@ export interface SEOData {
   providedIn: 'root',
 })
 export class MetaService {
+  private readonly titleService = inject(Title);
+  private readonly metaService = inject(Meta);
+
   private defaultImage = '/assets/images/irregular-verbs-seo.jpg';
   private defaultUrl = 'https://iverbs.info';
-
-  constructor(
-    private titleService: Title,
-    private metaService: Meta,
-  ) {}
 
   updateMeta(seoData: SEOData) {
     const {
@@ -76,7 +73,7 @@ export class MetaService {
     this.metaService.updateTag({ rel: 'canonical', href: url });
   }
 
-  updateStructuredData(data: any) {
+  updateStructuredData(data: Record<string, unknown>) {
     // Remove existing structured data
     const existingScript = document.querySelector('script[type="application/ld+json"]');
     if (existingScript) {

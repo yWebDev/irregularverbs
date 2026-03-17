@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MetaService, SEOData } from '../meta/meta.service';
@@ -7,6 +7,9 @@ import { MetaService, SEOData } from '../meta/meta.service';
   providedIn: 'root'
 })
 export class SeoService {
+  private readonly metaService = inject(MetaService);
+  private readonly router = inject(Router);
+
   private defaultSEO: SEOData = {
     title: 'Irregular Verbs - Comprehensive Table with AI Examples & Games',
     description: 'Master English irregular verbs with our comprehensive table featuring AI-generated examples. Practice with interactive games, explore verb forms, and improve your English vocabulary with detailed verb conjugations and usage examples.',
@@ -15,10 +18,7 @@ export class SeoService {
     type: 'website'
   };
 
-  constructor(
-    private metaService: MetaService,
-    private router: Router
-  ) {
+  constructor() {
     this.initializeRouterListener();
   }
 

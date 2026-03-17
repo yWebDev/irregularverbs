@@ -10,6 +10,7 @@ import { environment } from './environments/environment';
 import {
   provideHttpClient,
   withInterceptors,
+  withXsrfConfiguration,
 } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import routes from './app/app.routes';
@@ -24,7 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app/app.component';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import * as Sentry from '@sentry/angular';
 import { ConfigService } from './app/services/config/config.service';
 import { PerformanceService } from './app/services/performance/performance.service';
@@ -54,10 +55,10 @@ bootstrapApplication(AppComponent, {
     provideZoneChangeDetection(),
     ...(environment.sentryDsn
       ? [
-          { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
-          Sentry.TraceService,
-          provideAppInitializer(() => { inject(Sentry.TraceService); }),
-        ]
+        { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
+        Sentry.TraceService,
+        provideAppInitializer(() => { inject(Sentry.TraceService); }),
+      ]
       : []),
     importProvidersFrom(
       BrowserModule,
@@ -73,7 +74,10 @@ bootstrapApplication(AppComponent, {
       MatDialogModule,
     ),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([errorInterceptor])),
+    provideHttpClient(
+      withInterceptors([errorInterceptor]),
+      withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
+    ),
     provideAnimations(),
     provideAppInitializer(() => {
       const configService = inject(ConfigService);
