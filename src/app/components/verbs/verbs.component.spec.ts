@@ -1,14 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
 
 import { VerbsComponent } from './verbs.component';
+import { VerbsService } from '../../services/verbs/verbs.service';
 
 describe('VerbsComponent', () => {
   let component: VerbsComponent;
   let fixture: ComponentFixture<VerbsComponent>;
 
   beforeEach(async () => {
+    const verbsServiceSpy = jasmine.createSpyObj('VerbsService', [
+      'getAllVerbs',
+    ]);
+    verbsServiceSpy.getAllVerbs.and.returnValue(
+      of([
+        { id: '1', base: 'be', pastSimple: 'was', pastParticiple: 'been' },
+        { id: '2', base: 'go', pastSimple: 'went', pastParticiple: 'gone' },
+      ]),
+    );
+
     await TestBed.configureTestingModule({
-      imports: [VerbsComponent]
+      imports: [VerbsComponent],
+      providers: [
+        provideAnimations(),
+        { provide: VerbsService, useValue: verbsServiceSpy },
+      ],
     })
     .compileComponents();
 
