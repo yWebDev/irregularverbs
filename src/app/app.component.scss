@@ -4,6 +4,27 @@
   flex-grow: 1;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: #f44336;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+#main-content:focus {
+  outline: none;
+}
+
 .header {
   text-align: center;
   padding: 0.475em 0;

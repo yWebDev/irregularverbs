@@ -10,6 +10,7 @@ import {
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
+import { RouterFocusDirective } from './directives/router-focus.directive';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ import { MatIcon } from '@angular/material/icon';
     MatMenu,
     MatMenuItem,
     RouterOutlet,
+    RouterFocusDirective,
   ],
 })
 export class AppComponent implements OnInit {
@@ -31,13 +33,19 @@ export class AppComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly seoService = inject(SeoService);
 
-  ngOnInit() {
-    // Initialize SEO for the current page
+  ngOnInit(): void {
     this.seoService.updateHomePageSEO();
   }
 
   get username(): string | null {
     return this.authService.username;
+  }
+
+  isCurrentRoute(path: string): boolean {
+    if (path === '/') {
+      return this.router.url === '/';
+    }
+    return this.router.url.startsWith(path);
   }
 
   onDelete(): void {

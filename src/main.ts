@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { A11yModule } from '@angular/cdk/a11y';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -69,6 +70,7 @@ bootstrapApplication(AppComponent, {
       MatButtonModule,
       MatIconModule,
       DragDropModule,
+      A11yModule,
       MatMenuModule,
       MatSnackBarModule,
       MatDialogModule,
