@@ -40,8 +40,8 @@ describe('HowToPlayComponent Accessibility', () => {
 
   it('should have proper heading hierarchy', () => {
     const h2 = fixture.nativeElement.querySelector('h2');
-    const h4s = fixture.nativeElement.querySelectorAll('h4');
+    const h3s = fixture.nativeElement.querySelectorAll('h3');
     expect(h2).toBeTruthy();
-    expect(h4s.length).toBeGreaterThan(0);
+    expect(h3s.length).toBeGreaterThan(0);
   });
 });

@@ -37,6 +37,9 @@ jobs:
       - name: Static analysis (ESLint)
         run: npm run lint
 
+      - name: Run unit tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
