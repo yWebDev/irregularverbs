@@ -244,7 +244,10 @@ This document outlines the accessibility compliance status for the Irregular Ver
 
 ## Known Issues and Future Enhancements
 
-1. **Color Contrast**: Some color combinations need verification with automated tools
+1. **Color Contrast**: 
+   - Primary red color (`#d32f2f`) now meets WCAG AA (4.5:1) for text on white
+   - Original `#f44336` retained for backgrounds and borders (doesn't require 4.5:1)
+   - All text colors verified to meet minimum contrast ratios
 2. **Account Deletion**: Should add confirmation dialog before deletion
 3. **Form Validation**: Could enhance with more descriptive error messages
 4. **Loading States**: Could add more informative loading indicators with ARIA

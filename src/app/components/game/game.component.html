@@ -30,6 +30,7 @@
           [cdkDropListEnterPredicate]="enterPredicate"
           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']"
           (cdkDropListDropped)="drop($event, key)"
+          role="region"
           [attr.aria-label]="getDropZoneLabel(key)"
         >
           @if (selected[key]) {
@@ -61,7 +62,6 @@
         id="item-{{ i }}"
         cdkDropList
         [cdkDropListConnectedTo]="['base', 'pastSimple', 'pastParticiple']"
-        aria-hidden="true"
       >
         @if (item) {
           <span
