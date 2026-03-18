@@ -1,7 +1,7 @@
-<h2 class="title" mat-dialog-title>
+<h2 class="title" mat-dialog-title id="game-over-title">
   {{ data.isCompleted ? "Congratulations!" : "Game Over" }}
 </h2>
-<mat-dialog-content>
+<mat-dialog-content id="game-over-content" aria-describedby="game-over-title">
   @if (data.isCompleted) {
     <p>Well done! You managed to drop all forms correctly!</p>
   }
@@ -13,5 +13,5 @@
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button mat-dialog-close aria-label="Close game over dialog">Close</button>
 </mat-dialog-actions>

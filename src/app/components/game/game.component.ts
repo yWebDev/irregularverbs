@@ -1,10 +1,11 @@
-import { Component, OnInit, viewChild, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, viewChild, inject } from '@angular/core';
 import {
   CdkDrag,
   CdkDragDrop,
   CdkDropList,
   CdkDropListGroup,
 } from '@angular/cdk/drag-drop';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { VerbDetails } from '../../model/verb-details';
 import { VerbsService } from '../../services/verbs/verbs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,12 +22,13 @@ import { MetaService } from 'src/app/services/meta/meta.service';
   styleUrls: ['./game.component.scss'],
   imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton, MatIcon],
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
   private readonly submitBtn = viewChild<MatButton>('submitBtn');
   private readonly verbsService = inject(VerbsService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
   private readonly metaService = inject(MetaService);
+  private readonly liveAnnouncer = inject(LiveAnnouncer);
 
   protected selected: Partial<VerbDetails> = {};
   protected items: string[] = [];
@@ -68,6 +70,10 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareVerbsForGame();
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
   }
 
   protected onSelectedItemCloseClick(key: keyof VerbDetails): void {
@@ -120,17 +126,27 @@ export class GameComponent implements OnInit {
     const isCompleted = this.currentIndex === this.MAX_NUMBER;
 
     if (isCorrect && !isCompleted) {
+      this.liveAnnouncer.announce(
+        `Correct! Score: ${this.currentIndex} out of ${this.MAX_NUMBER}`,
+        'polite',
+      );
       this.showSnack();
       this.initValues();
     } else {
       this.isGameOver = true;
       clearInterval(this.interval);
+      const announcement = isCompleted
+        ? `Congratulations! You completed all ${this.MAX_NUMBER} verbs! Final time: ${this.time}`
+        : `Game over. Your score is ${this.currentIndex} out of ${this.MAX_NUMBER}. Time: ${this.time}`;
+      this.liveAnnouncer.announce(announcement, 'assertive');
       this.dialog.open(GameOverDialogComponent, {
         data: {
           score: this.currentIndex,
           time: this.time,
           isCompleted,
         },
+        ariaLabel: isCompleted ? 'Congratulations dialog' : 'Game over dialog',
+        ariaDescribedBy: 'game-over-content',
       });
     }
   }
@@ -140,7 +156,20 @@ export class GameComponent implements OnInit {
   };
 
   protected onHowToPlayClick(): void {
-    this.dialog.open(HowToPlayComponent);
+    this.dialog.open(HowToPlayComponent, {
+      ariaLabel: 'How to play instructions dialog',
+    });
+  }
+
+  protected getDropZoneLabel(key: keyof VerbDetails): string {
+    const labels: Record<string, string> = {
+      base: 'Base form (I) drop zone',
+      pastSimple: 'Past simple (II) drop zone',
+      pastParticiple: 'Past participle (III) drop zone',
+    };
+    const selected = this.selected[key];
+    const zone = labels[key] ?? key;
+    return selected ? `${zone}: ${selected}` : `${zone}: empty`;
   }
 
   private initValues(): void {

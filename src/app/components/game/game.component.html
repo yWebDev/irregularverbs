@@ -1,17 +1,28 @@
-<div class="game">
-  <div class="game-counter">
-    Time spent:&nbsp;<span class="game-time">{{ time }}</span>
+<div class="game" role="main" aria-label="Irregular Verbs Game">
+  <div class="game-counter" aria-label="Game timer">
+    Time spent:&nbsp;<span class="game-time" aria-live="off">{{ time }}</span>
   </div>
   <div class="game-scorer">
-    Your Score:&nbsp;<span class="game-score">{{ currentIndex }}</span>
+    Your Score:&nbsp;<span
+      class="game-score"
+      aria-live="polite"
+      aria-atomic="true"
+      aria-label="Score: {{ currentIndex }}"
+      >{{ currentIndex }}</span
+    >
   </div>
   <div class="game-push-area">
-    <div class="game-push-area-header">
+    <div class="game-push-area-header" aria-hidden="true">
       <div>I</div>
       <div>II</div>
       <div>III</div>
     </div>
-    <div class="game-push-area-target" cdkDropListGroup>
+    <div
+      class="game-push-area-target"
+      cdkDropListGroup
+      role="group"
+      aria-label="Drop zones for verb forms"
+    >
       @for (key of keys; track key) {
         <div
           id="{{ key }}"
@@ -19,6 +30,8 @@
           [cdkDropListEnterPredicate]="enterPredicate"
           [cdkDropListConnectedTo]="['item-0', 'item-1', 'item-2']"
           (cdkDropListDropped)="drop($event, key)"
+          role="region"
+          [attr.aria-label]="getDropZoneLabel(key)"
         >
           @if (selected[key]) {
             <span class="selected-item">{{ selected[key] }}</span>
@@ -30,6 +43,7 @@
                 class="close-icon"
                 role="button"
                 tabindex="0"
+                [attr.aria-label]="'Remove ' + selected[key] + ' from ' + key + ' slot'"
                 >close</mat-icon
               >
             }
@@ -38,7 +52,11 @@
       }
     </div>
   </div>
-  <div class="game-pull-area">
+  <div
+    class="game-pull-area"
+    role="group"
+    aria-label="Available verb forms to place"
+  >
     @for (item of items; track item; let i = $index) {
       <div
         id="item-{{ i }}"
@@ -55,6 +73,7 @@
             (keyup.space)="onItemClick(i)"
             role="button"
             tabindex="0"
+            [attr.aria-label]="'Verb form: ' + item + '. Click or press Enter to place'"
             >{{ item }}</span
           >
         }
@@ -67,6 +86,7 @@
       mat-raised-button
       [disabled]="!isSelected || isGameOver"
       (click)="onCheck()"
+      aria-label="Check your verb form selections"
     >
       Check
     </button>
@@ -78,6 +98,7 @@
       (keyup.space)="onHowToPlayClick()"
       role="button"
       tabindex="0"
+      aria-haspopup="dialog"
     >How to play?</a>
   </p>
 </div>

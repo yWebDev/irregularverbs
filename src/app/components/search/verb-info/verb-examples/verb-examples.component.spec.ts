@@ -14,6 +14,11 @@ describe('VerbExamplesComponent', () => {
 
     fixture = TestBed.createComponent(VerbExamplesComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('details', {
+      base: 'test',
+      past: 'tested',
+      participle: 'tested',
+    });
     fixture.detectChanges();
   });
 

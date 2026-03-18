@@ -4,6 +4,27 @@
   flex-grow: 1;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--active-color);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+#main-content:focus {
+  outline: none;
+}
+
 .header {
   text-align: center;
   padding: 0.475em 0;
@@ -66,7 +87,7 @@
   }
 
   a {
-    color: #f44336;
+    color: var(--active-color);
     font-size: 1rem;
 
     &.is-active {
@@ -119,7 +140,7 @@
   padding: 0.5em 1.5em;
   text-transform: uppercase;
   font-weight: 600;
-  background: #f44336;
+  background: var(--active-color);
   color: #fff;
   border-radius: 5px;
   display: inline-block;
@@ -129,7 +150,7 @@
 
 .link-contact {
   text-decoration: none;
-  color: #f44336;
+  color: var(--active-color);
 }
 
 .account {
