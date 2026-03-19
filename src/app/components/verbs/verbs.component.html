@@ -9,9 +9,15 @@
   <div class="table-container">
     <div class="table-wrapper">
       <div class="overlay"></div>
+      @if (loading$ | async) {
+        <p class="loading" aria-live="polite" aria-label="Loading verbs, please wait">Loading verbs...</p>
+      }
+      @if (error$ | async; as error) {
+        <p class="error" role="alert">{{ error }}</p>
+      }
       <table
         mat-table
-        [dataSource]="($verbs | async)!"
+        [dataSource]="(verbs$ | async)!"
         multiTemplateDataRows
         class="mat-elevation-z8"
         aria-label="Complete list of irregular verbs with base, past simple and past participle forms"

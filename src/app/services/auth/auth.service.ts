@@ -1,13 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { login, logout } from '../../store/auth/auth.actions';
+import { selectIsAuthorized, selectUsername } from '../../store/auth/auth.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly USERNAME_KEY = 'iv-username';
+  private readonly store = inject(Store);
+
+  readonly username$: Observable<string | null> = this.store.select(selectUsername);
+  readonly isAuthorized$: Observable<boolean> = this.store.select(selectIsAuthorized);
 
   get username(): string | null {
-    return localStorage.getItem(this.USERNAME_KEY);
+    return localStorage.getItem('iv-username');
   }
 
   isAuthorized(): boolean {
@@ -15,10 +22,10 @@ export class AuthService {
   }
 
   login(username: string): void {
-    localStorage.setItem(this.USERNAME_KEY, username.trim().toLowerCase());
+    this.store.dispatch(login({ username }));
   }
 
   delete(): void {
-    localStorage.removeItem(this.USERNAME_KEY);
+    this.store.dispatch(logout());
   }
 }

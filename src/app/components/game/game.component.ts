@@ -7,7 +7,6 @@ import {
 } from '@angular/cdk/drag-drop';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { VerbDetails } from '../../model/verb-details';
-import { VerbsService } from '../../services/verbs/verbs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.component';
@@ -15,6 +14,20 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { HowToPlayComponent } from './how-to-play/how-to-play.component';
 import { MetaService } from 'src/app/services/meta/meta.service';
+import { Store } from '@ngrx/store';
+import {
+  endGame,
+  incrementScore,
+  startGame,
+  updateTime,
+} from 'src/app/store/game/game.actions';
+import { loadGameVerbs } from 'src/app/store/verbs/verbs.actions';
+import {
+  selectGameScore,
+  selectGameTime,
+} from 'src/app/store/game/game.selectors';
+import { selectGameVerbs } from 'src/app/store/verbs/verbs.selectors';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game',
@@ -24,17 +37,20 @@ import { MetaService } from 'src/app/services/meta/meta.service';
 })
 export class GameComponent implements OnInit, OnDestroy {
   private readonly submitBtn = viewChild<MatButton>('submitBtn');
-  private readonly verbsService = inject(VerbsService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
   private readonly metaService = inject(MetaService);
   private readonly liveAnnouncer = inject(LiveAnnouncer);
+  private readonly store = inject(Store);
 
   protected selected: Partial<VerbDetails> = {};
   protected items: string[] = [];
   protected currentIndex = 0;
   protected time = '00:00:00';
   protected isGameOver = false;
+
+  readonly score$ = this.store.select(selectGameScore);
+  readonly time$ = this.store.select(selectGameTime);
 
   private readonly defaultSelectedItem: Partial<VerbDetails> = {
     base: undefined,
@@ -62,13 +78,16 @@ export class GameComponent implements OnInit, OnDestroy {
     this.metaService.updateMeta({
       title: 'Learn Through Play',
       description: 'Boost your knowledge with a fun and interactive game!',
-      keywords: 'irregular verbs game, English learning game, ESL game, verb practice',
-      url: 'https://iverbs.info/game/active'
+      keywords:
+        'irregular verbs game, English learning game, ESL game, verb practice',
+      url: 'https://iverbs.info/game/active',
     });
     this.interval = this.startTimer();
   }
 
   ngOnInit(): void {
+    this.store.dispatch(startGame());
+    this.store.dispatch(loadGameVerbs());
     this.prepareVerbsForGame();
   }
 
@@ -79,7 +98,7 @@ export class GameComponent implements OnInit, OnDestroy {
   protected onSelectedItemCloseClick(key: keyof VerbDetails): void {
     if (this.selected[key]) {
       const index = this.items.findIndex((val) => !val);
-      this.items[index] = this.selected[key];
+      this.items[index] = this.selected[key] as string;
       delete this.selected[key];
     }
   }
@@ -121,6 +140,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     if (isCorrect) {
       this.currentIndex += 1;
+      this.store.dispatch(incrementScore());
     }
 
     const isCompleted = this.currentIndex === this.MAX_NUMBER;
@@ -135,18 +155,24 @@ export class GameComponent implements OnInit, OnDestroy {
     } else {
       this.isGameOver = true;
       clearInterval(this.interval);
+
+      this.store.dispatch(endGame({ time: this.time, isCompleted }));
+
       const announcement = isCompleted
         ? `Congratulations! You completed all ${this.MAX_NUMBER} verbs! Final time: ${this.time}`
         : `Game over. Your score is ${this.currentIndex} out of ${this.MAX_NUMBER}. Time: ${this.time}`;
       this.liveAnnouncer.announce(announcement, 'assertive');
-      this.dialog.open(GameOverDialogComponent, {
-        data: {
-          score: this.currentIndex,
-          time: this.time,
-          isCompleted,
-        },
-        ariaLabel: isCompleted ? 'Congratulations dialog' : 'Game over dialog',
-        ariaDescribedBy: 'game-over-content',
+
+      this.store.select(selectGameScore).pipe(take(1)).subscribe((score) => {
+        this.dialog.open(GameOverDialogComponent, {
+          data: {
+            score,
+            time: this.time,
+            isCompleted,
+          },
+          ariaLabel: isCompleted ? 'Congratulations dialog' : 'Game over dialog',
+          ariaDescribedBy: 'game-over-content',
+        });
       });
     }
   }
@@ -191,9 +217,19 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private prepareVerbsForGame(): void {
-    this.verbsService.getVerbsForGame().subscribe((verbs) => {
-      this.verbs = verbs;
-      this.initValues();
+    this.store.select(selectGameVerbs).pipe(take(1)).subscribe((cachedVerbs) => {
+      if (cachedVerbs.length > 0) {
+        this.verbs = cachedVerbs;
+        this.initValues();
+      }
+    });
+
+    // Also subscribe to updates from the effect loading game verbs
+    this.store.select(selectGameVerbs).subscribe((verbs) => {
+      if (verbs.length > 0 && this.verbs.length === 0) {
+        this.verbs = verbs;
+        this.initValues();
+      }
     });
   }
 
@@ -222,6 +258,7 @@ export class GameComponent implements OnInit, OnDestroy {
     return setInterval(() => {
       this.timeValue++;
       this.time = format(this.timeValue);
+      this.store.dispatch(updateTime({ time: this.time }));
     }, 1000);
   }
 }

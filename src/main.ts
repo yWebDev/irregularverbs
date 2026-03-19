@@ -31,6 +31,14 @@ import * as Sentry from '@sentry/angular';
 import { ConfigService } from './app/services/config/config.service';
 import { PerformanceService } from './app/services/performance/performance.service';
 import { errorInterceptor } from './app/interceptors/error.interceptor';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
+import { authReducer } from './app/store/auth/auth.reducer';
+import { verbsReducer } from './app/store/verbs/verbs.reducer';
+import { gameReducer } from './app/store/game/game.reducer';
+import { VerbsEffects } from './app/store/verbs/verbs.effects';
 
 if (environment.sentryDsn) {
   Sentry.init({
@@ -76,6 +84,20 @@ bootstrapApplication(AppComponent, {
       MatDialogModule,
     ),
     provideRouter(routes),
+    provideStore({
+      auth: authReducer,
+      verbs: verbsReducer,
+      game: gameReducer,
+      router: routerReducer,
+    }),
+    provideEffects([VerbsEffects]),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: environment.production,
+      autoPause: true,
+      name: 'iVerbs NgRx Store',
+    }),
+    provideRouterStore(),
     provideHttpClient(
       withInterceptors([errorInterceptor]),
       withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
