@@ -72,7 +72,7 @@ export class VerbsComponent implements OnInit {
         'Explore a comprehensive table of irregular verbs to enhance your English skills!',
       keywords:
         'irregular verbs list, English verb forms, verb conjugation, ESL resources',
-      url: 'https://iverbs.info/verbs',
+      url: 'https://irregverbs-1381.uc.r.appspot.com/verbs',
     });
   }
 

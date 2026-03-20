@@ -21,7 +21,7 @@ export class MetaService {
   private readonly metaService = inject(Meta);
 
   private defaultImage = '/assets/images/irregular-verbs-seo.jpg';
-  private defaultUrl = 'https://iverbs.info';
+  private defaultUrl = 'https://irregverbs-1381.uc.r.appspot.com';
 
   updateMeta(seoData: SEOData) {
     const {
