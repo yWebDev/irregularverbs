@@ -3,6 +3,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { LoginComponent } from './login.component';
 
+const mockInitialState = {
+  auth: { username: null, isAuthorized: false },
+};
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
@@ -10,7 +14,7 @@ describe('LoginComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LoginComponent],
-      providers: [provideMockStore()],
+      providers: [provideMockStore({ initialState: mockInitialState })],
     }).compileComponents();
   });
 

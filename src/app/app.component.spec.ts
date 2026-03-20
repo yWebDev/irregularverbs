@@ -3,11 +3,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 
+const mockInitialState = {
+  auth: { username: null, isAuthorized: false },
+};
+
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, AppComponent],
-      providers: [provideMockStore()],
+      providers: [provideMockStore({ initialState: mockInitialState })],
     }).compileComponents();
   });
 
