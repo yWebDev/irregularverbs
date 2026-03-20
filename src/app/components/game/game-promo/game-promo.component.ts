@@ -22,7 +22,7 @@ export class GamePromoComponent {
       title: 'Start Learning Through Play',
       description: 'Boost your knowledge with a fun and interactive game!',
       keywords: 'irregular verbs game, English learning game, ESL game, verb practice',
-      url: 'https://iverbs.info/game'
+      url: 'https://irregverbs-1381.uc.r.appspot.com/game'
     });
   }
 

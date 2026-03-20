@@ -23,7 +23,7 @@ export class LoginComponent {
       title: 'Choose your username',
       description: 'Please choose your username',
       keywords: 'login, username, irregular verbs game',
-      url: 'https://iverbs.info/game/login'
+      url: 'https://irregverbs-1381.uc.r.appspot.com/game/login'
     });
   }
 

@@ -80,7 +80,7 @@ export class GameComponent implements OnInit, OnDestroy {
       description: 'Boost your knowledge with a fun and interactive game!',
       keywords:
         'irregular verbs game, English learning game, ESL game, verb practice',
-      url: 'https://iverbs.info/game/active',
+      url: 'https://irregverbs-1381.uc.r.appspot.com/game/active',
     });
     this.interval = this.startTimer();
   }

@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /private/
-Sitemap: https://iverbs.info/sitemap.xml
+Sitemap: https://irregverbs-1381.uc.r.appspot.com/sitemap.xml
