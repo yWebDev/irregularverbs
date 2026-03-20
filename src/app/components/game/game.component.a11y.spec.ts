@@ -8,6 +8,18 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { of } from 'rxjs';
 import { VerbsService } from '../../services/verbs/verbs.service';
 
+const mockGameVerbs = [
+  { id: '1', base: 'be', pastSimple: 'was', pastParticiple: 'been' },
+  { id: '2', base: 'go', pastSimple: 'went', pastParticiple: 'gone' },
+  { id: '3', base: 'do', pastSimple: 'did', pastParticiple: 'done' },
+];
+
+const mockInitialState = {
+  auth: { username: null, isAuthorized: false },
+  game: { score: 0, maxRounds: 50, isGameOver: false, isCompleted: false, isActive: false, time: '00:00:00', history: [] },
+  verbs: { verbs: [], gameVerbs: mockGameVerbs, loading: false, gameVerbsLoading: false, error: null },
+};
+
 describe('GameComponent Accessibility', () => {
   let component: GameComponent;
   let fixture: ComponentFixture<GameComponent>;
@@ -32,7 +44,7 @@ describe('GameComponent Accessibility', () => {
       providers: [
         provideHttpClient(),
         provideAnimations(),
-        provideMockStore(),
+        provideMockStore({ initialState: mockInitialState }),
         { provide: LiveAnnouncer, useValue: liveAnnouncerSpy },
         { provide: VerbsService, useValue: verbsServiceSpy },
       ],

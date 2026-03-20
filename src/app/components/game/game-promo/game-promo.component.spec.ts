@@ -4,6 +4,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { GamePromoComponent } from './game-promo.component';
 
+const mockInitialState = {
+  auth: { username: null, isAuthorized: false },
+};
+
 describe('GamePromoComponent', () => {
   let component: GamePromoComponent;
   let fixture: ComponentFixture<GamePromoComponent>;
@@ -11,7 +15,7 @@ describe('GamePromoComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [GamePromoComponent],
-      providers: [provideRouter([]), provideMockStore()],
+      providers: [provideRouter([]), provideMockStore({ initialState: mockInitialState })],
     }).compileComponents();
   });
 

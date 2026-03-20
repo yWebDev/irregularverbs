@@ -6,6 +6,11 @@ import { of } from 'rxjs';
 import { VerbsComponent } from './verbs.component';
 import { VerbsService } from '../../services/verbs/verbs.service';
 
+const mockInitialState = {
+  auth: { username: null, isAuthorized: false },
+  verbs: { verbs: [], gameVerbs: [], loading: false, gameVerbsLoading: false, error: null },
+};
+
 describe('VerbsComponent', () => {
   let component: VerbsComponent;
   let fixture: ComponentFixture<VerbsComponent>;
@@ -25,7 +30,7 @@ describe('VerbsComponent', () => {
       imports: [VerbsComponent],
       providers: [
         provideAnimations(),
-        provideMockStore(),
+        provideMockStore({ initialState: mockInitialState }),
         { provide: VerbsService, useValue: verbsServiceSpy },
       ],
     })

@@ -4,12 +4,16 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
 
+const mockInitialState = {
+  auth: { username: null, isAuthorized: false },
+};
+
 describe('AppComponent Accessibility', () => {
   beforeEach(async () => {
     jasmine.addMatchers(toHaveNoViolations);
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter([]), provideMockStore()],
+      providers: [provideRouter([]), provideMockStore({ initialState: mockInitialState })],
     }).compileComponents();
   });
 

@@ -7,6 +7,17 @@ import { axe, toHaveNoViolations } from 'jasmine-axe';
 import { of } from 'rxjs';
 import { VerbsService } from '../../services/verbs/verbs.service';
 
+const mockVerbs = [
+  { id: '1', base: 'be', pastSimple: 'was', pastParticiple: 'been' },
+  { id: '2', base: 'go', pastSimple: 'went', pastParticiple: 'gone' },
+  { id: '3', base: 'do', pastSimple: 'did', pastParticiple: 'done' },
+];
+
+const mockInitialState = {
+  auth: { username: null, isAuthorized: false },
+  verbs: { verbs: mockVerbs, gameVerbs: [], loading: false, gameVerbsLoading: false, error: null },
+};
+
 describe('VerbsComponent Accessibility', () => {
   let fixture: ComponentFixture<VerbsComponent>;
 
@@ -27,7 +38,7 @@ describe('VerbsComponent Accessibility', () => {
       providers: [
         provideHttpClient(),
         provideAnimations(),
-        provideMockStore(),
+        provideMockStore({ initialState: mockInitialState }),
         { provide: VerbsService, useValue: verbsServiceSpy },
       ],
     }).compileComponents();
