@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideMockStore } from '@ngrx/store/testing';
 import { VerbsComponent } from './verbs.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
 import { of } from 'rxjs';
@@ -26,6 +27,7 @@ describe('VerbsComponent Accessibility', () => {
       providers: [
         provideHttpClient(),
         provideAnimations(),
+        provideMockStore(),
         { provide: VerbsService, useValue: verbsServiceSpy },
       ],
     }).compileComponents();

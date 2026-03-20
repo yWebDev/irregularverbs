@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideMockStore } from '@ngrx/store/testing';
 import { GameComponent } from './game.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
@@ -31,6 +32,7 @@ describe('GameComponent Accessibility', () => {
       providers: [
         provideHttpClient(),
         provideAnimations(),
+        provideMockStore(),
         { provide: LiveAnnouncer, useValue: liveAnnouncerSpy },
         { provide: VerbsService, useValue: verbsServiceSpy },
       ],

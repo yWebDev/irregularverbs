@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
 import { VerbsComponent } from './verbs.component';
@@ -24,6 +25,7 @@ describe('VerbsComponent', () => {
       imports: [VerbsComponent],
       providers: [
         provideAnimations(),
+        provideMockStore(),
         { provide: VerbsService, useValue: verbsServiceSpy },
       ],
     })
