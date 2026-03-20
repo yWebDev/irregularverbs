@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
 
@@ -8,7 +9,7 @@ describe('AppComponent Accessibility', () => {
     jasmine.addMatchers(toHaveNoViolations);
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter([])],
+      providers: [provideRouter([]), provideMockStore()],
     }).compileComponents();
   });
 

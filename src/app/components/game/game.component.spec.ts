@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
 import { GameComponent } from './game.component';
@@ -24,6 +25,7 @@ describe('GameComponent', () => {
       imports: [GameComponent],
       providers: [
         provideAnimations(),
+        provideMockStore(),
         { provide: VerbsService, useValue: verbsServiceSpy },
       ],
     }).compileComponents();
