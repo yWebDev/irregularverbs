@@ -1,8 +1,7 @@
 /**
  * E2E tests — Verbs table page (route: /verbs)
  *
- * Covers: page navigation, table rendering, column headers, row expansion,
- * and accessibility of the verbs list.
+ * Covers: table rendering, column headers, data loading, and navigation.
  *
  * The verbs endpoint returns AES-encrypted JSON decrypted by the Angular app
  * using `API_KEY + 'ig-verbs'` (from /assets/config.json). We intercept both
@@ -27,7 +26,6 @@ const encryptedMockVerbs = CryptoJS.AES.encrypt(
 
 test.describe("Verbs table page", () => {
   test.beforeEach(async ({ page, verbsPage }) => {
-    // Return a known API_KEY so the app decrypts with MOCK_SECRET
     await page.route("**/assets/config.json", (route) =>
       route.fulfill({
         status: 200,
@@ -35,7 +33,6 @@ test.describe("Verbs table page", () => {
         body: JSON.stringify({ API_KEY: MOCK_API_KEY }),
       })
     );
-    // Return mock verbs encrypted with the matching key
     await page.route("**/api/verbs/verbs", (route) =>
       route.fulfill({
         status: 200,
@@ -46,24 +43,16 @@ test.describe("Verbs table page", () => {
     await verbsPage.goto();
   });
 
-  test("displays the verbs page heading", async ({ verbsPage }) => {
+  test("renders heading, table with column headers, and loads data", async ({
+    verbsPage,
+  }) => {
     await verbsPage.expectHeadingVisible();
     const headingText = await verbsPage.heading.textContent();
     expect(headingText).toBeTruthy();
     expect(headingText!.toLowerCase()).toContain("verb");
-  });
 
-  test("renders the table", async ({ verbsPage }) => {
     await verbsPage.expectTableVisible();
-  });
-
-  test("shows all three column headers", async ({ verbsPage }) => {
     await verbsPage.expectColumnHeadersVisible();
-  });
-
-  test("loads verbs data (at least 1 row visible within timeout)", async ({
-    verbsPage,
-  }) => {
     await expect(verbsPage.tableRows.first()).toBeVisible({ timeout: 20_000 });
   });
 
@@ -85,17 +74,17 @@ test.describe("Verbs table page", () => {
 });
 
 test.describe("Verbs table page — navigation", () => {
-  test("can navigate back to search page via browser back", async ({ page }) => {
+  test("direct URL /verbs loads correctly and can navigate back", async ({
+    page,
+  }) => {
     await page.goto("/");
     await page.goto("/verbs");
-    await page.goBack();
-    await expect(page).toHaveURL("/");
-  });
-
-  test("direct URL /verbs loads correctly", async ({ page }) => {
-    await page.goto("/verbs");
     await expect(page).toHaveURL(/\/verbs/);
+
     const heading = page.locator("h2, h1").first();
     await expect(heading).toBeVisible();
+
+    await page.goBack();
+    await expect(page).toHaveURL("/");
   });
 });

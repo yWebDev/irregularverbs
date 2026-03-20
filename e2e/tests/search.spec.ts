@@ -2,11 +2,7 @@
  * E2E tests — Search page (route: /)
  *
  * Covers the main user journey: arrive at the home page, see the heading,
- * search for a verb, observe autocomplete suggestions, select a result, and
- * see the verb information panel.
- *
- * These tests assume the app is running at the BASE_URL configured in
- * playwright.config.ts (default: http://localhost:4200).
+ * search for a verb, and navigate to other sections.
  */
 import { test, expect } from "../fixtures/app.fixture";
 
@@ -16,24 +12,18 @@ test.describe("Search page", () => {
     await searchPage.waitForLoad();
   });
 
-  test("displays the home page heading", async ({ searchPage }) => {
+  test("renders heading, search input, and navigation links", async ({
+    searchPage,
+    page,
+  }) => {
     await searchPage.expectHeadingVisible();
     const headingText = await searchPage.heading.textContent();
     expect(headingText).toBeTruthy();
-  });
 
-  test("shows search input field", async ({ searchPage }) => {
     await searchPage.expectSearchInputVisible();
-  });
 
-  test("has a link to the game", async ({ page }) => {
-    const gameLink = page.locator('a[href*="/game"]').first();
-    await expect(gameLink).toBeVisible();
-  });
-
-  test("has a link to the verbs table", async ({ page }) => {
-    const verbsLink = page.locator('a[href*="/verbs"]').first();
-    await expect(verbsLink).toBeVisible();
+    await expect(page.locator('a[href*="/game"]').first()).toBeVisible();
+    await expect(page.locator('a[href*="/verbs"]').first()).toBeVisible();
   });
 
   test("page has a meaningful title", async ({ searchPage }) => {
@@ -63,21 +53,18 @@ test.describe("Search page", () => {
 });
 
 test.describe("Search page — accessibility", () => {
-  test("heading has correct heading level hierarchy", async ({ searchPage }) => {
+  test("has correct heading hierarchy and accessible input", async ({
+    searchPage,
+  }) => {
     await searchPage.goto();
-    // At least one heading should be present
-    const headings = searchPage.page.locator("h1, h2, h3");
-    const count = await headings.count();
-    expect(count).toBeGreaterThan(0);
-  });
 
-  test("search input has an accessible label", async ({ searchPage }) => {
-    await searchPage.goto();
+    const headings = searchPage.page.locator("h1, h2, h3");
+    expect(await headings.count()).toBeGreaterThan(0);
+
     const inputs = searchPage.page.locator("input");
     const count = await inputs.count();
     expect(count).toBeGreaterThan(0);
 
-    // Each visible input should have some form of accessible label
     for (let i = 0; i < count; i++) {
       const input = inputs.nth(i);
       if (await input.isVisible()) {
@@ -87,8 +74,7 @@ test.describe("Search page — accessibility", () => {
         const labelForIt = id
           ? await searchPage.page.locator(`label[for="${id}"]`).count()
           : 0;
-        const hasAccessibleName = ariaLabel || placeholder || labelForIt > 0;
-        expect(hasAccessibleName).toBeTruthy();
+        expect(ariaLabel || placeholder || labelForIt > 0).toBeTruthy();
       }
     }
   });
