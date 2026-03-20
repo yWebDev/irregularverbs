@@ -32,7 +32,7 @@
       </li>
     </ul>
     <div>
-      @if (username) {
+      @if (username$ | async; as username) {
         <a
           rel="nofollow"
           class="account"

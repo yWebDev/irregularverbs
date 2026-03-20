@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { SeoService } from './services/seo/seo.service';
 import {
@@ -17,6 +18,7 @@ import { RouterFocusDirective } from './directives/router-focus.directive';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
+    AsyncPipe,
     RouterLink,
     CdkScrollable,
     RouterLinkActive,
@@ -33,12 +35,10 @@ export class AppComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly seoService = inject(SeoService);
 
+  readonly username$ = this.authService.username$;
+
   ngOnInit(): void {
     this.seoService.updateHomePageSEO();
-  }
-
-  get username(): string | null {
-    return this.authService.username;
   }
 
   isCurrentRoute(path: string): boolean {

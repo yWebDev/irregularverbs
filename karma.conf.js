@@ -27,7 +27,15 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require("path").join(__dirname, "./coverage/iverbs"),
       subdir: ".",
-      reporters: [{ type: "html" }, { type: "text-summary" }],
+      reporters: [{ type: "html" }, { type: "lcov" }, { type: "text-summary" }],
+      check: {
+        global: {
+          statements: 70,
+          branches: 60,
+          functions: 70,
+          lines: 70,
+        },
+      },
     },
     reporters: ["progress", "kjhtml"],
     port: 9876,
