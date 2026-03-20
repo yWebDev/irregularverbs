@@ -98,7 +98,7 @@ jobs:
 
       - name: Serve app and run Playwright E2E tests
         run: |
-          npx http-server dist/browser -p 4200 --silent &
+          npx http-server dist/browser -p 4200 --silent --proxy http://localhost:4200? &
           sleep 3
           BASE_URL=http://localhost:4200 npx playwright test --project=chromium
 
