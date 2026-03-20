@@ -2,6 +2,9 @@
   "/api": {
     "target": "https://irregverbs-1381.uc.r.appspot.com",
     "secure": false,
-    "changeOrigin": true
+    "changeOrigin": true,
+    "headers": {
+      "Origin": "https://irregverbs-1381.uc.r.appspot.com"
+    }
   }
 }

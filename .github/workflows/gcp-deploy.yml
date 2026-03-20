@@ -32,8 +32,16 @@ jobs:
       - name: Static analysis (ESLint)
         run: npm run lint
 
-      - name: Run unit tests
-        run: npm test -- --watch=false --browsers=ChromeHeadless
+      - name: Run unit tests with coverage
+        run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-coverage
+          path: coverage/iverbs/
+          retention-days: 14
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -46,9 +54,45 @@ jobs:
         with:
           category: "/language:javascript-typescript"
 
-  build-and-deploy:
+  e2e:
     runs-on: ubuntu-latest
     needs: security-scan
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build app for E2E (staging config)
+        run: npm run build
+
+      - name: Serve app and run Playwright E2E tests
+        run: |
+          npx http-server dist/browser -p 4200 --silent &
+          sleep 3
+          BASE_URL=http://localhost:4200 npx playwright test --project=chromium
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: [security-scan, e2e]
 
     steps:
       - name: Checkout repository
