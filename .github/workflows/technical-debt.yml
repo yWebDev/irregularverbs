@@ -1,0 +1,32 @@
+name: Technical debt (audit & outdated)
+
+on:
+  schedule:
+    # Mondays 06:00 UTC — dependency and audit visibility without blocking deploys
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npm-audit-outdated:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: npm audit (moderate and above)
+        run: npm audit --audit-level=moderate
+
+      - name: List outdated packages
+        run: npm outdated || true
