@@ -47,6 +47,9 @@ src/assets/config.json
 /test-results
 /playwright-report
 
+# Generated build metadata (overwritten by build:prod)
+src/app/build-info.prod.ts
+
 # System Files
 .DS_Store
 Thumbs.db

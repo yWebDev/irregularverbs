@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GameOverDialogComponent } from './game-over-dialog.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
+import { testingTranslateProviders } from '../../../testing/testing-translate.providers';
 
 describe('GameOverDialogComponent Accessibility', () => {
   let fixture: ComponentFixture<GameOverDialogComponent>;
@@ -17,7 +18,10 @@ describe('GameOverDialogComponent Accessibility', () => {
 
     await TestBed.configureTestingModule({
       imports: [GameOverDialogComponent],
-      providers: [{ provide: MAT_DIALOG_DATA, useValue: mockDialogData }],
+      providers: [
+        ...testingTranslateProviders,
+        { provide: MAT_DIALOG_DATA, useValue: mockDialogData },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GameOverDialogComponent);
@@ -41,9 +45,14 @@ describe('GameOverDialogComponent Accessibility', () => {
     expect(content.getAttribute('aria-describedby')).toBe('game-over-title');
   });
 
-  it('should have close button with aria-label', () => {
-    const closeButton = fixture.nativeElement.querySelector('[mat-dialog-close]');
-    expect(closeButton.getAttribute('aria-label')).toContain('Close');
+  it('should have close button with accessible name', () => {
+    const closeButton = fixture.nativeElement.querySelector(
+      'mat-dialog-actions button',
+    );
+    expect(closeButton).toBeTruthy();
+    const aria = closeButton?.getAttribute('aria-label');
+    const label = aria ?? closeButton?.textContent ?? '';
+    expect(label).toContain('Close');
   });
 
   it('should display score and time with semantic markup', () => {
@@ -57,7 +66,10 @@ describe('GameOverDialogComponent Accessibility', () => {
     TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
       imports: [GameOverDialogComponent],
-      providers: [{ provide: MAT_DIALOG_DATA, useValue: incompleteData }],
+      providers: [
+        ...testingTranslateProviders,
+        { provide: MAT_DIALOG_DATA, useValue: incompleteData },
+      ],
     }).compileComponents();
 
     const newFixture = TestBed.createComponent(GameOverDialogComponent);

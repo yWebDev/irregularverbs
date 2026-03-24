@@ -7,6 +7,7 @@ import { axe, toHaveNoViolations } from 'jasmine-axe';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { of } from 'rxjs';
 import { VerbsService } from '../../services/verbs/verbs.service';
+import { testingTranslateProviders } from '../../testing/testing-translate.providers';
 
 const mockGameVerbs = [
   { id: '1', base: 'be', pastSimple: 'was', pastParticiple: 'been' },
@@ -47,6 +48,7 @@ describe('GameComponent Accessibility', () => {
         provideMockStore({ initialState: mockInitialState }),
         { provide: LiveAnnouncer, useValue: liveAnnouncerSpy },
         { provide: VerbsService, useValue: verbsServiceSpy },
+        ...testingTranslateProviders,
       ],
     }).compileComponents();
 

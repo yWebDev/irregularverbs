@@ -28,12 +28,20 @@ import {
 } from 'src/app/store/game/game.selectors';
 import { selectGameVerbs } from 'src/app/store/verbs/verbs.selectors';
 import { take } from 'rxjs/operators';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
-  imports: [CdkDropListGroup, CdkDropList, CdkDrag, MatButton, MatIcon],
+  imports: [
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
+    MatButton,
+    MatIcon,
+    TranslatePipe,
+  ],
 })
 export class GameComponent implements OnInit, OnDestroy {
   private readonly submitBtn = viewChild<MatButton>('submitBtn');
@@ -42,6 +50,7 @@ export class GameComponent implements OnInit, OnDestroy {
   private readonly metaService = inject(MetaService);
   private readonly liveAnnouncer = inject(LiveAnnouncer);
   private readonly store = inject(Store);
+  private readonly translate = inject(TranslateService);
 
   protected selected: Partial<VerbDetails> = {};
   protected items: string[] = [];
@@ -147,7 +156,10 @@ export class GameComponent implements OnInit, OnDestroy {
 
     if (isCorrect && !isCompleted) {
       this.liveAnnouncer.announce(
-        `Correct! Score: ${this.currentIndex} out of ${this.MAX_NUMBER}`,
+        this.translate.instant('GAME.ANNOUNCE_CORRECT', {
+          score: this.currentIndex,
+          max: this.MAX_NUMBER,
+        }),
         'polite',
       );
       this.showSnack();
@@ -159,8 +171,15 @@ export class GameComponent implements OnInit, OnDestroy {
       this.store.dispatch(endGame({ time: this.time, isCompleted }));
 
       const announcement = isCompleted
-        ? `Congratulations! You completed all ${this.MAX_NUMBER} verbs! Final time: ${this.time}`
-        : `Game over. Your score is ${this.currentIndex} out of ${this.MAX_NUMBER}. Time: ${this.time}`;
+        ? this.translate.instant('GAME.ANNOUNCE_WIN', {
+            max: this.MAX_NUMBER,
+            time: this.time,
+          })
+        : this.translate.instant('GAME.ANNOUNCE_LOSE', {
+            score: this.currentIndex,
+            max: this.MAX_NUMBER,
+            time: this.time,
+          });
       this.liveAnnouncer.announce(announcement, 'assertive');
 
       this.store.select(selectGameScore).pipe(take(1)).subscribe((score) => {
@@ -170,7 +189,9 @@ export class GameComponent implements OnInit, OnDestroy {
             time: this.time,
             isCompleted,
           },
-          ariaLabel: isCompleted ? 'Congratulations dialog' : 'Game over dialog',
+          ariaLabel: isCompleted
+            ? this.translate.instant('GAME.DIALOG_WIN_ARIA')
+            : this.translate.instant('GAME.DIALOG_LOSE_ARIA'),
           ariaDescribedBy: 'game-over-content',
         });
       });
@@ -183,19 +204,44 @@ export class GameComponent implements OnInit, OnDestroy {
 
   protected onHowToPlayClick(): void {
     this.dialog.open(HowToPlayComponent, {
-      ariaLabel: 'How to play instructions dialog',
+      ariaLabel: this.translate.instant('GAME.HOW_TO_DIALOG_ARIA'),
+    });
+  }
+
+  protected removeFromSlotAria(
+    key: keyof VerbDetails,
+    word: string,
+  ): string {
+    return this.translate.instant('GAME.REMOVE_FROM_SLOT', {
+      word,
+      slot: this.slotNounLabel(key),
     });
   }
 
   protected getDropZoneLabel(key: keyof VerbDetails): string {
     const labels: Record<string, string> = {
-      base: 'Base form (I) drop zone',
-      pastSimple: 'Past simple (II) drop zone',
-      pastParticiple: 'Past participle (III) drop zone',
+      base: this.translate.instant('GAME.DROP_BASE'),
+      pastSimple: this.translate.instant('GAME.DROP_PAST'),
+      pastParticiple: this.translate.instant('GAME.DROP_PART'),
     };
     const selected = this.selected[key];
-    const zone = labels[key] ?? key;
-    return selected ? `${zone}: ${selected}` : `${zone}: empty`;
+    const zone = labels[key as string] ?? String(key);
+    return selected
+      ? this.translate.instant('GAME.DROP_ZONE_STATE', {
+          zone,
+          value: selected,
+        })
+      : this.translate.instant('GAME.DROP_EMPTY', { zone });
+  }
+
+  private slotNounLabel(key: keyof VerbDetails): string {
+    const map: Record<string, string> = {
+      base: 'GAME.SLOT_BASE',
+      pastSimple: 'GAME.SLOT_PAST',
+      pastParticiple: 'GAME.SLOT_PART',
+    };
+    const id = map[key as string];
+    return id ? this.translate.instant(id) : String(key);
   }
 
   private initValues(): void {
@@ -235,10 +281,10 @@ export class GameComponent implements OnInit, OnDestroy {
 
   private showSnack(): void {
     const message = this.shuffleArray([
-      'Correct!',
-      "You're right!",
-      'Awesome!',
-      'Good job!',
+      this.translate.instant('GAME.SNACK_CORRECT'),
+      this.translate.instant('GAME.SNACK_RIGHT'),
+      this.translate.instant('GAME.SNACK_AWESOME'),
+      this.translate.instant('GAME.SNACK_GOOD_JOB'),
     ])[0];
     this.snackBar.open(message, '', {
       verticalPosition: 'top',

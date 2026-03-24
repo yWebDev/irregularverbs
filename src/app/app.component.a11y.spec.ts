@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
+import { testingTranslateProviders } from './testing/testing-translate.providers';
 
 const mockInitialState = {
   auth: { username: null, isAuthorized: false },
@@ -13,7 +14,11 @@ describe('AppComponent Accessibility', () => {
     jasmine.addMatchers(toHaveNoViolations);
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter([]), provideMockStore({ initialState: mockInitialState })],
+      providers: [
+        provideRouter([]),
+        provideMockStore({ initialState: mockInitialState }),
+        ...testingTranslateProviders,
+      ],
     }).compileComponents();
   });
 

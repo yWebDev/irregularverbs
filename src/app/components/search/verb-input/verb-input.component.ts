@@ -15,6 +15,7 @@ import { MatOption } from '@angular/material/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-verb-input',
@@ -32,6 +33,7 @@ import { AsyncPipe } from '@angular/common';
         MatSuffix,
         MatIcon,
         AsyncPipe,
+        TranslatePipe,
     ]
 })
 export class VerbInputComponent {

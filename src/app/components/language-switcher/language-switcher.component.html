@@ -1,0 +1,16 @@
+<mat-button-toggle-group
+  class="lang-toggle"
+  [value]="currentLang"
+  (change)="onLangSelect($event)"
+  [attr.aria-label]="'LANG.LABEL' | translate"
+>
+  <mat-button-toggle value="en" [attr.aria-label]="'LANG.EN' | translate"
+    >EN</mat-button-toggle
+  >
+  <mat-button-toggle value="es" [attr.aria-label]="'LANG.ES' | translate"
+    >ES</mat-button-toggle
+  >
+  <mat-button-toggle value="uk" [attr.aria-label]="'LANG.UK' | translate"
+    >UK</mat-button-toggle
+  >
+</mat-button-toggle-group>

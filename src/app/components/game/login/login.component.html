@@ -1,30 +1,32 @@
 <form #form="ngForm" class="login-form" (ngSubmit)="onSubmit(form.valid)">
-  <p>Please choose your username</p>
+  <p>{{ 'LOGIN.CHOOSE_USER' | translate }}</p>
   <p>
     <mat-form-field>
       <input
         #input="ngModel"
         name="username"
         matInput
-        placeholder="Username"
+        [placeholder]="'LOGIN.USERNAME' | translate"
         [(ngModel)]="username"
         required
         minlength="6"
         pattern="[0-9A-Za-z]*"
       />
       @if (input.hasError("pattern")) {
-        <mat-error>
-          Only contains <strong>alphanumeric</strong> characters
-        </mat-error>
+        <mat-error
+          [innerHTML]="'LOGIN.PATTERN_ERROR' | translate"
+        ></mat-error>
       }
       @if (input.hasError("minlength")) {
-        <mat-error> Minimal length is <strong>6</strong> characters </mat-error>
+        <mat-error
+          [innerHTML]="'LOGIN.MIN_LENGTH_ERROR' | translate"
+        ></mat-error>
       }
     </mat-form-field>
   </p>
   <p>
     <button mat-raised-button type="submit" [disabled]="!form.valid">
-      Start Game
+      {{ 'LOGIN.START' | translate }}
     </button>
   </p>
 </form>

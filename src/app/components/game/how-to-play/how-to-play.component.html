@@ -1,32 +1,39 @@
-<h2 class="title text-center" mat-dialog-title id="how-to-play-title">How to play?</h2>
+<h2 class="title text-center" mat-dialog-title id="how-to-play-title">
+  {{ 'HOW_TO_PLAY.TITLE' | translate }}
+</h2>
 <mat-dialog-content id="how-to-play-content" aria-describedby="how-to-play-title">
-  <h3>Goal</h3>
+  <h3>{{ 'HOW_TO_PLAY.GOAL' | translate }}</h3>
   <p>
-    Match the correct forms (I, II, and III) of 50 irregular verbs as quickly as
-    possible.
+    {{ 'HOW_TO_PLAY.GOAL_TEXT' | translate }}
   </p>
 
-  <h3>Drag and Drop or Click</h3>
+  <h3>{{ 'HOW_TO_PLAY.DRAG' | translate }}</h3>
   <p>
-    Select the correct verb forms and place them in the appropriate boxes
-    labeled I, II, and III.
+    {{ 'HOW_TO_PLAY.DRAG_TEXT' | translate }}
   </p>
 
-  <h3>Track Your Progress</h3>
+  <h3>{{ 'HOW_TO_PLAY.PROGRESS' | translate }}</h3>
   <p>
-    <b>Time Spent:</b> A timer at the top shows how long you've been playing.<br />
-    <b>Your Score:</b> Displays the number of correctly matched verbs so far.
+    <strong>{{ 'HOW_TO_PLAY.PROGRESS_TIME_LABEL' | translate }}</strong>
+    {{ 'HOW_TO_PLAY.PROGRESS_TIME_TEXT' | translate }}<br />
+    <strong>{{ 'HOW_TO_PLAY.PROGRESS_SCORE_LABEL' | translate }}</strong>
+    {{ 'HOW_TO_PLAY.PROGRESS_SCORE_TEXT' | translate }}
   </p>
 
-  <h3>Check Your Answers</h3>
+  <h3>{{ 'HOW_TO_PLAY.CHECK_SECTION' | translate }}</h3>
   <p>
-    Once you've filled in the forms, click the Check button or press Enter to
-    see if your answers are correct.
+    {{ 'HOW_TO_PLAY.CHECK_TEXT' | translate }}
   </p>
 
-  <h3>Challenge Yourself</h3>
-  <p>Aim to complete all 50 verbs in the shortest time possible!</p>
+  <h3>{{ 'HOW_TO_PLAY.CHALLENGE' | translate }}</h3>
+  <p>{{ 'HOW_TO_PLAY.CHALLENGE_TEXT' | translate }}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button mat-button mat-dialog-close aria-label="Close how to play dialog">Close</button>
+  <button
+    mat-button
+    mat-dialog-close
+    [attr.aria-label]="'HOW_TO_PLAY.CLOSE_ARIA' | translate"
+  >
+    {{ 'HOW_TO_PLAY.CLOSE' | translate }}
+  </button>
 </mat-dialog-actions>

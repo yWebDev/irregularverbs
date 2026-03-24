@@ -1,40 +1,39 @@
 <section class="search">
   <div>
     <h2 class="text-center">
-      Learn Irregular Verb Forms Easily and Playfully!
+      {{ 'SEARCH.HERO_TITLE' | translate }}
     </h2>
     <div>
       <p class="text-center">
-        Have you ever wondered which form of an irregular verb is correct? For
-        example, become or became, went or gone? This site is here to help!
+        {{ 'SEARCH.INTRO' | translate }}
       </p>
 
       <p class="text-center">
-        <strong>Learn Through Play:</strong> Boost your knowledge with a fun and
-        interactive <a class="text-active" routerLink="/game">game</a>!
+        <strong>{{ 'SEARCH.LEARN_PLAY' | translate }}</strong>
+        {{ 'SEARCH.LEARN_PLAY_BEFORE' | translate
+        }}<a class="text-active" routerLink="/game">{{
+          'SEARCH.LEARN_PLAY_LINK' | translate
+        }}</a
+        >{{ 'SEARCH.LEARN_PLAY_AFTER' | translate }}
       </p>
 
       <p class="text-center">
-        <strong>Find the Forms:</strong> Simply enter any irregular verb into
-        the input field below to instantly discover whether it’s the first,
-        second, or third form.<br />For each form, you can also view
-        AI-generated example sentences in an expandable panel, making learning
-        contextual and engaging!
+        <strong>{{ 'SEARCH.FIND_FORMS' | translate }}</strong>
+        {{ 'SEARCH.FIND_FORMS_BODY' | translate }}
       </p>
 
       <p class="text-center">
-        <strong>Explore the Full List:</strong> Want a complete reference?
-        Browse our
-        <a class="text-active" routerLink="/verbs">Irregular Verbs Table</a>,
-        where you can find all verbs available in our database, neatly organized
-        with their forms. <br />
-        Use it as a study guide or a quick lookup tool to improve your English
-        effortlessly!
+        <strong>{{ 'SEARCH.EXPLORE_LIST' | translate }}</strong>
+        {{ 'SEARCH.EXPLORE_BEFORE' | translate
+        }}<a class="text-active" routerLink="/verbs">{{
+          'SEARCH.EXPLORE_LINK' | translate
+        }}</a
+        >{{ 'SEARCH.EXPLORE_AFTER' | translate }}
       </p>
 
       <p class="text-center">
-        <strong>Learning English</strong> has never been this useful and fun!
-        Try it now!
+        <strong>{{ 'SEARCH.CLOSING_LINE1' | translate }}</strong
+        >{{ 'SEARCH.CLOSING_LINE2' | translate }}
       </p>
     </div>
   </div>

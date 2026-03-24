@@ -1,9 +1,9 @@
-<a class="skip-link" href="#main-content">Skip to main content</a>
+<a class="skip-link" href="#main-content">{{ 'APP.SKIP_TO_MAIN' | translate }}</a>
 <header class="header" role="banner">
-  <h1><a routerLink="/">Irregular Verbs</a></h1>
+  <h1><a routerLink="/">{{ 'APP.TITLE' | translate }}</a></h1>
 </header>
 <main class="main" cdkScrollable>
-  <nav class="navigation" aria-label="Main navigation">
+  <nav class="navigation" [attr.aria-label]="'NAV.MAIN' | translate">
     <ul role="list">
       <li>
         <a
@@ -11,7 +11,7 @@
           [routerLinkActive]="['is-active']"
           [routerLinkActiveOptions]="{ exact: true }"
           [attr.aria-current]="isCurrentRoute('/') ? 'page' : null"
-          >Verbs Search</a
+          >{{ 'NAV.SEARCH' | translate }}</a
         >
       </li>
       <li>
@@ -19,7 +19,7 @@
           routerLink="/game"
           [routerLinkActive]="['is-active']"
           [attr.aria-current]="isCurrentRoute('/game') ? 'page' : null"
-          >Verbs Game</a
+          >{{ 'NAV.GAME' | translate }}</a
         >
       </li>
       <li>
@@ -27,17 +27,20 @@
           routerLink="/verbs"
           [routerLinkActive]="['is-active']"
           [attr.aria-current]="isCurrentRoute('/verbs') ? 'page' : null"
-          >Verbs Table</a
+          >{{ 'NAV.TABLE' | translate }}</a
         >
       </li>
     </ul>
-    <div>
+    <div class="nav-actions">
+      <app-language-switcher />
       @if (username$ | async; as username) {
         <a
           rel="nofollow"
           class="account"
           [matMenuTriggerFor]="menu"
-          [attr.aria-label]="'Account menu for ' + username"
+          [attr.aria-label]="
+            'APP.ACCOUNT_MENU' | translate: { username: username }
+          "
         >
           <span>{{ username }}</span>
           <mat-icon aria-hidden="true">account_circle</mat-icon>
@@ -46,7 +49,7 @@
       <mat-menu #menu="matMenu">
         <button class="delete-action" mat-menu-item (click)="onDelete()">
           <mat-icon aria-hidden="true">delete</mat-icon>
-          <span>Delete account</span>
+          <span>{{ 'ACCOUNT.DELETE' | translate }}</span>
         </button>
       </mat-menu>
     </div>
@@ -56,17 +59,24 @@
   </div>
 </main>
 <footer class="footer">
-  <span>
-    <span
-    class="app-build-meta"
-    [attr.title]="buildDetailsTitle || null"
-    [attr.aria-label]="
-      buildDetailsTitle ? 'Application build ' + buildDetailsTitle : null
-    "
-    >v{{ appVersion }}</span
-  >
+    <span class="app-build-meta-container">
+      <span
+      class="app-build-meta"
+      [attr.title]="buildDetailsTitle || null"
+      [attr.aria-label]="
+        buildDetailsTitle
+          ? ('APP.BUILD_ARIA' | translate: { details: buildDetailsTitle })
+          : null
+      "
+      >v{{ appVersion }}</span
+    >
+    <span class="footer-stack-hint" i18n="@@footerStackHint"
+    title="Angular i18n + ngx-translate"
+      >Angular i18n + ngx-translate</span>
+    </span>
+
   <span
-  >Created by
+  >{{ 'FOOTER.CREATED_BY' | translate }}
   <a
     class="link-contact"
     title="yWebDev"
@@ -76,14 +86,13 @@
     >yWebDev</a
   ></span
 >
-  </span>
   <a
     type="button"
     class="btn-donate"
-    title="Donate"
+    [attr.title]="'FOOTER.DONATE_TITLE' | translate"
     href="https://donatello.to/iverbs"
     rel="noopener noreferrer"
     target="_blank"
-    >Donate</a
+    >{{ 'FOOTER.DONATE' | translate }}</a
   >
 </footer>

@@ -1,0 +1,146 @@
+{
+  "APP": {
+    "SKIP_TO_MAIN": "Skip to main content",
+    "TITLE": "Irregular Verbs",
+    "BUILD_ARIA": "Application build {{details}}",
+    "ACCOUNT_MENU": "Account menu for {{username}}"
+  },
+  "NAV": {
+    "MAIN": "Main navigation",
+    "SEARCH": "Verbs Search",
+    "GAME": "Verbs Game",
+    "TABLE": "Verbs Table"
+  },
+  "LANG": {
+    "LABEL": "Language",
+    "EN": "English",
+    "ES": "Spanish",
+    "UK": "Ukrainian"
+  },
+  "FOOTER": {
+    "CREATED_BY": "Created by",
+    "DONATE": "Donate",
+    "DONATE_TITLE": "Donate"
+  },
+  "SEARCH": {
+    "HERO_TITLE": "Learn Irregular Verb Forms Easily and Playfully!",
+    "INTRO": "Have you ever wondered which form of an irregular verb is correct? For example, become or became, went or gone? This site is here to help!",
+    "LEARN_PLAY": "Learn Through Play:",
+    "LEARN_PLAY_BEFORE": "Boost your knowledge with a fun and interactive ",
+    "LEARN_PLAY_LINK": "game",
+    "LEARN_PLAY_AFTER": "!",
+    "FIND_FORMS": "Find the Forms:",
+    "FIND_FORMS_BODY": "Simply enter any irregular verb into the input field below to instantly discover whether it’s the first, second, or third form. For each form, you can also view AI-generated example sentences in an expandable panel, making learning contextual and engaging!",
+    "EXPLORE_LIST": "Explore the Full List:",
+    "EXPLORE_BEFORE": "Want a complete reference? Browse our ",
+    "EXPLORE_LINK": "Irregular Verbs Table",
+    "EXPLORE_AFTER": ", where you can find all verbs available in our database, neatly organized with their forms. Use it as a study guide or a quick lookup tool to improve your English effortlessly!",
+    "CLOSING_LINE1": "Learning English",
+    "CLOSING_LINE2": " has never been this useful and fun! Try it now!"
+  },
+  "VERB_INPUT": {
+    "PLACEHOLDER": "Type a verb...",
+    "VERB_ARIA": "Verb",
+    "CLEAR": "Clear"
+  },
+  "VERBS": {
+    "TITLE": "Complete List of Irregular Verbs",
+    "INTRO_1": "Explore a comprehensive table of irregular verbs to enhance your English skills!",
+    "INTRO_2": "This page provides a structured list of verbs with their first, second, and third forms, making it easy to study and reference.",
+    "LOADING": "Loading verbs...",
+    "LOADING_ARIA": "Loading verbs, please wait",
+    "TABLE_ARIA": "Complete list of irregular verbs with base, past simple and past participle forms",
+    "COL_BASE": "Base Form (I)",
+    "COL_PAST": "Past Simple Form (II)",
+    "COL_PART": "Past Participle Form (III)",
+    "ACTIONS": "Actions",
+    "EXPAND": "Expand examples for {{verb}}",
+    "COLLAPSE": "Collapse examples for {{verb}}",
+    "VERB_ROW": "Verb: {{verb}}",
+    "EXAMPLES": "Examples",
+    "LOADING_EXAMPLES": "Loading...",
+    "LOADING_EXAMPLES_ARIA": "Loading examples, please wait"
+  },
+  "VERB_EXAMPLES": {
+    "FORM_VERB": "verb",
+    "FORM_PAST": "past",
+    "FORM_PARTICIPLE": "participle"
+  },
+  "GAME": {
+    "MAIN_ARIA": "Irregular Verbs Game",
+    "TIMER_ARIA": "Game timer",
+    "TIME_SPENT": "Time spent:",
+    "YOUR_SCORE": "Your Score:",
+    "SCORE_ARIA": "Score: {{score}}",
+    "DROP_ZONES": "Drop zones for verb forms",
+    "DROP_BASE": "Base form (I) drop zone",
+    "DROP_PAST": "Past simple (II) drop zone",
+    "DROP_PART": "Past participle (III) drop zone",
+    "DROP_ZONE_STATE": "{{zone}}: {{value}}",
+    "DROP_EMPTY": "{{zone}}: empty",
+    "SLOT_BASE": "base form (I)",
+    "SLOT_PAST": "past simple (II)",
+    "SLOT_PART": "past participle (III)",
+    "REMOVE_FROM_SLOT": "Remove {{word}} from the {{slot}} slot",
+    "AVAILABLE_FORMS": "Available verb forms to place",
+    "VERB_FORM_ACTION": "Verb form: {{item}}. Click or press Enter to place",
+    "CHECK": "Check",
+    "CHECK_ARIA": "Check your verb form selections",
+    "HOW_TO_PLAY": "How to play?",
+    "SNACK_CORRECT": "Correct!",
+    "SNACK_RIGHT": "You're right!",
+    "SNACK_AWESOME": "Awesome!",
+    "SNACK_GOOD_JOB": "Good job!",
+    "ANNOUNCE_CORRECT": "Correct! Score: {{score}} out of {{max}}",
+    "ANNOUNCE_WIN": "Congratulations! You completed all {{max}} verbs! Final time: {{time}}",
+    "ANNOUNCE_LOSE": "Game over. Your score is {{score}} out of {{max}}. Time: {{time}}",
+    "DIALOG_WIN_ARIA": "Congratulations dialog",
+    "DIALOG_LOSE_ARIA": "Game over dialog",
+    "HOW_TO_DIALOG_ARIA": "How to play instructions dialog"
+  },
+  "HOW_TO_PLAY": {
+    "TITLE": "How to play?",
+    "GOAL": "Goal",
+    "GOAL_TEXT": "Match the correct forms (I, II, and III) of 50 irregular verbs as quickly as possible.",
+    "DRAG": "Drag and Drop or Click",
+    "DRAG_TEXT": "Select the correct verb forms and place them in the appropriate boxes labeled I, II, and III.",
+    "PROGRESS": "Track Your Progress",
+    "PROGRESS_TIME_LABEL": "Time Spent:",
+    "PROGRESS_TIME_TEXT": "A timer at the top shows how long you've been playing.",
+    "PROGRESS_SCORE_LABEL": "Your Score:",
+    "PROGRESS_SCORE_TEXT": "Displays the number of correctly matched verbs so far.",
+    "CHECK_SECTION": "Check Your Answers",
+    "CHECK_TEXT": "Once you've filled in the forms, click the Check button or press Enter to see if your answers are correct.",
+    "CHALLENGE": "Challenge Yourself",
+    "CHALLENGE_TEXT": "Aim to complete all 50 verbs in the shortest time possible!",
+    "CLOSE": "Close",
+    "CLOSE_ARIA": "Close how to play dialog"
+  },
+  "GAME_OVER": {
+    "CONGRATS": "Congratulations!",
+    "OVER": "Game Over",
+    "WELL_DONE": "Well done! You managed to drop all forms correctly!",
+    "YOUR_TIME": "Your Time:",
+    "SEC": "sec",
+    "YOUR_SCORE": "Your Score:",
+    "CLOSE": "Close",
+    "CLOSE_ARIA": "Close game over dialog"
+  },
+  "LOGIN": {
+    "CHOOSE_USER": "Please choose your username",
+    "USERNAME": "Username",
+    "PATTERN_ERROR": "Only <strong>alphanumeric</strong> characters are allowed",
+    "MIN_LENGTH_ERROR": "Minimal length is <strong>6</strong> characters",
+    "START": "Start Game"
+  },
+  "GAME_PROMO": {
+    "HELLO_BEFORE": "Hello, ",
+    "HELLO_AFTER": "!",
+    "BODY": "You have to drag and drop the forms for 50 irregular verbs into the boxes as fast as possible. Good luck!",
+    "PLAY": "Play",
+    "HOW_TO_PLAY": "How to play?"
+  },
+  "ACCOUNT": {
+    "DELETE": "Delete account"
+  }
+}

@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 
 import { VerbsComponent } from './verbs.component';
 import { VerbsService } from '../../services/verbs/verbs.service';
+import { testingTranslateProviders } from '../../testing/testing-translate.providers';
 
 const mockInitialState = {
   auth: { username: null, isAuthorized: false },
@@ -32,6 +33,7 @@ describe('VerbsComponent', () => {
         provideAnimations(),
         provideMockStore({ initialState: mockInitialState }),
         { provide: VerbsService, useValue: verbsServiceSpy },
+        ...testingTranslateProviders,
       ],
     })
     .compileComponents();

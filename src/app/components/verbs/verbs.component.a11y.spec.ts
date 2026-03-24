@@ -6,6 +6,7 @@ import { VerbsComponent } from './verbs.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
 import { of } from 'rxjs';
 import { VerbsService } from '../../services/verbs/verbs.service';
+import { testingTranslateProviders } from '../../testing/testing-translate.providers';
 
 const mockVerbs = [
   { id: '1', base: 'be', pastSimple: 'was', pastParticiple: 'been' },
@@ -40,6 +41,7 @@ describe('VerbsComponent Accessibility', () => {
         provideAnimations(),
         provideMockStore({ initialState: mockInitialState }),
         { provide: VerbsService, useValue: verbsServiceSpy },
+        ...testingTranslateProviders,
       ],
     }).compileComponents();
 

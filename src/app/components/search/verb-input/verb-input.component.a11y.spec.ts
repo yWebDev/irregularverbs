@@ -3,6 +3,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { VerbInputComponent } from './verb-input.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
+import { testingTranslateProviders } from '../../../testing/testing-translate.providers';
 
 describe('VerbInputComponent Accessibility', () => {
   let component: VerbInputComponent;
@@ -13,7 +14,11 @@ describe('VerbInputComponent Accessibility', () => {
 
     await TestBed.configureTestingModule({
       imports: [VerbInputComponent],
-      providers: [provideHttpClient(), provideAnimations()],
+      providers: [
+        provideHttpClient(),
+        provideAnimations(),
+        ...testingTranslateProviders,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(VerbInputComponent);

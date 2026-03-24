@@ -1,0 +1,146 @@
+{
+  "APP": {
+    "SKIP_TO_MAIN": "Saltar al contenido principal",
+    "TITLE": "Verbos irregulares",
+    "BUILD_ARIA": "Compilación de la aplicación {{details}}",
+    "ACCOUNT_MENU": "Menú de cuenta para {{username}}"
+  },
+  "NAV": {
+    "MAIN": "Navegación principal",
+    "SEARCH": "Buscar verbos",
+    "GAME": "Juego de verbos",
+    "TABLE": "Tabla de verbos"
+  },
+  "LANG": {
+    "LABEL": "Idioma",
+    "EN": "Inglés",
+    "ES": "Español",
+    "UK": "Ucraniano"
+  },
+  "FOOTER": {
+    "CREATED_BY": "Creado por",
+    "DONATE": "Donar",
+    "DONATE_TITLE": "Donar"
+  },
+  "SEARCH": {
+    "HERO_TITLE": "¡Aprende las formas de los verbos irregulares de forma fácil y divertida!",
+    "INTRO": "¿Te has preguntado alguna vez qué forma de un verbo irregular es correcta? Por ejemplo, become o became, went o gone? ¡Este sitio está aquí para ayudarte!",
+    "LEARN_PLAY": "Aprende jugando:",
+    "LEARN_PLAY_BEFORE": "Mejora tu conocimiento con un ",
+    "LEARN_PLAY_LINK": "juego",
+    "LEARN_PLAY_AFTER": " divertido e interactivo!",
+    "FIND_FORMS": "Encuentra las formas:",
+    "FIND_FORMS_BODY": "Escribe cualquier verbo irregular en el campo de abajo y descubre al instante si es la primera, segunda o tercera forma. Para cada forma puedes ver frases de ejemplo generadas por IA en un panel desplegable, ¡para aprender con contexto!",
+    "EXPLORE_LIST": "Explora la lista completa:",
+    "EXPLORE_BEFORE": "¿Quieres una referencia completa? Consulta nuestra ",
+    "EXPLORE_LINK": "tabla de verbos irregulares",
+    "EXPLORE_AFTER": ", con todos los verbos de la base de datos y sus formas. Úsala como guía de estudio o consulta rápida para mejorar tu inglés sin esfuerzo.",
+    "CLOSING_LINE1": "Aprender inglés",
+    "CLOSING_LINE2": " nunca había sido tan útil y divertido. ¡Pruébalo ya!"
+  },
+  "VERB_INPUT": {
+    "PLACEHOLDER": "Escribe un verbo...",
+    "VERB_ARIA": "Verbo",
+    "CLEAR": "Borrar"
+  },
+  "VERBS": {
+    "TITLE": "Lista completa de verbos irregulares",
+    "INTRO_1": "Explora una tabla completa de verbos irregulares para mejorar tu inglés.",
+    "INTRO_2": "Aquí tienes una lista estructurada con la primera, segunda y tercera forma de cada verbo, fácil de estudiar y consultar.",
+    "LOADING": "Cargando verbos...",
+    "LOADING_ARIA": "Cargando verbos, espera por favor",
+    "TABLE_ARIA": "Lista completa de verbos irregulares con forma base, pasado simple y participio",
+    "COL_BASE": "Forma base (I)",
+    "COL_PAST": "Pasado simple (II)",
+    "COL_PART": "Participio (III)",
+    "ACTIONS": "Acciones",
+    "EXPAND": "Ampliar ejemplos de {{verb}}",
+    "COLLAPSE": "Contraer ejemplos de {{verb}}",
+    "VERB_ROW": "Verbo: {{verb}}",
+    "EXAMPLES": "Ejemplos",
+    "LOADING_EXAMPLES": "Cargando...",
+    "LOADING_EXAMPLES_ARIA": "Cargando ejemplos, espera por favor"
+  },
+  "VERB_EXAMPLES": {
+    "FORM_VERB": "verbo",
+    "FORM_PAST": "pasado",
+    "FORM_PARTICIPLE": "participio"
+  },
+  "GAME": {
+    "MAIN_ARIA": "Juego de verbos irregulares",
+    "TIMER_ARIA": "Temporizador del juego",
+    "TIME_SPENT": "Tiempo:",
+    "YOUR_SCORE": "Tu puntuación:",
+    "SCORE_ARIA": "Puntuación: {{score}}",
+    "DROP_ZONES": "Zonas para colocar las formas del verbo",
+    "DROP_BASE": "Zona forma base (I)",
+    "DROP_PAST": "Zona pasado simple (II)",
+    "DROP_PART": "Zona participio (III)",
+    "DROP_ZONE_STATE": "{{zone}}: {{value}}",
+    "DROP_EMPTY": "{{zone}}: vacío",
+    "SLOT_BASE": "forma base (I)",
+    "SLOT_PAST": "pasado simple (II)",
+    "SLOT_PART": "participio (III)",
+    "REMOVE_FROM_SLOT": "Quitar {{word}} de la casilla de {{slot}}",
+    "AVAILABLE_FORMS": "Formas verbales disponibles para colocar",
+    "VERB_FORM_ACTION": "Forma verbal: {{item}}. Haz clic o pulsa Entrar para colocar",
+    "CHECK": "Comprobar",
+    "CHECK_ARIA": "Comprobar las formas seleccionadas",
+    "HOW_TO_PLAY": "¿Cómo se juega?",
+    "SNACK_CORRECT": "¡Correcto!",
+    "SNACK_RIGHT": "¡Acertaste!",
+    "SNACK_AWESOME": "¡Genial!",
+    "SNACK_GOOD_JOB": "¡Buen trabajo!",
+    "ANNOUNCE_CORRECT": "¡Correcto! Puntuación: {{score}} de {{max}}",
+    "ANNOUNCE_WIN": "¡Enhorabuena! Completaste los {{max}} verbos. Tiempo final: {{time}}",
+    "ANNOUNCE_LOSE": "Fin del juego. Tu puntuación es {{score}} de {{max}}. Tiempo: {{time}}",
+    "DIALOG_WIN_ARIA": "Diálogo de enhorabuena",
+    "DIALOG_LOSE_ARIA": "Diálogo de fin de juego",
+    "HOW_TO_DIALOG_ARIA": "Diálogo de instrucciones"
+  },
+  "HOW_TO_PLAY": {
+    "TITLE": "¿Cómo se juega?",
+    "GOAL": "Objetivo",
+    "GOAL_TEXT": "Empareja las formas correctas (I, II y III) de 50 verbos irregulares lo más rápido posible.",
+    "DRAG": "Arrastrar y soltar o clic",
+    "DRAG_TEXT": "Elige las formas correctas y colócalas en las cajas I, II y III.",
+    "PROGRESS": "Sigue tu progreso",
+    "PROGRESS_TIME_LABEL": "Tiempo:",
+    "PROGRESS_TIME_TEXT": "Un temporizador arriba muestra cuánto llevas jugando.",
+    "PROGRESS_SCORE_LABEL": "Tu puntuación:",
+    "PROGRESS_SCORE_TEXT": "Muestra cuántos verbos has acertado hasta ahora.",
+    "CHECK_SECTION": "Comprueba tus respuestas",
+    "CHECK_TEXT": "Cuando hayas rellenado las formas, pulsa Comprobar o Entrar para ver si son correctas.",
+    "CHALLENGE": "Ponte a prueba",
+    "CHALLENGE_TEXT": "¡Intenta completar los 50 verbos en el menor tiempo posible!",
+    "CLOSE": "Cerrar",
+    "CLOSE_ARIA": "Cerrar instrucciones"
+  },
+  "GAME_OVER": {
+    "CONGRATS": "¡Enhorabuena!",
+    "OVER": "Fin del juego",
+    "WELL_DONE": "¡Bien hecho! Colocaste todas las formas correctamente.",
+    "YOUR_TIME": "Tu tiempo:",
+    "SEC": "s",
+    "YOUR_SCORE": "Tu puntuación:",
+    "CLOSE": "Cerrar",
+    "CLOSE_ARIA": "Cerrar diálogo de fin de juego"
+  },
+  "LOGIN": {
+    "CHOOSE_USER": "Elige tu nombre de usuario",
+    "USERNAME": "Usuario",
+    "PATTERN_ERROR": "Solo se permiten caracteres <strong>alfanuméricos</strong>",
+    "MIN_LENGTH_ERROR": "La longitud mínima es de <strong>6</strong> caracteres",
+    "START": "Empezar juego"
+  },
+  "GAME_PROMO": {
+    "HELLO_BEFORE": "Hola, ",
+    "HELLO_AFTER": "!",
+    "BODY": "Debes arrastrar las formas de 50 verbos irregulares a las cajas lo más rápido posible. ¡Suerte!",
+    "PLAY": "Jugar",
+    "HOW_TO_PLAY": "¿Cómo se juega?"
+  },
+  "ACCOUNT": {
+    "DELETE": "Eliminar cuenta"
+  }
+}
