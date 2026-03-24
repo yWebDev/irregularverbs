@@ -1,6 +1,6 @@
 # Angular build, esbuild, and tooling
 
-The `iverbs` app uses the **`application`** builder from Angular’s build system (esbuild-based via `@angular/build`). This document summarizes how the workspace configures it and how the custom builder and schematic fit in.
+The `iverbs` app uses the **`application`** builder from Angular’s build system (esbuild-based via `@angular/build`). This document summarizes how the workspace configures it and how build metadata and the schematic fit in.
 
 ## Configurations (`angular.json`)
 
@@ -14,28 +14,16 @@ Global build options include **AOT**, **SCSS** global styles (`src/styles/variab
 
 Assets copy favicon, `src/assets`, and root files `ads.txt`, `robots.txt`, `sitemap.xml` into the output.
 
-## Custom builder: `application-with-build-info`
+## Production build metadata (`build-info`)
 
-The project build target uses **`./tools/iverbs-builders:application-with-build-info`** instead of `@angular-devkit/build-angular:application`.
+Footer and tooling read **`PACKAGE_VERSION`**, **`BUILD_TIME_ISO`**, and **`GIT_COMMIT`** from `src/app/build-info.ts`.
 
-Architect requires builder option schemas to live **inside** the builder package (no `..` in `schema`), so this repo vendors a copy at `tools/iverbs-builders/angular-application.schema.json`. After a major `@angular-devkit/build-angular` upgrade, refresh it from  
-`node_modules/@angular-devkit/build-angular/node_modules/@angular/build/src/builders/application/schema.json`.
+- **Local / Karma / `ng build` without production**: the checked-in **`build-info.ts`** supplies placeholder values (`dev`, empty strings).
+- **Production bundles**: Angular **`fileReplacements`** swaps `build-info.ts` for **`build-info.prod.ts`**.
 
-The implementation loads **`buildApplication`** from the same nested `@angular/build` package that `build-angular` ships (no extra npm dependency).
+**`npm run build:prod`** runs **`node tools/iverbs-builders/write-build-info.cjs`** (writes `build-info.prod.ts` from `package.json`, current time, and `git rev-parse --short HEAD`) then **`ng build --configuration=production`**. CI should use **`build:prod`** and a full git history (or shallow clone will yield `GIT_COMMIT` of `unknown`).
 
-That builder wraps Angular’s public **`buildApplication()`** API and registers **`codePlugins`**: an esbuild plugin (`build-info-plugin.cjs`) that intercepts `src/app/build-info.ts` and replaces it with:
-
-- `PACKAGE_VERSION` from `package.json`
-- `BUILD_TIME_ISO` (UTC ISO string at build time)
-- `GIT_COMMIT` (`git rev-parse --short HEAD`, or `"unknown"`)
-
-Editors and **Karma** still see the checked-in placeholder `build-info.ts`. **`ng build`** (target `build`) runs this custom builder, so production/staging artifacts get injected build metadata (footer shows `v…` with commit/time in `title` / `aria-label`).
-
-### `build-serve` and `ng serve`
-
-The CLI only treats **`@angular-devkit/build-angular:application`** (and siblings) as esbuild/Vite-based. A **local** builder name (`./tools/iverbs-builders:…`) is not, so `ng serve` was falling back to **Webpack** and produced false “unused TypeScript file” warnings.
-
-This workspace adds a mirror target **`build-serve`** with the **stock** `application` builder and the **same options/configurations** as `build`. **`serve`** uses `iverbs:build-serve:…`. When you change build options, update **`build` and `build-serve` together**. Dev server footer build metadata stays placeholder values from `build-info.ts`; **`ng build`** still applies the esbuild plugin.
+User esbuild plugins cannot reliably replace that module: Angular’s compiler handles `.ts` before those hooks, so this repo uses **pre-build generation + `fileReplacements`** instead.
 
 ## Custom schematic: `verb-component`
 
@@ -57,10 +45,11 @@ Creates a folder under `path` with `.ts`, `.html`, `.scss`, and `.spec.ts` wired
 |--------|------|
 | `ng serve` / `ng serve --configuration=staging` | Dev server (proxy from `src/proxy/`). |
 | `ng build` / `ng build --configuration=production` | Production/staging artifact under `dist/`. |
+| `npm run build:prod` | Writes prod build-info, then production Angular build (use for deploys). |
 | `ng test` | Karma unit tests. |
 | `ng lint` | ESLint via `angular-eslint`. |
 | `ng generate verb-component` | Project-specific component scaffold. |
 
 ## esbuild vs Vite
 
-**`ng build`** uses **esbuild** (via the custom builder wrapping `buildApplication`). **`ng serve`** uses **Vite** because it targets **`build-serve`** (`@angular-devkit/build-angular:application`), not the local builder package name.
+**`ng build`** uses Angular’s application pipeline (esbuild for bundling). **`ng serve`** uses **Vite** as the dev server in current `@angular-devkit/build-angular` setups.

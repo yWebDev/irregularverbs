@@ -6,7 +6,7 @@
     "start": "ng serve --configuration=staging  --open",
     "start:dev": "ng serve --open",
     "build": "ng build",
-    "build:prod": "ng build --configuration=production",
+    "build:prod": "node tools/iverbs-builders/write-build-info.cjs && ng build --configuration=production",
     "generate:verb-component": "ng generate verb-component",
     "test": "ng test",
     "lint": "ng lint",
