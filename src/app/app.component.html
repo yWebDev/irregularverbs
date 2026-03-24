@@ -56,17 +56,27 @@
   </div>
 </main>
 <footer class="footer">
-  <span
-    >Created by
-    <a
-      class="link-contact"
-      title="yWebDev"
-      href="https://github.com/yWebDev/irregularverbs"
-      rel="noopener noreferrer"
-      target="_blank"
-      >yWebDev</a
-    ></span
+  <span>
+    <span
+    class="app-build-meta"
+    [attr.title]="buildDetailsTitle || null"
+    [attr.aria-label]="
+      buildDetailsTitle ? 'Application build ' + buildDetailsTitle : null
+    "
+    >v{{ appVersion }}</span
   >
+  <span
+  >Created by
+  <a
+    class="link-contact"
+    title="yWebDev"
+    href="https://github.com/yWebDev/irregularverbs"
+    rel="noopener noreferrer"
+    target="_blank"
+    >yWebDev</a
+  ></span
+>
+  </span>
   <a
     type="button"
     class="btn-donate"

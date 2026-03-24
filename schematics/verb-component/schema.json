@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "IverbsVerbComponent",
+  "title": "iverbs verb-component",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Component name (e.g. verb-hint or VerbHint)",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the component?"
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory to create the component folder in (relative to workspace root).",
+      "default": "src/app/components"
+    },
+    "prefix": {
+      "type": "string",
+      "description": "HTML selector prefix; combined as {prefix}-{name}, e.g. app-iv-verb-hint when prefix is app-iv.",
+      "default": "app-iv"
+    }
+  },
+  "required": ["name"]
+}

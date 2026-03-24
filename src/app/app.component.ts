@@ -12,6 +12,7 @@ import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { RouterFocusDirective } from './directives/router-focus.directive';
+import { BUILD_TIME_ISO, GIT_COMMIT, PACKAGE_VERSION } from './build-info';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,10 @@ export class AppComponent implements OnInit {
   private readonly seoService = inject(SeoService);
 
   readonly username$ = this.authService.username$;
+
+  /** Shown in the footer; hover/title exposes commit and build time from the esbuild build-info plugin. */
+  readonly appVersion = PACKAGE_VERSION;
+  readonly buildDetailsTitle = [GIT_COMMIT, BUILD_TIME_ISO].filter(Boolean).join(' · ');
 
   ngOnInit(): void {
     this.seoService.updateHomePageSEO();

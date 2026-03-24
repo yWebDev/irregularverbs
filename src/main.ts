@@ -33,7 +33,6 @@ import { PerformanceService } from './app/services/performance/performance.servi
 import { errorInterceptor } from './app/interceptors/error.interceptor';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { authReducer } from './app/store/auth/auth.reducer';
 import { verbsReducer } from './app/store/verbs/verbs.reducer';
@@ -59,60 +58,69 @@ if (environment.production) {
   enableProdMode();
 }
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideZoneChangeDetection(),
-    ...(environment.sentryDsn
-      ? [
-        { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
-        Sentry.TraceService,
-        provideAppInitializer(() => { inject(Sentry.TraceService); }),
-      ]
-      : []),
-    importProvidersFrom(
-      BrowserModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatAutocompleteModule,
-      MatInputModule,
-      MatButtonModule,
-      MatIconModule,
-      DragDropModule,
-      A11yModule,
-      MatMenuModule,
-      MatSnackBarModule,
-      MatDialogModule,
-    ),
-    provideRouter(routes),
-    provideStore({
-      auth: authReducer,
-      verbs: verbsReducer,
-      game: gameReducer,
-      router: routerReducer,
-    }),
-    provideEffects([VerbsEffects]),
-    provideStoreDevtools({
-      maxAge: 25,
-      logOnly: environment.production,
-      autoPause: true,
-      name: 'iVerbs NgRx Store',
-    }),
-    provideRouterStore(),
-    provideHttpClient(
-      withInterceptors([errorInterceptor]),
-      withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
-    ),
-    provideAnimations(),
-    provideAppInitializer(() => {
-      const configService = inject(ConfigService);
-      configService.loadConfig();
-    }),
-    provideAppInitializer(() => {
-      const performanceService = inject(PerformanceService);
-      // Initialize performance optimizations
-      performanceService.addResourceHints();
-      performanceService.optimizeFontLoading();
-      performanceService.measurePerformance();
-    }),
-  ],
-}).catch((err) => console.error(err));
+void (async () => {
+  const storeDevtoolsProviders = environment.production
+    ? []
+    : [
+        (await import('@ngrx/store-devtools')).provideStoreDevtools({
+          maxAge: 25,
+          logOnly: false,
+          autoPause: true,
+          name: 'iVerbs NgRx Store',
+        }),
+      ];
+
+  await bootstrapApplication(AppComponent, {
+    providers: [
+      provideZoneChangeDetection(),
+      ...(environment.sentryDsn
+        ? [
+          { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
+          Sentry.TraceService,
+          provideAppInitializer(() => {
+            inject(Sentry.TraceService);
+          }),
+        ]
+        : []),
+      importProvidersFrom(
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        DragDropModule,
+        A11yModule,
+        MatMenuModule,
+        MatSnackBarModule,
+        MatDialogModule,
+      ),
+      provideRouter(routes),
+      provideStore({
+        auth: authReducer,
+        verbs: verbsReducer,
+        game: gameReducer,
+        router: routerReducer,
+      }),
+      provideEffects([VerbsEffects]),
+      ...storeDevtoolsProviders,
+      provideRouterStore(),
+      provideHttpClient(
+        withInterceptors([errorInterceptor]),
+        withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
+      ),
+      provideAnimations(),
+      provideAppInitializer(() => {
+        const configService = inject(ConfigService);
+        configService.loadConfig();
+      }),
+      provideAppInitializer(() => {
+        const performanceService = inject(PerformanceService);
+        performanceService.addResourceHints();
+        performanceService.optimizeFontLoading();
+        performanceService.measurePerformance();
+      }),
+    ],
+  });
+})().catch((err) => console.error(err));

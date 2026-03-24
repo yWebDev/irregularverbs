@@ -1,0 +1,10 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "verb-component": {
+      "description": "Standalone SCSS component under src/app/components (iverbs conventions: OnPush, selectors app-iv-*, external template/styles, Karma spec).",
+      "factory": "./verb-component/index.cjs#verbComponent",
+      "schema": "./verb-component/schema.json"
+    }
+  }
+}
