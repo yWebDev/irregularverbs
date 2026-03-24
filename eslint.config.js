@@ -2,6 +2,9 @@
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const jsonModule = require("@eslint/json");
+const json = jsonModule.default ?? jsonModule;
+const i18nLocalePlugin = require("./eslint-plugins/i18n-locale-structure.cjs");
 
 module.exports = tseslint.config(
   {
@@ -41,6 +44,21 @@ module.exports = tseslint.config(
     ],
     rules: {
       "@angular-eslint/template/prefer-control-flow": "warn",
+    },
+  },
+  {
+    files: ["src/assets/i18n/*.json"],
+    plugins: {
+      json,
+      "i18n-locale": i18nLocalePlugin,
+    },
+    language: "json/json",
+    rules: {
+      "json/no-duplicate-keys": "error",
+      "json/no-empty-keys": "error",
+      "json/no-unnormalized-keys": "error",
+      "json/no-unsafe-values": "error",
+      "i18n-locale/locale-structure": "error",
     },
   },
 );
