@@ -7,6 +7,7 @@
     "start:dev": "ng serve --open",
     "build": "ng build",
     "build:prod": "ng build --configuration=production",
+    "generate:verb-component": "ng generate verb-component",
     "test": "ng test",
     "lint": "ng lint",
     "format": "prettier ./src --write",
