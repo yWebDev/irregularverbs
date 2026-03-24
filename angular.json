@@ -18,7 +18,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "./tools/iverbs-builders:application-with-build-info",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist",
             "index": "src/index.html",
@@ -75,96 +75,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": {
-                "scripts": true,
-                "styles": {
-                  "minify": true,
-                  "inlineCritical": true,
-                  "removeSpecialComments": true
-                },
-                "fonts": {
-                  "inline": true
-                }
-              },
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "1mb",
-                  "maximumError": "1.5mb"
                 },
                 {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ]
-            }
-          }
-        },
-        "build-serve": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": "dist",
-            "index": "src/index.html",
-            "polyfills": ["src/polyfills.ts"],
-            "tsConfig": "tsconfig.app.json",
-            "aot": true,
-            "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
-            },
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "ads.txt",
-                "input": "src/",
-                "output": "./"
-              },
-              {
-                "glob": "robots.txt",
-                "input": "src/",
-                "output": "./"
-              },
-              {
-                "glob": "sitemap.xml",
-                "input": "src/",
-                "output": "./"
-              }
-            ],
-            "styles": ["src/styles/variables.scss", "src/styles.scss"],
-            "scripts": [],
-            "browser": "src/main.ts"
-          },
-          "configurations": {
-            "development": {
-              "optimization": false,
-              "sourceMap": true,
-              "namedChunks": true,
-              "extractLicenses": false
-            },
-            "staging": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.staging.ts"
-                }
-              ],
-              "optimization": false,
-              "sourceMap": true,
-              "namedChunks": true,
-              "extractLicenses": false
-            },
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "src/app/build-info.ts",
+                  "with": "src/app/build-info.prod.ts"
                 }
               ],
               "optimization": {
@@ -200,20 +114,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "iverbs:build-serve:development",
+            "buildTarget": "iverbs:build:development",
             "proxyConfig": "src/proxy/proxy.conf.json"
           },
           "configurations": {
             "development": {
-              "buildTarget": "iverbs:build-serve:development",
+              "buildTarget": "iverbs:build:development",
               "proxyConfig": "src/proxy/proxy.conf.json"
             },
             "staging": {
-              "buildTarget": "iverbs:build-serve:staging",
+              "buildTarget": "iverbs:build:staging",
               "proxyConfig": "src/proxy/staging.proxy.conf.json"
             },
             "production": {
-              "buildTarget": "iverbs:build-serve:production"
+              "buildTarget": "iverbs:build:production"
             }
           }
         },
