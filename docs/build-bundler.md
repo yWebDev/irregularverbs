@@ -21,7 +21,7 @@ Footer and tooling read **`PACKAGE_VERSION`**, **`BUILD_TIME_ISO`**, and **`GIT_
 - **Local / Karma / `ng build` without production**: the checked-in **`build-info.ts`** supplies placeholder values (`dev`, empty strings).
 - **Production bundles**: Angular **`fileReplacements`** swaps `build-info.ts` for **`build-info.prod.ts`**.
 
-**`npm run build:prod`** runs **`node tools/iverbs-builders/write-build-info.cjs`** (writes `build-info.prod.ts` from `package.json`, current time, and `git rev-parse --short HEAD`) then **`ng build --configuration=production`**. CI should use **`build:prod`** and a full git history (or shallow clone will yield `GIT_COMMIT` of `unknown`).
+**`npm run build:prod`** runs **`node tools/iverbs-builders/write-build-info.cjs`** (writes `build-info.prod.ts` from `package.json`, current time, and `git rev-parse --short HEAD`) then **`ng build --configuration=production`**. CI should use **`build:prod`**; the default shallow checkout is enough for the current commit hash.
 
 User esbuild plugins cannot reliably replace that module: Angular’s compiler handles `.ts` before those hooks, so this repo uses **pre-build generation + `fileReplacements`** instead.
 
