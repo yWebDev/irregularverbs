@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { GamePromoComponent } from './game-promo.component';
+import { testingTranslateProviders } from '../../../testing/testing-translate.providers';
 
 const mockInitialState = {
   auth: { username: null, isAuthorized: false },
@@ -15,7 +16,11 @@ describe('GamePromoComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [GamePromoComponent],
-      providers: [provideRouter([]), provideMockStore({ initialState: mockInitialState })],
+      providers: [
+        provideRouter([]),
+        provideMockStore({ initialState: mockInitialState }),
+        ...testingTranslateProviders,
+      ],
     }).compileComponents();
   });
 

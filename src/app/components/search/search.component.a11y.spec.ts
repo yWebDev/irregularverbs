@@ -3,6 +3,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { SearchComponent } from './search.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
+import { testingTranslateProviders } from '../../testing/testing-translate.providers';
 
 describe('SearchComponent Accessibility', () => {
   let fixture: ComponentFixture<SearchComponent>;
@@ -12,7 +13,11 @@ describe('SearchComponent Accessibility', () => {
 
     await TestBed.configureTestingModule({
       imports: [SearchComponent],
-      providers: [provideHttpClient(), provideRouter([])],
+      providers: [
+        provideHttpClient(),
+        provideRouter([]),
+        ...testingTranslateProviders,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SearchComponent);

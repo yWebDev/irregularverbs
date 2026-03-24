@@ -38,6 +38,12 @@ import { authReducer } from './app/store/auth/auth.reducer';
 import { verbsReducer } from './app/store/verbs/verbs.reducer';
 import { gameReducer } from './app/store/game/game.reducer';
 import { VerbsEffects } from './app/store/verbs/verbs.effects';
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+import {
+  TranslateHttpLoader,
+  TRANSLATE_HTTP_LOADER_CONFIG,
+} from '@ngx-translate/http-loader';
+import { LanguageInitService } from './app/services/language/language-init.service';
 
 if (environment.sentryDsn) {
   Sentry.init({
@@ -110,6 +116,17 @@ void (async () => {
         withInterceptors([errorInterceptor]),
         withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
       ),
+      {
+        provide: TRANSLATE_HTTP_LOADER_CONFIG,
+        useValue: { prefix: '/assets/i18n/', suffix: '.json' },
+      },
+      ...provideTranslateService({
+        fallbackLang: 'en',
+        loader: { provide: TranslateLoader, useClass: TranslateHttpLoader },
+      }),
+      provideAppInitializer(() => {
+        inject(LanguageInitService).init();
+      }),
       provideAnimations(),
       provideAppInitializer(() => {
         const configService = inject(ConfigService);

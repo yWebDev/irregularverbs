@@ -13,6 +13,8 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { RouterFocusDirective } from './directives/router-focus.directive';
 import { BUILD_TIME_ISO, GIT_COMMIT, PACKAGE_VERSION } from './build-info';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +31,8 @@ import { BUILD_TIME_ISO, GIT_COMMIT, PACKAGE_VERSION } from './build-info';
     MatMenuItem,
     RouterOutlet,
     RouterFocusDirective,
+    TranslatePipe,
+    LanguageSwitcherComponent,
   ],
 })
 export class AppComponent implements OnInit {

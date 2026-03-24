@@ -22,10 +22,17 @@ import {
   selectVerbsError,
   selectVerbsLoading,
 } from 'src/app/store/verbs/verbs.selectors';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-verbs',
-  imports: [AsyncPipe, MatTableModule, MatIconModule, MatButtonModule],
+  imports: [
+    AsyncPipe,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    TranslatePipe,
+  ],
   templateUrl: './verbs.component.html',
   styleUrl: './verbs.component.scss',
   animations: [

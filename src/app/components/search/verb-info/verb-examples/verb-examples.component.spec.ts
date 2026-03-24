@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VerbExamplesComponent } from './verb-examples.component';
+import { testingTranslateProviders } from '../../../../testing/testing-translate.providers';
 
 describe('VerbExamplesComponent', () => {
   let component: VerbExamplesComponent;
@@ -8,9 +9,9 @@ describe('VerbExamplesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VerbExamplesComponent]
-    })
-    .compileComponents();
+      imports: [VerbExamplesComponent],
+      providers: [...testingTranslateProviders],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(VerbExamplesComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VerbInputComponent } from './verb-input.component';
+import { testingTranslateProviders } from '../../../testing/testing-translate.providers';
 
 describe('VerbInputComponent', () => {
   let component: VerbInputComponent;
@@ -9,6 +10,7 @@ describe('VerbInputComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [VerbInputComponent],
+      providers: [...testingTranslateProviders],
     }).compileComponents();
   });
 

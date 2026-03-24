@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 
 import { GameComponent } from './game.component';
 import { VerbsService } from '../../services/verbs/verbs.service';
+import { testingTranslateProviders } from '../../testing/testing-translate.providers';
 
 const mockInitialState = {
   auth: { username: null, isAuthorized: false },
@@ -33,6 +34,7 @@ describe('GameComponent', () => {
         provideAnimations(),
         provideMockStore({ initialState: mockInitialState }),
         { provide: VerbsService, useValue: verbsServiceSpy },
+        ...testingTranslateProviders,
       ],
     }).compileComponents();
   });

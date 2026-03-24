@@ -1,14 +1,16 @@
 <section class="text-center">
   <p>
-    Hello, <span class="text-active">{{ name }}</span
-    >!
+    {{ 'GAME_PROMO.HELLO_BEFORE' | translate
+    }}<span class="text-active">{{ name }}</span
+    >{{ 'GAME_PROMO.HELLO_AFTER' | translate }}
   </p>
   <p>
-    You have to drag and drop the forms for 50 irregular verbs into the boxes as
-    fast as possible. Good luck!
+    {{ 'GAME_PROMO.BODY' | translate }}
   </p>
   <p>
-    <button routerLink="/game/active" mat-raised-button>Play</button>
+    <button routerLink="/game/active" mat-raised-button>
+      {{ 'GAME_PROMO.PLAY' | translate }}
+    </button>
   </p>
   <p>
     <a
@@ -17,6 +19,7 @@
       (keyup.space)="onHowToPlayClick()"
       role="button"
       tabindex="0"
-    >How to play?</a>
+      >{{ 'GAME_PROMO.HOW_TO_PLAY' | translate }}</a
+    >
   </p>
 </section>

@@ -1,17 +1,32 @@
 <h2 class="title" mat-dialog-title id="game-over-title">
-  {{ data.isCompleted ? "Congratulations!" : "Game Over" }}
+  @if (data.isCompleted) {
+    {{ 'GAME_OVER.CONGRATS' | translate }}
+  } @else {
+    {{ 'GAME_OVER.OVER' | translate }}
+  }
 </h2>
 <mat-dialog-content id="game-over-content" aria-describedby="game-over-title">
   @if (data.isCompleted) {
-    <p>Well done! You managed to drop all forms correctly!</p>
+    <p>{{ 'GAME_OVER.WELL_DONE' | translate }}</p>
   }
   <p>
-    Your Time:&nbsp;<span class="text-active">{{ data.time }}</span> sec
+    {{ 'GAME_OVER.YOUR_TIME' | translate }}&nbsp;<span class="text-active">{{
+      data.time
+    }}</span>
+    {{ 'GAME_OVER.SEC' | translate }}
   </p>
   <p>
-    Your Score:&nbsp;<span class="text-active">{{ data.score }}</span>
+    {{ 'GAME_OVER.YOUR_SCORE' | translate }}&nbsp;<span class="text-active">{{
+      data.score
+    }}</span>
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button mat-button mat-dialog-close aria-label="Close game over dialog">Close</button>
+  <button
+    mat-button
+    mat-dialog-close
+    [attr.aria-label]="'GAME_OVER.CLOSE_ARIA' | translate"
+  >
+    {{ 'GAME_OVER.CLOSE' | translate }}
+  </button>
 </mat-dialog-actions>

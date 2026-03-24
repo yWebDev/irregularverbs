@@ -5,8 +5,8 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-how-to-play',
@@ -14,11 +14,11 @@ import { MatButton } from '@angular/material/button';
     styleUrl: './how-to-play.component.scss',
     imports: [
         MatDialogTitle,
-        CdkScrollable,
         MatDialogContent,
         MatDialogActions,
         MatButton,
         MatDialogClose,
+        TranslatePipe,
     ]
 })
 export class HowToPlayComponent {}

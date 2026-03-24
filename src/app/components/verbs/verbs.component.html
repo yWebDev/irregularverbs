@@ -1,16 +1,19 @@
 <section class="verbs">
-  <h2 class="text-center">Complete List of Irregular Verbs</h2>
+  <h2 class="text-center">{{ 'VERBS.TITLE' | translate }}</h2>
   <p class="text-center">
-    Explore a comprehensive table of irregular verbs to enhance your English
-    skills! <br /><br />
-    This page provides a structured list of verbs with their first, second, and
-    third forms, making it easy to study and reference.
+    {{ 'VERBS.INTRO_1' | translate }}<br /><br />{{ 'VERBS.INTRO_2' | translate }}
   </p>
   <div class="table-container">
     <div class="table-wrapper">
       <div class="overlay"></div>
       @if (loading$ | async) {
-        <p class="loading" aria-live="polite" aria-label="Loading verbs, please wait">Loading verbs...</p>
+        <p
+          class="loading"
+          aria-live="polite"
+          [attr.aria-label]="'VERBS.LOADING_ARIA' | translate"
+        >
+          {{ 'VERBS.LOADING' | translate }}
+        </p>
       }
       @if (error$ | async; as error) {
         <p class="error" role="alert">{{ error }}</p>
@@ -20,17 +23,21 @@
         [dataSource]="(verbs$ | async)!"
         multiTemplateDataRows
         class="mat-elevation-z8"
-        aria-label="Complete list of irregular verbs with base, past simple and past participle forms"
+        [attr.aria-label]="'VERBS.TABLE_ARIA' | translate"
       >
         <!-- Base Column -->
         <ng-container matColumnDef="base">
-          <th mat-header-cell *matHeaderCellDef>Base Form (I)</th>
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'VERBS.COL_BASE' | translate }}
+          </th>
           <td mat-cell *matCellDef="let element">{{ element.base }}</td>
         </ng-container>
 
         <!-- pastSimple Column -->
         <ng-container matColumnDef="pastSimple">
-          <th mat-header-cell *matHeaderCellDef>Past Simple Form (II)</th>
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'VERBS.COL_PAST' | translate }}
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.pastSimple
             }}{{ element.pastSimpleAlt ? "/" + element.pastSimpleAlt : "" }}
@@ -39,7 +46,9 @@
 
         <!-- pastParticiple Column -->
         <ng-container matColumnDef="pastParticiple">
-          <th mat-header-cell *matHeaderCellDef>Past Participle Form (III)</th>
+          <th mat-header-cell *matHeaderCellDef>
+            {{ 'VERBS.COL_PART' | translate }}
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.pastParticiple
             }}{{
@@ -54,15 +63,15 @@
             *matHeaderCellDef
             width="50px"
           >
-            <span class="visually-hidden">Actions</span>
+            <span class="visually-hidden">{{ 'VERBS.ACTIONS' | translate }}</span>
           </th>
           <td mat-cell *matCellDef="let element">
             <button
               mat-icon-button
               [attr.aria-label]="
                 expandedElement() === element
-                  ? 'Collapse examples for ' + element.base
-                  : 'Expand examples for ' + element.base
+                  ? ('VERBS.COLLAPSE' | translate: { verb: element.base })
+                  : ('VERBS.EXPAND' | translate: { verb: element.base })
               "
               [attr.aria-expanded]="expandedElement() === element"
               [attr.aria-controls]="'detail-' + element.base"
@@ -102,13 +111,20 @@
                 aria-atomic="true"
               >
                 @if (formsExamplesResource$.value()) {
-                  <h4 class="example-header">Examples</h4>
+                  <h4 class="example-header">
+                    {{ 'VERBS.EXAMPLES' | translate }}
+                  </h4>
                   <p
                     class="verb-examples"
                     [innerHTML]="formsExamplesResource$.value()"
                   ></p>
                 } @else if (element === expandedElement()) {
-                  <p class="loading" aria-label="Loading examples, please wait">Loading...</p>
+                  <p
+                    class="loading"
+                    [attr.aria-label]="'VERBS.LOADING_EXAMPLES_ARIA' | translate"
+                  >
+                    {{ 'VERBS.LOADING_EXAMPLES' | translate }}
+                  </p>
                 }
               </div>
             </div>
@@ -121,7 +137,9 @@
           *matRowDef="let element; columns: displayedColumnsWithExpand"
           class="element-row"
           [class.example-expanded-row]="expandedElement() === element"
-          [attr.aria-label]="'Verb: ' + element.base"
+          [attr.aria-label]="
+            'VERBS.VERB_ROW' | translate: { verb: element.base }
+          "
           (click)="
             expandedElement.set(expandedElement() === element ? null : element)
           "

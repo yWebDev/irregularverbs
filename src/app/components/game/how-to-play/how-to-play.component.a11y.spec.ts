@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HowToPlayComponent } from './how-to-play.component';
 import { axe, toHaveNoViolations } from 'jasmine-axe';
+import { testingTranslateProviders } from '../../../testing/testing-translate.providers';
 
 describe('HowToPlayComponent Accessibility', () => {
   let fixture: ComponentFixture<HowToPlayComponent>;
@@ -10,6 +11,7 @@ describe('HowToPlayComponent Accessibility', () => {
 
     await TestBed.configureTestingModule({
       imports: [HowToPlayComponent],
+      providers: [...testingTranslateProviders],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HowToPlayComponent);
@@ -33,9 +35,14 @@ describe('HowToPlayComponent Accessibility', () => {
     expect(content.getAttribute('aria-describedby')).toBe('how-to-play-title');
   });
 
-  it('should have close button with aria-label', () => {
-    const closeButton = fixture.nativeElement.querySelector('[mat-dialog-close]');
-    expect(closeButton.getAttribute('aria-label')).toContain('Close');
+  it('should have close button with accessible name', () => {
+    const closeButton = fixture.nativeElement.querySelector(
+      'mat-dialog-actions button',
+    );
+    expect(closeButton).toBeTruthy();
+    const aria = closeButton?.getAttribute('aria-label');
+    const label = aria ?? closeButton?.textContent ?? '';
+    expect(label).toContain('Close');
   });
 
   it('should have proper heading hierarchy', () => {

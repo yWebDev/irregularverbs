@@ -2,8 +2,8 @@
   <mat-form-field class="form-field" appearance="fill">
     <input
       class="input"
-      placeholder="Type a verb..."
-      aria-label="Verb"
+      [placeholder]="'VERB_INPUT.PLACEHOLDER' | translate"
+      [attr.aria-label]="'VERB_INPUT.VERB_ARIA' | translate"
       matInput
       [formControl]="myControl"
       [matAutocomplete]="auto"
@@ -25,7 +25,7 @@
         type="button"
         mat-icon-button
         matSuffix
-        aria-label="Clear"
+        [attr.aria-label]="'VERB_INPUT.CLEAR' | translate"
         (click)="clearSelectedValue()"
       >
         <mat-icon>close</mat-icon>

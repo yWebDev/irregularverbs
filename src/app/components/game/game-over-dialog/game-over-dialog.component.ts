@@ -7,8 +7,8 @@ import {
   MatDialogClose,
 } from '@angular/material/dialog';
 import { VerbDetails } from '../../../model/verb-details';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface DialogData {
   score: number;
@@ -24,11 +24,11 @@ export interface DialogData {
     styleUrls: ['./game-over-dialog.component.scss'],
     imports: [
         MatDialogTitle,
-        CdkScrollable,
         MatDialogContent,
         MatDialogActions,
         MatButton,
         MatDialogClose,
+        TranslatePipe,
     ]
 })
 export class GameOverDialogComponent {

@@ -1,13 +1,24 @@
-<div class="game" role="main" aria-label="Irregular Verbs Game">
-  <div class="game-counter" aria-label="Game timer">
-    Time spent:&nbsp;<span class="game-time" aria-live="off">{{ time }}</span>
+<div
+  class="game"
+  role="main"
+  [attr.aria-label]="'GAME.MAIN_ARIA' | translate"
+>
+  <div
+    class="game-counter"
+    [attr.aria-label]="'GAME.TIMER_ARIA' | translate"
+  >
+    {{ 'GAME.TIME_SPENT' | translate
+    }}<span class="game-time" aria-live="off">{{ time }}</span>
   </div>
   <div class="game-scorer">
-    Your Score:&nbsp;<span
+    {{ 'GAME.YOUR_SCORE' | translate
+    }}<span
       class="game-score"
       aria-live="polite"
       aria-atomic="true"
-      aria-label="Score: {{ currentIndex }}"
+      [attr.aria-label]="
+        'GAME.SCORE_ARIA' | translate: { score: currentIndex }
+      "
       >{{ currentIndex }}</span
     >
   </div>
@@ -21,7 +32,7 @@
       class="game-push-area-target"
       cdkDropListGroup
       role="group"
-      aria-label="Drop zones for verb forms"
+      [attr.aria-label]="'GAME.DROP_ZONES' | translate"
     >
       @for (key of keys; track key) {
         <div
@@ -43,7 +54,7 @@
                 class="close-icon"
                 role="button"
                 tabindex="0"
-                [attr.aria-label]="'Remove ' + selected[key] + ' from ' + key + ' slot'"
+                [attr.aria-label]="removeFromSlotAria(key, selected[key]!)"
                 >close</mat-icon
               >
             }
@@ -55,7 +66,7 @@
   <div
     class="game-pull-area"
     role="group"
-    aria-label="Available verb forms to place"
+    [attr.aria-label]="'GAME.AVAILABLE_FORMS' | translate"
   >
     @for (item of items; track item; let i = $index) {
       <div
@@ -73,7 +84,9 @@
             (keyup.space)="onItemClick(i)"
             role="button"
             tabindex="0"
-            [attr.aria-label]="'Verb form: ' + item + '. Click or press Enter to place'"
+            [attr.aria-label]="
+              'GAME.VERB_FORM_ACTION' | translate: { item: item }
+            "
             >{{ item }}</span
           >
         }
@@ -86,9 +99,9 @@
       mat-raised-button
       [disabled]="!isSelected || isGameOver"
       (click)="onCheck()"
-      aria-label="Check your verb form selections"
+      [attr.aria-label]="'GAME.CHECK_ARIA' | translate"
     >
-      Check
+      {{ 'GAME.CHECK' | translate }}
     </button>
   </div>
   <p class="how-to-play text-active text-center">
@@ -99,6 +112,7 @@
       role="button"
       tabindex="0"
       aria-haspopup="dialog"
-    >How to play?</a>
+      >{{ 'GAME.HOW_TO_PLAY' | translate }}</a
+    >
   </p>
 </div>

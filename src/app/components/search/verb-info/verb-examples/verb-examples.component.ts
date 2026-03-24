@@ -13,10 +13,11 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { VerbDetails } from 'src/app/model/verb-details';
 import { PromptService } from 'src/app/services/prompt/prompt.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-verb-examples',
-    imports: [MatExpansionModule, AsyncPipe],
+    imports: [MatExpansionModule, AsyncPipe, TranslatePipe],
     templateUrl: './verb-examples.component.html',
     styleUrl: './verb-examples.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
