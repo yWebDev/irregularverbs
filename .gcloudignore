@@ -9,6 +9,9 @@
 .cursor
 *.sublime-workspace
 
+# Dependencies (Cloud Build runs npm install)
+node_modules/
+
 # Angular build cache
 .angular
 
