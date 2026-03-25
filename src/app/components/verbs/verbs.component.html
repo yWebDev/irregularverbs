@@ -3,11 +3,8 @@
   <p class="text-center">
     {{ 'VERBS.INTRO_1' | translate }}<br /><br />{{ 'VERBS.INTRO_2' | translate }}
   </p>
-  @let loading = loading$ | async;
-  @let err = error$ | async;
-  @let verbList = verbs$ | async;
   <div class="table-container">
-    @if (loading) {
+    @if (loading()) {
       <div
         class="verbs-skeleton"
         aria-live="polite"
@@ -18,16 +15,16 @@
         }
       </div>
     }
-    @if (err) {
-      <p class="error" role="alert">{{ err }}</p>
+    @if (error()) {
+      <p class="error" role="alert">{{ error() }}</p>
     }
-    @if (!loading && !err && isNarrowLayout() && verbList) {
+    @if (!loading() && !error() && isNarrowLayout() && verbs().length) {
       <div
         class="verbs-cards"
         role="list"
         [attr.aria-label]="'VERBS.CARDS_ARIA' | translate"
       >
-        @for (element of verbList; track element.base) {
+        @for (element of verbs(); track element.base) {
           <article
             class="verb-card"
             role="listitem"
@@ -124,12 +121,12 @@
         }
       </div>
     }
-    @if (!loading && !err && !isNarrowLayout() && verbList) {
+    @if (!loading() && !error() && !isNarrowLayout() && verbs().length) {
       <div class="table-wrapper">
         <div class="overlay"></div>
         <table
           mat-table
-          [dataSource]="verbList"
+          [dataSource]="verbs()"
           multiTemplateDataRows
           class="mat-elevation-z8 verbs-table"
           [attr.aria-label]="'VERBS.TABLE_ARIA' | translate"
