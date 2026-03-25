@@ -16,9 +16,6 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "i18n": {
-        "sourceLocale": "en"
-      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -26,8 +23,7 @@
             "outputPath": "dist",
             "index": "src/index.html",
             "polyfills": [
-              "src/polyfills.ts",
-              "@angular/localize/init"
+              "src/polyfills.ts"
             ],
             "tsConfig": "tsconfig.app.json",
             "aot": true,
