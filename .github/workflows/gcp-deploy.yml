@@ -123,8 +123,8 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Build app for E2E (staging config)
-        run: npm run build
+      - name: Build app for E2E (browser only; static http-server)
+        run: npx ng build --configuration=development
 
       - name: Serve app and run Playwright E2E tests
         run: |
