@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { MetaService, SEOData } from '../meta/meta.service';
 
 @Injectable({
@@ -10,11 +11,13 @@ export class SeoService {
   private readonly metaService = inject(MetaService);
   private readonly router = inject(Router);
 
+  private readonly siteUrl = environment.siteUrl.replace(/\/$/, '');
+
   private defaultSEO: SEOData = {
     title: 'Irregular Verbs - Comprehensive Table with AI Examples & Games',
     description: 'Master English irregular verbs with our comprehensive table featuring AI-generated examples. Practice with interactive games, explore verb forms, and improve your English vocabulary with detailed verb conjugations and usage examples.',
     keywords: 'irregular verbs table, AI examples, English grammar, verb conjugation, English learning, ESL practice, comprehensive verb list, AI-generated examples, English verbs, language learning',
-    url: 'https://irregverbs-1381.uc.r.appspot.com',
+    url: this.siteUrl + '/',
     type: 'website'
   };
 
@@ -31,9 +34,9 @@ export class SeoService {
   }
 
   private updatePageSEO() {
-    const currentUrl = this.router.url;
-    
-    switch (currentUrl) {
+    const path = this.currentPath();
+
+    switch (path) {
       case '/':
         this.updateHomePageSEO();
         break;
@@ -48,12 +51,18 @@ export class SeoService {
     }
   }
 
+  /** Path only (no query or hash) so canonical/SEO match the real route. */
+  private currentPath(): string {
+    const raw = this.router.url.split('#')[0].split('?')[0];
+    return raw === '' ? '/' : raw;
+  }
+
   updateHomePageSEO() {
     const seoData: SEOData = {
       title: 'Irregular Verbs - Comprehensive Table with AI Examples & Games',
       description: 'Master English irregular verbs with our comprehensive table featuring AI-generated examples. Practice with interactive games, explore verb forms, and improve your English vocabulary with detailed verb conjugations and usage examples.',
       keywords: 'irregular verbs table, AI examples, English grammar, verb conjugation, English learning, ESL practice, comprehensive verb list, AI-generated examples, English verbs, language learning, verb usage examples',
-      url: 'https://irregverbs-1381.uc.r.appspot.com',
+      url: `${this.siteUrl}/`,
       type: 'website'
     };
 
@@ -66,7 +75,7 @@ export class SeoService {
       title: 'Irregular Verbs Game - Practice with AI Examples & Fun Games',
       description: 'Play interactive games to learn and practice English irregular verbs with AI-generated examples. Test your knowledge with fun challenges and improve your English skills using our comprehensive verb database.',
       keywords: 'irregular verbs game, AI examples, English verb games, ESL games, English learning games, verb practice games, English vocabulary games, AI-generated examples',
-      url: 'https://irregverbs-1381.uc.r.appspot.com/game',
+      url: `${this.siteUrl}/game`,
       type: 'website'
     };
 
@@ -79,7 +88,7 @@ export class SeoService {
       title: 'Comprehensive Irregular Verbs Table with AI Examples',
       description: 'Explore our comprehensive irregular verbs table featuring AI-generated examples for each verb. See base form, past simple, past participle, and detailed usage examples with AI-powered explanations. Perfect for students, teachers, and ESL learners.',
       keywords: 'irregular verbs table, AI examples, comprehensive verb list, English verb forms, verb conjugation, past simple, past participle, AI-generated examples, English grammar reference, ESL resources, verb usage examples, AI-powered learning',
-      url: 'https://irregverbs-1381.uc.r.appspot.com/verbs',
+      url: `${this.siteUrl}/verbs`,
       type: 'website'
     };
 
@@ -97,10 +106,10 @@ export class SeoService {
       "@type": "WebSite",
       "name": "Irregular Verbs",
       "description": "Master English irregular verbs with our comprehensive table featuring AI-generated examples. Practice with interactive games, explore verb forms, and improve your English vocabulary with detailed verb conjugations and usage examples.",
-      "url": "https://irregverbs-1381.uc.r.appspot.com",
+      "url": this.siteUrl + "/",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://irregverbs-1381.uc.r.appspot.com?search={search_term_string}",
+        "target": `${this.siteUrl}/?search={search_term_string}`,
         "query-input": "required name=search_term_string"
       },
       "publisher": {
@@ -124,7 +133,7 @@ export class SeoService {
       "@type": "WebApplication",
       "name": "Irregular Verbs Game",
       "description": "Interactive games to learn and practice English irregular verbs with AI-generated examples",
-      "url": "https://irregverbs-1381.uc.r.appspot.com/game",
+      "url": `${this.siteUrl}/game`,
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Web Browser"
     };
@@ -137,7 +146,7 @@ export class SeoService {
       "@type": "ItemList",
       "name": "Comprehensive Irregular Verbs Table with AI Examples",
       "description": "Complete list of English irregular verbs with all forms and AI-generated usage examples",
-      "url": "https://irregverbs-1381.uc.r.appspot.com/verbs",
+      "url": `${this.siteUrl}/verbs`,
       "itemListElement": [
         {
           "@type": "ListItem",

@@ -2,4 +2,10 @@
   --active-color: #c62828;
   --active-color-light: #f44336;
   --primary-bg-color: #fffff2;
+
+  /* Responsive breakpoints (align with plan: 576 / 768 / 992 / 1200) */
+  --iv-bp-sm: 576px;
+  --iv-bp-md: 768px;
+  --iv-bp-lg: 992px;
+  --iv-bp-xl: 1200px;
 }

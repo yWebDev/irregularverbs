@@ -1,5 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { provideHttpClient } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideMockStore } from '@ngrx/store/testing';
 import { VerbsComponent } from './verbs.component';
@@ -41,6 +42,12 @@ describe('VerbsComponent Accessibility', () => {
         provideAnimations(),
         provideMockStore({ initialState: mockInitialState }),
         { provide: VerbsService, useValue: verbsServiceSpy },
+        {
+          provide: BreakpointObserver,
+          useValue: {
+            observe: () => of({ matches: false, breakpoints: {} }),
+          },
+        },
         ...testingTranslateProviders,
       ],
     }).compileComponents();
