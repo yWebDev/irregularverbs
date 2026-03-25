@@ -106,16 +106,18 @@ export class MetaService {
 
   updateStructuredData(data: Record<string, unknown>) {
     // Remove existing structured data
-    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    const existingScript = this.document.querySelector(
+      'script[type="application/ld+json"]',
+    );
     if (existingScript) {
       existingScript.remove();
     }
 
     // Add new structured data
-    const script = document.createElement('script');
+    const script = this.document.createElement('script');
     script.type = 'application/ld+json';
     script.text = JSON.stringify(data);
-    document.head.appendChild(script);
+    this.document.head.appendChild(script);
   }
 
   clearMeta() {

@@ -14,7 +14,9 @@ export class AuthService {
   readonly isAuthorized$: Observable<boolean> = this.store.select(selectIsAuthorized);
 
   get username(): string | null {
-    return localStorage.getItem('iv-username');
+    return typeof localStorage !== 'undefined'
+      ? localStorage.getItem('iv-username')
+      : null;
   }
 
   isAuthorized(): boolean {

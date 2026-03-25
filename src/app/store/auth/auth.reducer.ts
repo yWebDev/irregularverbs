@@ -9,9 +9,11 @@ export interface AuthState {
 
 const USERNAME_KEY = 'iv-username';
 
+const isBrowserStorage = typeof localStorage !== 'undefined';
+
 export const authInitialState: AuthState = {
-  username: localStorage.getItem(USERNAME_KEY),
-  isAuthorized: !!localStorage.getItem(USERNAME_KEY),
+  username: isBrowserStorage ? localStorage.getItem(USERNAME_KEY) : null,
+  isAuthorized: isBrowserStorage ? !!localStorage.getItem(USERNAME_KEY) : false,
 };
 
 export const authReducer = createReducer(
@@ -22,7 +24,9 @@ export const authReducer = createReducer(
       const trimmed = username.trim().toLowerCase();
       draft.username = trimmed;
       draft.isAuthorized = true;
-      localStorage.setItem(USERNAME_KEY, trimmed);
+      if (isBrowserStorage) {
+        localStorage.setItem(USERNAME_KEY, trimmed);
+      }
     }),
   ),
 
@@ -30,7 +34,9 @@ export const authReducer = createReducer(
     produce(state, (draft) => {
       draft.username = null;
       draft.isAuthorized = false;
-      localStorage.removeItem(USERNAME_KEY);
+      if (isBrowserStorage) {
+        localStorage.removeItem(USERNAME_KEY);
+      }
     }),
   ),
 );

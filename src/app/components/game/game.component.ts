@@ -79,7 +79,7 @@ export class GameComponent implements OnInit, OnDestroy {
   private verbDetails?: VerbDetails;
   private verbs: VerbDetails[] = [];
   private timeValue = 0;
-  private interval: number;
+  private interval!: ReturnType<typeof setInterval>;
 
   get keys(): (keyof VerbDetails)[] {
     return Object.keys(this.defaultSelectedItem).filter(
@@ -296,7 +296,7 @@ export class GameComponent implements OnInit, OnDestroy {
     });
   }
 
-  private startTimer(): number {
+  private startTimer(): ReturnType<typeof setInterval> {
     const format = (value: number): string => {
       const hours = Math.floor(value / 3600);
       const minutes = Math.floor((value - hours * 3600) / 60);

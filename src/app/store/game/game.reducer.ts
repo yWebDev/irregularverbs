@@ -19,6 +19,8 @@ export interface GameState {
   history: GameResult[];
 }
 
+const isBrowserStorage = typeof localStorage !== 'undefined';
+
 export const gameInitialState: GameState = {
   score: 0,
   maxRounds: 50,
@@ -26,7 +28,9 @@ export const gameInitialState: GameState = {
   isCompleted: false,
   isActive: false,
   time: '00:00:00',
-  history: JSON.parse(localStorage.getItem('iv-game-history') ?? '[]') as GameResult[],
+  history: isBrowserStorage
+    ? (JSON.parse(localStorage.getItem('iv-game-history') ?? '[]') as GameResult[])
+    : [],
 };
 
 export const gameReducer = createReducer(
@@ -73,7 +77,9 @@ export const gameReducer = createReducer(
         draft.history.length = 10;
       }
 
-      localStorage.setItem('iv-game-history', JSON.stringify(draft.history));
+      if (isBrowserStorage) {
+        localStorage.setItem('iv-game-history', JSON.stringify(draft.history));
+      }
     }),
   ),
 
