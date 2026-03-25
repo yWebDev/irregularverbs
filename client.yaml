@@ -1,8 +1,12 @@
+# Default service: Angular SSR (Express) + static browser assets from dist/browser.
+# API traffic is routed to the `api` service via dispatch.yaml (*/api/*).
 runtime: nodejs20
 service: default
 
+entrypoint: node dist/server/server.mjs
+
 handlers:
-  # Explicit handlers for important bot files (no caching)
+  # Bot / SEO files (short cache; served from disk without hitting SSR)
   - url: /robots\.txt
     static_files: dist/browser/robots.txt
     upload: dist/browser/robots.txt
@@ -21,22 +25,20 @@ handlers:
     http_headers:
       Cache-Control: "no-cache, no-store, must-revalidate"
 
-  # Serve all static files with urls ending with a file extension (can be cached)
+  # Hashed bundles, images, fonts, etc. (long cache; same as express.static in server.ts)
   - url: /(.*\..+)$
     static_files: dist/browser/\1
     upload: dist/browser/(.*\..+)$
     http_headers:
-      Cache-Control: "public, max-age=31536000"  # 1 year for static assets
+      Cache-Control: "public, max-age=31536000"
 
-  # Catch-all: serve Angular index.html (short cache)
+  # HTML routes, SSR, and anything else → Node (AngularNodeAppEngine)
   - url: /.*
-    static_files: dist/browser/index.html
-    upload: dist/browser/index.html
-    http_headers:
-      Cache-Control: "no-cache"
+    script: auto
+    secure: always
 
 automatic_scaling:
-  min_instances: 1   # Keep one warm instance for bots
+  min_instances: 1 # Keep one warm instance for bots
   max_instances: 5
   target_cpu_utilization: 0.65
   target_throughput_utilization: 0.75

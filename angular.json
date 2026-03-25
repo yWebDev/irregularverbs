@@ -25,15 +25,18 @@
           "options": {
             "outputPath": "dist",
             "index": "src/index.html",
-            "polyfills": ["src/polyfills.ts"],
+            "polyfills": [
+              "src/polyfills.ts",
+              "@angular/localize/init"
+            ],
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "stylePreprocessorOptions": {
               "includePaths": ["src/styles"]
             },
             "assets": [
-              "src/favicon.ico", 
-              "src/assets", 
+              "src/favicon.ico",
+              "src/assets",
               {
                 "glob": "ads.txt",
                 "input": "src/",
@@ -52,14 +55,25 @@
             ],
             "styles": ["src/styles/variables.scss", "src/styles.scss"],
             "scripts": [],
-            "browser": "src/main.ts"
+            "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "security": {
+              "allowedHosts": []
+            },
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "development": {
               "optimization": false,
               "sourceMap": true,
               "namedChunks": true,
-              "extractLicenses": false
+              "extractLicenses": false,
+              "security": {
+                "allowedHosts": ["localhost", "127.0.0.1"]
+              }
             },
             "staging": {
               "fileReplacements": [
@@ -71,7 +85,10 @@
               "optimization": false,
               "sourceMap": true,
               "namedChunks": true,
-              "extractLicenses": false
+              "extractLicenses": false,
+              "security": {
+                "allowedHosts": ["localhost", "127.0.0.1"]
+              }
             },
             "production": {
               "fileReplacements": [
@@ -99,6 +116,13 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
+              "security": {
+                "allowedHosts": [
+                  "irregverbs-1381.uc.r.appspot.com",
+                  "localhost",
+                  "127.0.0.1"
+                ]
+              },
               "budgets": [
                 {
                   "type": "initial",

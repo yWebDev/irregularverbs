@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { onLCP, onINP, onCLS, onFCP, onTTFB } from 'web-vitals';
 import * as Sentry from '@sentry/angular';
@@ -11,9 +12,13 @@ type MetricRating = 'good' | 'needs-improvement' | 'poor';
 })
 export class PerformanceService {
   private readonly http = inject(HttpClient);
+  private readonly platformId = inject(PLATFORM_ID);
 
   // Preload critical resources
   preloadCriticalResources() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     // Preload critical CSS
     this.preloadResource('/assets/styles/critical.css', 'style');
     
@@ -26,6 +31,9 @@ export class PerformanceService {
 
   // Preload non-critical resources
   preloadNonCriticalResources() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     // Preload game assets
     this.preloadResource('/assets/images/game-assets.png', 'image');
     
@@ -43,6 +51,9 @@ export class PerformanceService {
 
   // Lazy load images when they come into viewport
   lazyLoadImages() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     if ('IntersectionObserver' in window) {
       const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -63,6 +74,9 @@ export class PerformanceService {
 
   // Optimize font loading
   optimizeFontLoading() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     // Add font-display: swap to Google Fonts
     const fontLinks = document.querySelectorAll('link[href*="fonts.googleapis.com"]');
     fontLinks.forEach(link => {
@@ -75,6 +89,9 @@ export class PerformanceService {
 
   // Measure and report Web Vitals (LCP, INP, CLS, FCP, TTFB)
   measurePerformance() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     const reportMetric = (metric: { name: string; value: number; id?: string; rating?: MetricRating; delta?: number; navigationType?: string }) => {
       if (environment.sentryDsn) {
         const SentryWithMetrics = Sentry as typeof Sentry & { metrics?: { distribution: (name: string, value: number, unit?: string) => void } };
@@ -96,6 +113,9 @@ export class PerformanceService {
 
   // Implement resource hints
   addResourceHints() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     // DNS prefetch for external domains
     this.addResourceHint('https://fonts.googleapis.com', 'dns-prefetch');
     this.addResourceHint('https://pagead2.googlesyndication.com', 'dns-prefetch');

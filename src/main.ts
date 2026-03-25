@@ -1,51 +1,14 @@
-import {
-  enableProdMode,
-  importProvidersFrom,
-  inject,
-  provideAppInitializer,
-  provideZoneChangeDetection,
-} from '@angular/core';
+import { enableProdMode, inject, provideAppInitializer } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { environment } from './environments/environment';
-import {
-  provideHttpClient,
-  withInterceptors,
-  withXsrfConfiguration,
-} from '@angular/common/http';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import routes from './app/app.routes';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { A11yModule } from '@angular/cdk/a11y';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialogModule } from '@angular/material/dialog';
-import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
+import { bootstrapApplication } from '@angular/platform-browser';
 import * as Sentry from '@sentry/angular';
-import { ConfigService } from './app/services/config/config.service';
-import { PerformanceService } from './app/services/performance/performance.service';
-import { errorInterceptor } from './app/interceptors/error.interceptor';
-import { provideStore } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
-import { provideRouterStore, routerReducer } from '@ngrx/router-store';
-import { authReducer } from './app/store/auth/auth.reducer';
-import { verbsReducer } from './app/store/verbs/verbs.reducer';
-import { gameReducer } from './app/store/game/game.reducer';
-import { VerbsEffects } from './app/store/verbs/verbs.effects';
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import {
-  TranslateHttpLoader,
-  TRANSLATE_HTTP_LOADER_CONFIG,
-} from '@ngx-translate/http-loader';
-import { LanguageInitService } from './app/services/language/language-init.service';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 
-if (environment.sentryDsn) {
+const isBrowser = typeof window !== 'undefined';
+
+if (environment.sentryDsn && isBrowser) {
   Sentry.init({
     dsn: environment.sentryDsn,
     integrations: [Sentry.browserTracingIntegration()],
@@ -55,9 +18,11 @@ if (environment.sentryDsn) {
     environment: environment.production ? 'production' : 'development',
   });
 
-  Sentry.lazyLoadIntegration('replayIntegration').then((replayIntegration) => {
-    Sentry.addIntegration(replayIntegration());
-  });
+  void Sentry.lazyLoadIntegration('replayIntegration').then(
+    (replayIntegration) => {
+      Sentry.addIntegration(replayIntegration());
+    },
+  );
 }
 
 if (environment.production) {
@@ -76,68 +41,22 @@ void (async () => {
         }),
       ];
 
-  await bootstrapApplication(AppComponent, {
-    providers: [
-      provideZoneChangeDetection(),
-      ...(environment.sentryDsn
-        ? [
+  const sentryProviders =
+    environment.sentryDsn && isBrowser
+      ? [
           { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
           Sentry.TraceService,
           provideAppInitializer(() => {
             inject(Sentry.TraceService);
           }),
         ]
-        : []),
-      importProvidersFrom(
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        DragDropModule,
-        A11yModule,
-        MatMenuModule,
-        MatSnackBarModule,
-        MatDialogModule,
-      ),
-      provideRouter(routes),
-      provideStore({
-        auth: authReducer,
-        verbs: verbsReducer,
-        game: gameReducer,
-        router: routerReducer,
-      }),
-      provideEffects([VerbsEffects]),
+      : [];
+
+  await bootstrapApplication(AppComponent, {
+    providers: [
+      ...appConfig.providers,
+      ...sentryProviders,
       ...storeDevtoolsProviders,
-      provideRouterStore(),
-      provideHttpClient(
-        withInterceptors([errorInterceptor]),
-        withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
-      ),
-      {
-        provide: TRANSLATE_HTTP_LOADER_CONFIG,
-        useValue: { prefix: '/assets/i18n/', suffix: '.json' },
-      },
-      ...provideTranslateService({
-        fallbackLang: 'en',
-        loader: { provide: TranslateLoader, useClass: TranslateHttpLoader },
-      }),
-      provideAppInitializer(() => {
-        inject(LanguageInitService).init();
-      }),
-      provideAnimations(),
-      provideAppInitializer(() => {
-        const configService = inject(ConfigService);
-        configService.loadConfig();
-      }),
-      provideAppInitializer(() => {
-        const performanceService = inject(PerformanceService);
-        performanceService.addResourceHints();
-        performanceService.optimizeFontLoading();
-        performanceService.measurePerformance();
-      }),
     ],
   });
 })().catch((err) => console.error(err));
