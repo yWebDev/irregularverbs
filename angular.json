@@ -90,6 +90,15 @@
                 "allowedHosts": ["localhost", "127.0.0.1"]
               }
             },
+            "e2e": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "outputMode": "static",
+              "server": false,
+              "ssr": false
+            },
             "production": {
               "fileReplacements": [
                 {
