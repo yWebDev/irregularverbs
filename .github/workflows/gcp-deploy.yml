@@ -165,7 +165,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Skip Piscina-based route discovery during build. On some Linux/CI runners the worker can
+      # reject with a non-Error value, which triggers Angular's assertIsError and fails the build
+      # with "catch clause variable is not an Error instance". Runtime still builds the route tree
+      # on first request (see ServerRouter.from when manifest.routes is undefined).
       - name: Build Node Project
+        env:
+          NG_BUILD_PARTIAL_SSR: "true"
         run: npm run build:prod
 
       - name: Create assets/config.json

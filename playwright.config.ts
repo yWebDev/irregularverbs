@@ -3,12 +3,13 @@ import { defineConfig, devices } from "@playwright/test";
 /**
  * Playwright E2E configuration.
  *
- * The tests are designed to run against a locally served Angular app
- * (ng serve) at http://localhost:4200. The backend is expected to be
- * available at http://localhost:3000 (or proxied by the Angular dev server).
+ * The dev server uses `ng serve --configuration=e2e` (static browser build, no SSR
+ * route extraction) so it matches CI and avoids hanging builds. API calls are
+ * proxied to http://localhost:3000 per proxy.conf.json.
  *
- * To run tests:
- *   npx playwright test
+ * To run tests locally:
+ *   npm run e2e
+ *   # or in two terminals: npm run serve:e2e  →  npm run e2e  (reuses existing server)
  *
  * To run in UI mode:
  *   npx playwright test --ui
@@ -50,14 +51,12 @@ export default defineConfig({
       use: { ...devices["Pixel 5"] },
     },
   ],
-  // Automatically start `ng serve` before the tests.
-  // reuseExistingServer reuses a running server on localhost:4200 if one
-  // is already up (e.g. you started it manually), which avoids the cold-start
-  // wait during iterative development.
+  // `e2e` build = static SPA only (see angular.json). Staging/production SSR
+  // builds can hang or fail during route extraction when no API is reachable.
   webServer: {
-    command: "ng serve --configuration=staging",
+    command: "npx ng serve --configuration=e2e --port 4200",
     url: "http://localhost:4200",
     reuseExistingServer: true,
-    timeout: 120_000,
+    timeout: 180_000,
   },
 });
