@@ -6,7 +6,6 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +27,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-verbs',
   imports: [
-    AsyncPipe,
     MatTableModule,
     MatIconModule,
     MatButtonModule,
@@ -52,9 +50,9 @@ export class VerbsComponent implements OnInit {
   private readonly promptService = inject(PromptService);
   private readonly breakpointObserver = inject(BreakpointObserver);
 
-  readonly verbs$ = this.store.select(selectAllVerbs);
-  readonly loading$ = this.store.select(selectVerbsLoading);
-  readonly error$ = this.store.select(selectVerbsError);
+  readonly verbs = toSignal(this.store.select(selectAllVerbs), { initialValue: [] as VerbDetails[] });
+  readonly loading = toSignal(this.store.select(selectVerbsLoading), { initialValue: false });
+  readonly error = toSignal(this.store.select(selectVerbsError), { initialValue: null });
 
   /** Card layout below md breakpoint (mobile-first). */
   readonly isNarrowLayout = toSignal(
