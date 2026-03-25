@@ -4,6 +4,17 @@ import { throwError } from 'rxjs';
 import * as Sentry from '@sentry/angular';
 import { environment } from '../../environments/environment';
 
+/**
+ * HttpErrorResponse does not extend Error. Rethrowing it breaks tooling that
+ * expects `instanceof Error` (e.g. Angular SSR route extraction worker).
+ */
+function asErrorForStream(err: HttpErrorResponse): Error {
+  const e = new Error(err.message);
+  e.name = err.name;
+  (e as Error & { cause: HttpErrorResponse }).cause = err;
+  return e;
+}
+
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
@@ -17,7 +28,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           },
         });
       }
-      return throwError(() => err);
-    })
+      return throwError(() => asErrorForStream(err));
+    }),
   );
 };
