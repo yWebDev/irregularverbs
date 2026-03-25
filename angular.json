@@ -164,6 +164,10 @@
             },
             "production": {
               "buildTarget": "iverbs:build:production"
+            },
+            "e2e": {
+              "buildTarget": "iverbs:build:e2e",
+              "proxyConfig": "src/proxy/proxy.conf.json"
             }
           }
         },
