@@ -61,5 +61,4 @@ import 'zone.js'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
- * @angular/localize/init is listed in angular.json "polyfills" so it is included in the server bundle.
  */
