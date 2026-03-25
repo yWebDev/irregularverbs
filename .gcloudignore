@@ -1,0 +1,37 @@
+# Version control & CI
+.git
+.github
+.gitignore
+
+# IDE / editor
+.idea
+.vscode
+.cursor
+*.sublime-workspace
+
+# Angular build cache
+.angular
+
+# Source code (already compiled into dist/)
+src/
+e2e/
+tools/
+
+# Test artifacts
+coverage/
+test-results/
+playwright-report/
+
+# Config files not needed at runtime
+tsconfig*.json
+angular.json
+karma.conf.js
+playwright.config.ts
+Dockerfile
+docker-compose.yml
+.editorconfig
+.prettierrc*
+.eslintrc*
+eslint.config.*
+sonar-project.properties
+*.md
