@@ -51,6 +51,23 @@ body {
   margin: 0;
 }
 
+/* Route views: subtle entrance (outlet inserts a sibling component). */
+@keyframes iv-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+router-outlet + * {
+  display: block;
+  animation: iv-page-enter 0.45s ease-out both;
+}
+
 .body {
   min-height: 100vh;
   display: flex;

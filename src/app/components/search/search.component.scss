@@ -1,3 +1,26 @@
+@keyframes iv-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.iv-fade-in-up {
+  animation: iv-fade-in-up 0.55s ease-out both;
+}
+
+.iv-fade-in-up--delay-1 {
+  animation-delay: 0.08s;
+}
+
+.iv-fade-in-up--delay-2 {
+  animation-delay: 0.18s;
+}
+
 :host {
   width: 100%;
 

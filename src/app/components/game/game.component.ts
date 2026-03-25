@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit, viewChild, inject } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -13,7 +20,6 @@ import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.com
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { HowToPlayComponent } from './how-to-play/how-to-play.component';
-import { MetaService } from 'src/app/services/meta/meta.service';
 import { Store } from '@ngrx/store';
 import {
   endGame,
@@ -47,7 +53,6 @@ export class GameComponent implements OnInit, OnDestroy {
   private readonly submitBtn = viewChild<MatButton>('submitBtn');
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
-  private readonly metaService = inject(MetaService);
   private readonly liveAnnouncer = inject(LiveAnnouncer);
   private readonly store = inject(Store);
   private readonly translate = inject(TranslateService);
@@ -57,6 +62,9 @@ export class GameComponent implements OnInit, OnDestroy {
   protected currentIndex = 0;
   protected time = '00:00:00';
   protected isGameOver = false;
+
+  /** CSS-only score bump when the player answers correctly. */
+  protected readonly scoreBump = signal(false);
 
   readonly score$ = this.store.select(selectGameScore);
   readonly time$ = this.store.select(selectGameTime);
@@ -84,13 +92,6 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   constructor() {
-    this.metaService.updateMeta({
-      title: 'Learn Through Play',
-      description: 'Boost your knowledge with a fun and interactive game!',
-      keywords:
-        'irregular verbs game, English learning game, ESL game, verb practice',
-      url: 'https://irregverbs-1381.uc.r.appspot.com/game/active',
-    });
     this.interval = this.startTimer();
   }
 
@@ -150,6 +151,8 @@ export class GameComponent implements OnInit, OnDestroy {
     if (isCorrect) {
       this.currentIndex += 1;
       this.store.dispatch(incrementScore());
+      this.scoreBump.set(true);
+      setTimeout(() => this.scoreBump.set(false), 500);
     }
 
     const isCompleted = this.currentIndex === this.MAX_NUMBER;

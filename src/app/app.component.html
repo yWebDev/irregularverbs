@@ -4,33 +4,72 @@
 </header>
 <main class="main" cdkScrollable>
   <nav class="navigation" [attr.aria-label]="'NAV.MAIN' | translate">
-    <ul role="list">
-      <li>
+    @if (compactNav()) {
+      <button
+        type="button"
+        mat-icon-button
+        class="nav-menu-trigger"
+        [matMenuTriggerFor]="mobileNavMenu"
+        [attr.aria-label]="'NAV.MENU' | translate"
+        [attr.aria-expanded]="mobileNavMenuOpen()"
+        (menuOpened)="onMobileNavOpened()"
+        (menuClosed)="onMobileNavClosed()"
+      >
+        <mat-icon aria-hidden="true">menu</mat-icon>
+      </button>
+      <mat-menu #mobileNavMenu="matMenu">
         <a
+          mat-menu-item
           routerLink="/"
-          [routerLinkActive]="['is-active']"
+          routerLinkActive="router-link-active"
           [routerLinkActiveOptions]="{ exact: true }"
           [attr.aria-current]="isCurrentRoute('/') ? 'page' : null"
           >{{ 'NAV.SEARCH' | translate }}</a
         >
-      </li>
-      <li>
         <a
+          mat-menu-item
           routerLink="/game"
-          [routerLinkActive]="['is-active']"
+          routerLinkActive="router-link-active"
           [attr.aria-current]="isCurrentRoute('/game') ? 'page' : null"
           >{{ 'NAV.GAME' | translate }}</a
         >
-      </li>
-      <li>
         <a
+          mat-menu-item
           routerLink="/verbs"
-          [routerLinkActive]="['is-active']"
+          routerLinkActive="router-link-active"
           [attr.aria-current]="isCurrentRoute('/verbs') ? 'page' : null"
           >{{ 'NAV.TABLE' | translate }}</a
         >
-      </li>
-    </ul>
+      </mat-menu>
+    } @else {
+      <ul role="list" class="nav-links">
+        <li>
+          <a
+            routerLink="/"
+            [routerLinkActive]="['is-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [attr.aria-current]="isCurrentRoute('/') ? 'page' : null"
+            >{{ 'NAV.SEARCH' | translate }}</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/game"
+            [routerLinkActive]="['is-active']"
+            [attr.aria-current]="isCurrentRoute('/game') ? 'page' : null"
+            >{{ 'NAV.GAME' | translate }}</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/verbs"
+            [routerLinkActive]="['is-active']"
+            [attr.aria-current]="isCurrentRoute('/verbs') ? 'page' : null"
+            >{{ 'NAV.TABLE' | translate }}</a
+          >
+        </li>
+      </ul>
+    }
     <div class="nav-actions">
       <app-language-switcher />
       @if (username$ | async; as username) {
@@ -87,7 +126,6 @@
   ></span
 >
   <a
-    type="button"
     class="btn-donate"
     [attr.title]="'FOOTER.DONATE_TITLE' | translate"
     href="https://donatello.to/iverbs"

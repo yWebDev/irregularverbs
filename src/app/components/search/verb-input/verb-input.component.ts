@@ -57,7 +57,12 @@ export class VerbInputComponent {
   }
 
   protected getOptionLabel(option: VerbSearchOption): string {
-    return option?.[option?.matched];
+    const key = option?.matched;
+    if (!option || !key) {
+      return '';
+    }
+    const value = option[key];
+    return value != null ? String(value) : '';
   }
 
   protected clearSelectedValue(): void {

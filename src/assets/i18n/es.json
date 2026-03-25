@@ -7,6 +7,7 @@
   },
   "NAV": {
     "MAIN": "Navegación principal",
+    "MENU": "Abrir menú del sitio",
     "SEARCH": "Buscar verbos",
     "GAME": "Juego de verbos",
     "TABLE": "Tabla de verbos"
@@ -50,6 +51,7 @@
     "LOADING": "Cargando verbos...",
     "LOADING_ARIA": "Cargando verbos, espera por favor",
     "TABLE_ARIA": "Lista completa de verbos irregulares con forma base, pasado simple y participio",
+    "CARDS_ARIA": "Verbos irregulares en tarjetas compactas para pantallas pequeñas",
     "COL_BASE": "Forma base (I)",
     "COL_PAST": "Pasado simple (II)",
     "COL_PART": "Participio (III)",

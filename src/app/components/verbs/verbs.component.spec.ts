@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -33,6 +34,12 @@ describe('VerbsComponent', () => {
         provideAnimations(),
         provideMockStore({ initialState: mockInitialState }),
         { provide: VerbsService, useValue: verbsServiceSpy },
+        {
+          provide: BreakpointObserver,
+          useValue: {
+            observe: () => of({ matches: false, breakpoints: {} }),
+          },
+        },
         ...testingTranslateProviders,
       ],
     })

@@ -1,16 +1,20 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
-import { AuthService } from './services/auth/auth.service';
-import { SeoService } from './services/seo/seo.service';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   Router,
   RouterLink,
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
+import { AuthService } from './services/auth/auth.service';
+import { SeoService } from './services/seo/seo.service';
 import { RouterFocusDirective } from './directives/router-focus.directive';
 import { BUILD_TIME_ISO, GIT_COMMIT, PACKAGE_VERSION } from './build-info';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -26,6 +30,7 @@ import { LanguageSwitcherComponent } from './components/language-switcher/langua
     CdkScrollable,
     RouterLinkActive,
     MatMenuTrigger,
+    MatIconButton,
     MatIcon,
     MatMenu,
     MatMenuItem,
@@ -39,8 +44,19 @@ export class AppComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly seoService = inject(SeoService);
+  private readonly breakpointObserver = inject(BreakpointObserver);
 
   readonly username$ = this.authService.username$;
+
+  /** Hamburger + overflow menu below --iv-bp-lg. */
+  readonly compactNav = toSignal(
+    this.breakpointObserver
+      .observe('(max-width: 991.98px)')
+      .pipe(map((state) => state.matches)),
+    { initialValue: false },
+  );
+
+  readonly mobileNavMenuOpen = signal(false);
 
   /** Shown in the footer; hover/title exposes commit and build time from the esbuild build-info plugin. */
   readonly appVersion = PACKAGE_VERSION;
@@ -60,5 +76,13 @@ export class AppComponent implements OnInit {
   onDelete(): void {
     this.authService.delete();
     this.router.navigate(['']);
+  }
+
+  onMobileNavOpened(): void {
+    this.mobileNavMenuOpen.set(true);
+  }
+
+  onMobileNavClosed(): void {
+    this.mobileNavMenuOpen.set(false);
   }
 }

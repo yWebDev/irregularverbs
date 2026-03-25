@@ -7,6 +7,7 @@
   },
   "NAV": {
     "MAIN": "Main navigation",
+    "MENU": "Open site menu",
     "SEARCH": "Verbs Search",
     "GAME": "Verbs Game",
     "TABLE": "Verbs Table"
@@ -50,6 +51,7 @@
     "LOADING": "Loading verbs...",
     "LOADING_ARIA": "Loading verbs, please wait",
     "TABLE_ARIA": "Complete list of irregular verbs with base, past simple and past participle forms",
+    "CARDS_ARIA": "Irregular verbs in a compact card layout for small screens",
     "COL_BASE": "Base Form (I)",
     "COL_PAST": "Past Simple Form (II)",
     "COL_PART": "Past Participle Form (III)",

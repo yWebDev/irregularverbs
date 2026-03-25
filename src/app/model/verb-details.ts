@@ -7,10 +7,8 @@ export interface VerbDetailsDTO {
   pastParticipleAlt?: string;
 }
 
-export type VerbDetails = Omit<
-  VerbDetailsDTO,
-  'pastSimpleAlt' | 'pastParticipleAlt'
->;
+/** Table and API rows include optional alternate surface forms. */
+export type VerbDetails = VerbDetailsDTO;
 
 export interface VerbSearchOption extends VerbDetails {
   matched: keyof VerbDetails;
