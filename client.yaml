@@ -37,6 +37,9 @@ handlers:
     script: auto
     secure: always
 
+build_env_variables:
+  GOOGLE_NODE_RUN_SCRIPTS: ""
+
 automatic_scaling:
   min_instances: 1 # Keep one warm instance for bots
   max_instances: 5
