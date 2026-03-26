@@ -37,7 +37,7 @@ describe('VerbInputComponent Accessibility', () => {
   });
 
   it('should have clear button with aria-label', () => {
-    component['myControl'].setValue('test');
+    component['searchForm'].controls.term.setValue('test');
     fixture.detectChanges();
 
     const clearButton = fixture.nativeElement.querySelector('[aria-label="Clear"]');

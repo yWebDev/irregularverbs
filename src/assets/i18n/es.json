@@ -43,7 +43,10 @@
   "VERB_INPUT": {
     "PLACEHOLDER": "Escribe un verbo...",
     "VERB_ARIA": "Verbo",
-    "CLEAR": "Borrar"
+    "CLEAR": "Borrar",
+    "MIN_SEARCH_LEN": "Introduce al menos {{min}} caracteres para buscar",
+    "MAX_LEN": "El texto de búsqueda es demasiado largo (máx. {{max}} caracteres)",
+    "PATTERN": "Usa solo letras, espacios, guiones y apóstrofos"
   },
   "VERBS": {
     "TITLE": "Lista completa de verbos irregulares",
@@ -132,6 +135,7 @@
   "LOGIN": {
     "CHOOSE_USER": "Elige tu nombre de usuario",
     "USERNAME": "Usuario",
+    "REQUIRED": "El nombre de usuario es obligatorio",
     "PATTERN_ERROR": "Solo se permiten caracteres <strong>alfanuméricos</strong>",
     "MIN_LENGTH_ERROR": "La longitud mínima es de <strong>6</strong> caracteres",
     "START": "Empezar juego"

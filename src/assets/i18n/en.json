@@ -43,7 +43,10 @@
   "VERB_INPUT": {
     "PLACEHOLDER": "Type a verb...",
     "VERB_ARIA": "Verb",
-    "CLEAR": "Clear"
+    "CLEAR": "Clear",
+    "MIN_SEARCH_LEN": "Enter at least {{min}} characters to search",
+    "MAX_LEN": "Search text is too long (max {{max}} characters)",
+    "PATTERN": "Use letters, spaces, hyphens, and apostrophes only"
   },
   "VERBS": {
     "TITLE": "Complete List of Irregular Verbs",
@@ -132,6 +135,7 @@
   "LOGIN": {
     "CHOOSE_USER": "Please choose your username",
     "USERNAME": "Username",
+    "REQUIRED": "Username is required",
     "PATTERN_ERROR": "Only <strong>alphanumeric</strong> characters are allowed",
     "MIN_LENGTH_ERROR": "Minimal length is <strong>6</strong> characters",
     "START": "Start Game"
