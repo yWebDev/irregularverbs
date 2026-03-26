@@ -1,4 +1,4 @@
-<section class="search iv-fade-in-up">
+<section class="search search__scroll-block" appScrollReveal>
   <div>
     <h2 class="text-center iv-fade-in-up iv-fade-in-up--delay-1">
       {{ 'SEARCH.HERO_TITLE' | translate }}
@@ -39,6 +39,6 @@
   </div>
   <app-verb-input (verbSelect)="selected = $event"></app-verb-input>
 </section>
-<section class="details iv-fade-in-up iv-fade-in-up--delay-2">
+<section class="details search__scroll-block" appScrollReveal>
   <app-verb-info [details]="selected"></app-verb-info>
 </section>

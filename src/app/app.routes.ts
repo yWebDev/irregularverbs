@@ -44,6 +44,11 @@ const routes: Routes = [
         (m) => m.VerbsComponent,
       ),
   },
+  {
+    path: 'stats',
+    loadComponent: () =>
+      import('./components/stats/stats.component').then((m) => m.StatsComponent),
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

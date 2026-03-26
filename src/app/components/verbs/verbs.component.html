@@ -4,6 +4,102 @@
     {{ 'VERBS.INTRO_1' | translate }}<br /><br />{{ 'VERBS.INTRO_2' | translate }}
   </p>
   <div class="table-container">
+    <ng-template #verbCard let-element>
+      <article
+        class="verb-card"
+        role="listitem"
+        [class.verb-card--expanded]="expandedElement() === element"
+        [attr.aria-label]="
+          'VERBS.VERB_ROW' | translate: { verb: element.base }
+        "
+      >
+        <button
+          type="button"
+          class="verb-card__header"
+          [attr.aria-expanded]="expandedElement() === element"
+          [attr.aria-controls]="'card-detail-' + element.base"
+          [attr.aria-label]="
+            expandedElement() === element
+              ? ('VERBS.COLLAPSE' | translate: { verb: element.base })
+              : ('VERBS.EXPAND' | translate: { verb: element.base })
+          "
+          (click)="toggleExpanded(element)"
+        >
+          <div class="verb-card__forms">
+            <div class="verb-card__field">
+              <span class="verb-card__label">{{
+                'VERBS.COL_BASE' | translate
+              }}</span>
+              <span class="verb-card__value">{{ element.base }}</span>
+            </div>
+            <div class="verb-card__field">
+              <span class="verb-card__label">{{
+                'VERBS.COL_PAST' | translate
+              }}</span>
+              <span class="verb-card__value"
+                >{{ element.pastSimple
+                }}{{
+                  element.pastSimpleAlt ? '/' + element.pastSimpleAlt : ''
+                }}</span
+              >
+            </div>
+            <div class="verb-card__field">
+              <span class="verb-card__label">{{
+                'VERBS.COL_PART' | translate
+              }}</span>
+              <span class="verb-card__value"
+                >{{ element.pastParticiple
+                }}{{
+                  element.pastParticipleAlt
+                    ? '/' + element.pastParticipleAlt
+                    : ''
+                }}</span
+              >
+            </div>
+          </div>
+          <span class="verb-card__chevron" aria-hidden="true">
+            @if (expandedElement() === element) {
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            } @else {
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            }
+          </span>
+        </button>
+        <div
+          class="verb-card__detail"
+          [id]="'card-detail-' + element.base"
+          [attr.aria-hidden]="element !== expandedElement()"
+        >
+          @if (expandedElement() === element) {
+            <div
+              class="element-description"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              @if (formsExamplesResource$.value()) {
+                <h4 class="example-header">
+                  {{ 'VERBS.EXAMPLES' | translate }}
+                </h4>
+                <p
+                  class="verb-examples"
+                  [innerHTML]="formsExamplesResource$.value()"
+                ></p>
+              } @else {
+                <p
+                  class="loading"
+                  [attr.aria-label]="
+                    'VERBS.LOADING_EXAMPLES_ARIA' | translate
+                  "
+                >
+                  {{ 'VERBS.LOADING_EXAMPLES' | translate }}
+                </p>
+              }
+            </div>
+          }
+        </div>
+      </article>
+    </ng-template>
+
     @if (loading()) {
       <div
         class="verbs-skeleton"
@@ -25,99 +121,9 @@
         [attr.aria-label]="'VERBS.CARDS_ARIA' | translate"
       >
         @for (element of verbs(); track element.base) {
-          <article
-            class="verb-card"
-            role="listitem"
-            [class.verb-card--expanded]="expandedElement() === element"
-            [attr.aria-label]="
-              'VERBS.VERB_ROW' | translate: { verb: element.base }
-            "
-          >
-            <button
-              type="button"
-              class="verb-card__header"
-              [attr.aria-expanded]="expandedElement() === element"
-              [attr.aria-controls]="'card-detail-' + element.base"
-              [attr.aria-label]="
-                expandedElement() === element
-                  ? ('VERBS.COLLAPSE' | translate: { verb: element.base })
-                  : ('VERBS.EXPAND' | translate: { verb: element.base })
-              "
-              (click)="toggleExpanded(element)"
-            >
-              <div class="verb-card__forms">
-                <div class="verb-card__field">
-                  <span class="verb-card__label">{{
-                    'VERBS.COL_BASE' | translate
-                  }}</span>
-                  <span class="verb-card__value">{{ element.base }}</span>
-                </div>
-                <div class="verb-card__field">
-                  <span class="verb-card__label">{{
-                    'VERBS.COL_PAST' | translate
-                  }}</span>
-                  <span class="verb-card__value"
-                    >{{ element.pastSimple
-                    }}{{
-                      element.pastSimpleAlt ? '/' + element.pastSimpleAlt : ''
-                    }}</span
-                  >
-                </div>
-                <div class="verb-card__field">
-                  <span class="verb-card__label">{{
-                    'VERBS.COL_PART' | translate
-                  }}</span>
-                  <span class="verb-card__value"
-                    >{{ element.pastParticiple
-                    }}{{
-                      element.pastParticipleAlt
-                        ? '/' + element.pastParticipleAlt
-                        : ''
-                    }}</span
-                  >
-                </div>
-              </div>
-              <span class="verb-card__chevron" aria-hidden="true">
-                @if (expandedElement() === element) {
-                  <mat-icon>keyboard_arrow_up</mat-icon>
-                } @else {
-                  <mat-icon>keyboard_arrow_down</mat-icon>
-                }
-              </span>
-            </button>
-            <div
-              class="verb-card__detail"
-              [id]="'card-detail-' + element.base"
-              [attr.aria-hidden]="element !== expandedElement()"
-            >
-              @if (expandedElement() === element) {
-                <div
-                  class="element-description"
-                  aria-live="polite"
-                  aria-atomic="true"
-                >
-                  @if (formsExamplesResource$.value()) {
-                    <h4 class="example-header">
-                      {{ 'VERBS.EXAMPLES' | translate }}
-                    </h4>
-                    <p
-                      class="verb-examples"
-                      [innerHTML]="formsExamplesResource$.value()"
-                    ></p>
-                  } @else {
-                    <p
-                      class="loading"
-                      [attr.aria-label]="
-                        'VERBS.LOADING_EXAMPLES_ARIA' | translate
-                      "
-                    >
-                      {{ 'VERBS.LOADING_EXAMPLES' | translate }}
-                    </p>
-                  }
-                </div>
-              }
-            </div>
-          </article>
+          <ng-container
+            *ngTemplateOutlet="verbCard; context: { $implicit: element }"
+          />
         }
       </div>
     }
@@ -242,6 +248,7 @@
             mat-row
             *matRowDef="let element; columns: displayedColumnsWithExpand"
             class="element-row"
+            appScrollReveal
             [class.example-expanded-row]="expandedElement() === element"
             [attr.aria-label]="
               'VERBS.VERB_ROW' | translate: { verb: element.base }

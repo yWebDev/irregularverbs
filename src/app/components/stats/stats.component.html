@@ -1,0 +1,85 @@
+<section class="stats">
+  <h1 class="text-center">{{ 'STATS.TITLE' | translate }}</h1>
+  <p class="text-center stats__intro">{{ 'STATS.INTRO' | translate }}</p>
+
+  <div class="stats__grid" #chartGrid>
+    <article class="stats__card">
+      <h2>{{ 'STATS.SCORE_HISTORY' | translate }}</h2>
+      <p class="stats__hint">{{ 'STATS.SCORE_HISTORY_HINT' | translate }}</p>
+      @if (isBrowser && barResults().length) {
+        <div class="stats__chart-host">
+          <ngx-charts-bar-vertical
+            [results]="barResults()"
+            [view]="chartView()"
+            [scheme]="colorScheme"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="false"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxisLabel]="'STATS.CHART_GAME' | translate"
+            [yAxisLabel]="'STATS.CHART_SCORE' | translate"
+            [roundDomains]="true"
+            [animations]="true"
+          />
+        </div>
+      } @else if (!barResults().length) {
+        <p class="stats__empty">{{ 'STATS.EMPTY_HISTORY' | translate }}</p>
+      } @else {
+        <p class="stats__empty">{{ 'STATS.CHARTS_LOADING' | translate }}</p>
+      }
+    </article>
+
+    <article class="stats__card">
+      <h2>{{ 'STATS.PATTERN_DIST' | translate }}</h2>
+      <p class="stats__hint">{{ 'STATS.PATTERN_HINT' | translate }}</p>
+      @if (isBrowser && verbs().length) {
+        <div class="stats__chart-host">
+          <ngx-charts-pie-chart
+            [results]="pieResults()"
+            [view]="chartView()"
+            [scheme]="colorScheme"
+            [legend]="true"
+            [legendTitle]="'STATS.LEGEND' | translate"
+            [labels]="true"
+            [doughnut]="true"
+            [arcWidth]="0.35"
+            [animations]="true"
+          />
+        </div>
+      } @else if (!verbs().length) {
+        <p class="stats__empty">{{ 'STATS.VERBS_LOADING' | translate }}</p>
+      } @else {
+        <p class="stats__empty">{{ 'STATS.CHARTS_LOADING' | translate }}</p>
+      }
+    </article>
+
+    <article class="stats__card stats__card--wide">
+      <h2>{{ 'STATS.PROGRESS' | translate }}</h2>
+      <p class="stats__hint">{{ 'STATS.PROGRESS_HINT' | translate }}</p>
+      @if (isBrowser && hasLineData()) {
+        <div class="stats__chart-host">
+          <ngx-charts-line-chart
+            [results]="lineResults()"
+            [view]="lineChartView()"
+            [scheme]="colorScheme"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="false"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxisLabel]="'STATS.CHART_SESSION' | translate"
+            [yAxisLabel]="'STATS.CHART_CUMULATIVE' | translate"
+            [autoScale]="true"
+            [timeline]="false"
+            [animations]="true"
+          />
+        </div>
+      } @else if (!hasLineData()) {
+        <p class="stats__empty">{{ 'STATS.EMPTY_PROGRESS' | translate }}</p>
+      } @else {
+        <p class="stats__empty">{{ 'STATS.CHARTS_LOADING' | translate }}</p>
+      }
+    </article>
+  </div>
+</section>

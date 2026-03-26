@@ -68,6 +68,19 @@ router-outlet + * {
   animation: iv-page-enter 0.45s ease-out both;
 }
 
+.iv-scroll-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.iv-scroll-reveal.iv-scroll-reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .body {
   min-height: 100vh;
   display: flex;

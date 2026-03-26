@@ -1,0 +1,84 @@
+.stats {
+  padding: 0 1rem 3rem;
+
+  @media (min-width: 768px) {
+    padding: 0 2rem 4rem;
+  }
+}
+
+.stats__intro {
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+  opacity: 0.88;
+  line-height: 1.5;
+}
+
+.stats__grid {
+  display: grid;
+  gap: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.stats__card {
+  min-width: 0;
+  padding: 1.25rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  &--wide {
+    @media (min-width: 900px) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  h2 {
+    margin: 0 0 0.35rem;
+    font-size: 1.15rem;
+    color: var(--active-color, #3949ab);
+  }
+}
+
+.stats__hint {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.stats__empty {
+  margin: 2rem 0;
+  text-align: center;
+  color: #666;
+}
+
+/* ngx-charts sets explicit SVG width from [view]; keep within card column. */
+.stats__chart-host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+::ng-deep .stats {
+  .ngx-charts {
+    display: block;
+    max-width: 100%;
+
+    text {
+      fill: #333;
+    }
+  }
+
+}

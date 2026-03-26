@@ -46,6 +46,9 @@ export class SeoService {
       case '/verbs':
         this.updateVerbsPageSEO();
         break;
+      case '/stats':
+        this.updateStatsPageSEO();
+        break;
       default:
         this.updateDefaultSEO();
     }
@@ -81,6 +84,20 @@ export class SeoService {
 
     this.metaService.updateMeta(seoData);
     this.updateGamePageStructuredData();
+  }
+
+  updateStatsPageSEO() {
+    const seoData: SEOData = {
+      title: 'Learning Statistics — Irregular Verbs',
+      description:
+        'View your game score history, verb pattern distribution, and learning progress charts. Track practice sessions and explore how irregular verbs group by form pattern.',
+      keywords:
+        'irregular verbs statistics, learning progress, verb patterns, ESL progress, English learning charts, game scores',
+      url: `${this.siteUrl}/stats`,
+      type: 'website',
+    };
+
+    this.metaService.updateMeta(seoData);
   }
 
   updateVerbsPageSEO() {

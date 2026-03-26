@@ -10,7 +10,8 @@
     "MENU": "Abrir menú del sitio",
     "SEARCH": "Buscar verbos",
     "GAME": "Juego de verbos",
-    "TABLE": "Tabla de verbos"
+    "TABLE": "Tabla de verbos",
+    "STATS": "Estadísticas"
   },
   "LANG": {
     "LABEL": "Idioma",
@@ -42,7 +43,10 @@
   "VERB_INPUT": {
     "PLACEHOLDER": "Escribe un verbo...",
     "VERB_ARIA": "Verbo",
-    "CLEAR": "Borrar"
+    "CLEAR": "Borrar",
+    "MIN_SEARCH_LEN": "Introduce al menos {{min}} caracteres para buscar",
+    "MAX_LEN": "El texto de búsqueda es demasiado largo (máx. {{max}} caracteres)",
+    "PATTERN": "Usa solo letras, espacios, guiones y apóstrofos"
   },
   "VERBS": {
     "TITLE": "Lista completa de verbos irregulares",
@@ -131,6 +135,7 @@
   "LOGIN": {
     "CHOOSE_USER": "Elige tu nombre de usuario",
     "USERNAME": "Usuario",
+    "REQUIRED": "El nombre de usuario es obligatorio",
     "PATTERN_ERROR": "Solo se permiten caracteres <strong>alfanuméricos</strong>",
     "MIN_LENGTH_ERROR": "La longitud mínima es de <strong>6</strong> caracteres",
     "START": "Empezar juego"
@@ -141,6 +146,25 @@
     "BODY": "Debes arrastrar las formas de 50 verbos irregulares a las cajas lo más rápido posible. ¡Suerte!",
     "PLAY": "Jugar",
     "HOW_TO_PLAY": "¿Cómo se juega?"
+  },
+  "STATS": {
+    "TITLE": "Estadísticas de aprendizaje",
+    "INTRO": "Los gráficos usan tus últimas partidas terminadas (guardadas en este navegador) y la lista completa de verbos para la distribución de patrones.",
+    "SCORE_HISTORY": "Puntuaciones",
+    "SCORE_HISTORY_HINT": "Cada barra es una sesión terminada (las más recientes primero en el eje).",
+    "PATTERN_DIST": "Patrones de formas verbales",
+    "PATTERN_HINT": "Agrupación de verbos en la base de datos: AAA (tres formas iguales), ABA, ABB o ABC (tres formas distintas).",
+    "PROGRESS": "Sesiones en el tiempo",
+    "PROGRESS_HINT": "Recuento acumulado de partidas terminadas por fecha (de la más antigua a la más nueva).",
+    "EMPTY_HISTORY": "Termina una partida para ver barras aquí. Las puntuaciones se guardan al finalizar.",
+    "EMPTY_PROGRESS": "Aún no hay partidas terminadas — juega una ronda para ver el progreso.",
+    "VERBS_LOADING": "Cargando datos de verbos para el gráfico…",
+    "CHARTS_LOADING": "Preparando gráficos…",
+    "CHART_GAME": "Sesión",
+    "CHART_SCORE": "Puntuación",
+    "CHART_SESSION": "Fecha",
+    "CHART_CUMULATIVE": "Partidas jugadas",
+    "LEGEND": "Patrones"
   },
   "ACCOUNT": {
     "DELETE": "Eliminar cuenta"

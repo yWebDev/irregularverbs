@@ -1,11 +1,11 @@
-<form>
+<form [formGroup]="searchForm" novalidate>
   <mat-form-field class="form-field" appearance="fill">
     <input
       class="input"
       [placeholder]="'VERB_INPUT.PLACEHOLDER' | translate"
       [attr.aria-label]="'VERB_INPUT.VERB_ARIA' | translate"
       matInput
-      [formControl]="myControl"
+      formControlName="term"
       [matAutocomplete]="auto"
       (input)="verbSelect.emit(null)"
     />
@@ -20,7 +20,26 @@
         </mat-option>
       }
     </mat-autocomplete>
-    @if (myControl.value) {
+    @if (searchForm.controls.term.hasError('minSearchLength') && searchForm.controls.term.dirty) {
+      <mat-error>
+        {{
+          'VERB_INPUT.MIN_SEARCH_LEN'
+            | translate: { min: searchForm.controls.term.getError('minSearchLength')?.requiredLength ?? 2 }
+        }}
+      </mat-error>
+    }
+    @if (searchForm.controls.term.hasError('maxlength') && searchForm.controls.term.dirty) {
+      <mat-error>
+        {{
+          'VERB_INPUT.MAX_LEN'
+            | translate: { max: searchForm.controls.term.getError('maxlength')?.requiredLength ?? 200 }
+        }}
+      </mat-error>
+    }
+    @if (searchForm.controls.term.hasError('searchPattern') && searchForm.controls.term.dirty) {
+      <mat-error>{{ 'VERB_INPUT.PATTERN' | translate }}</mat-error>
+    }
+    @if (searchForm.controls.term.value) {
       <button
         type="button"
         mat-icon-button

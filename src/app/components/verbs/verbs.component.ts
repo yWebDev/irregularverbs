@@ -6,6 +6,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +24,7 @@ import {
   selectVerbsLoading,
 } from 'src/app/store/verbs/verbs.selectors';
 import { TranslatePipe } from '@ngx-translate/core';
+import { ScrollRevealDirective } from 'src/app/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-verbs',
@@ -31,6 +33,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIconModule,
     MatButtonModule,
     TranslatePipe,
+    NgTemplateOutlet,
+    ScrollRevealDirective,
   ],
   templateUrl: './verbs.component.html',
   styleUrl: './verbs.component.scss',
