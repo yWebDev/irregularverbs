@@ -10,7 +10,8 @@
     "MENU": "Abrir menú del sitio",
     "SEARCH": "Buscar verbos",
     "GAME": "Juego de verbos",
-    "TABLE": "Tabla de verbos"
+    "TABLE": "Tabla de verbos",
+    "STATS": "Estadísticas"
   },
   "LANG": {
     "LABEL": "Idioma",
@@ -141,6 +142,25 @@
     "BODY": "Debes arrastrar las formas de 50 verbos irregulares a las cajas lo más rápido posible. ¡Suerte!",
     "PLAY": "Jugar",
     "HOW_TO_PLAY": "¿Cómo se juega?"
+  },
+  "STATS": {
+    "TITLE": "Estadísticas de aprendizaje",
+    "INTRO": "Los gráficos usan tus últimas partidas terminadas (guardadas en este navegador) y la lista completa de verbos para la distribución de patrones.",
+    "SCORE_HISTORY": "Puntuaciones",
+    "SCORE_HISTORY_HINT": "Cada barra es una sesión terminada (las más recientes primero en el eje).",
+    "PATTERN_DIST": "Patrones de formas verbales",
+    "PATTERN_HINT": "Agrupación de verbos en la base de datos: AAA (tres formas iguales), ABA, ABB o ABC (tres formas distintas).",
+    "PROGRESS": "Sesiones en el tiempo",
+    "PROGRESS_HINT": "Recuento acumulado de partidas terminadas por fecha (de la más antigua a la más nueva).",
+    "EMPTY_HISTORY": "Termina una partida para ver barras aquí. Las puntuaciones se guardan al finalizar.",
+    "EMPTY_PROGRESS": "Aún no hay partidas terminadas — juega una ronda para ver el progreso.",
+    "VERBS_LOADING": "Cargando datos de verbos para el gráfico…",
+    "CHARTS_LOADING": "Preparando gráficos…",
+    "CHART_GAME": "Sesión",
+    "CHART_SCORE": "Puntuación",
+    "CHART_SESSION": "Fecha",
+    "CHART_CUMULATIVE": "Partidas jugadas",
+    "LEGEND": "Patrones"
   },
   "ACCOUNT": {
     "DELETE": "Eliminar cuenta"

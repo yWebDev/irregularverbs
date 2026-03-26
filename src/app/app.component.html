@@ -40,6 +40,13 @@
           [attr.aria-current]="isCurrentRoute('/verbs') ? 'page' : null"
           >{{ 'NAV.TABLE' | translate }}</a
         >
+        <a
+          mat-menu-item
+          routerLink="/stats"
+          routerLinkActive="router-link-active"
+          [attr.aria-current]="isCurrentRoute('/stats') ? 'page' : null"
+          >{{ 'NAV.STATS' | translate }}</a
+        >
       </mat-menu>
     } @else {
       <ul role="list" class="nav-links">
@@ -66,6 +73,14 @@
             [routerLinkActive]="['is-active']"
             [attr.aria-current]="isCurrentRoute('/verbs') ? 'page' : null"
             >{{ 'NAV.TABLE' | translate }}</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/stats"
+            [routerLinkActive]="['is-active']"
+            [attr.aria-current]="isCurrentRoute('/stats') ? 'page' : null"
+            >{{ 'NAV.STATS' | translate }}</a
           >
         </li>
       </ul>

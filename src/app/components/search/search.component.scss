@@ -21,6 +21,14 @@
   animation-delay: 0.18s;
 }
 
+.search__scroll-block {
+  margin-bottom: 3rem;
+
+  @media only screen and (max-device-width: 768px) {
+    margin-bottom: 1rem;
+  }
+}
+
 :host {
   width: 100%;
 

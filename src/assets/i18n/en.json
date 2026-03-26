@@ -10,7 +10,8 @@
     "MENU": "Open site menu",
     "SEARCH": "Verbs Search",
     "GAME": "Verbs Game",
-    "TABLE": "Verbs Table"
+    "TABLE": "Verbs Table",
+    "STATS": "Statistics"
   },
   "LANG": {
     "LABEL": "Language",
@@ -141,6 +142,25 @@
     "BODY": "You have to drag and drop the forms for 50 irregular verbs into the boxes as fast as possible. Good luck!",
     "PLAY": "Play",
     "HOW_TO_PLAY": "How to play?"
+  },
+  "STATS": {
+    "TITLE": "Learning statistics",
+    "INTRO": "Charts use your last finished games (stored in this browser) and the full verb list for pattern distribution.",
+    "SCORE_HISTORY": "Game scores",
+    "SCORE_HISTORY_HINT": "Each bar is one finished session in chronological order.",
+    "PATTERN_DIST": "Verb form patterns",
+    "PATTERN_HINT": "How verbs in the database group: AAA (same three forms), ABA, ABB, or ABC (three distinct forms).",
+    "PROGRESS": "Sessions over time",
+    "PROGRESS_HINT": "Cumulative count of finished games by session date (oldest to newest).",
+    "EMPTY_HISTORY": "Finish a game to see score bars here. Scores are saved when the game ends.",
+    "EMPTY_PROGRESS": "No finished games yet — play a round to track progress.",
+    "VERBS_LOADING": "Loading verb data for the chart…",
+    "CHARTS_LOADING": "Preparing charts…",
+    "CHART_GAME": "Session",
+    "CHART_SCORE": "Score",
+    "CHART_SESSION": "Date",
+    "CHART_CUMULATIVE": "Games played",
+    "LEGEND": "Patterns"
   },
   "ACCOUNT": {
     "DELETE": "Delete account"
