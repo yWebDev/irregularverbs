@@ -65,7 +65,11 @@
     "VERB_ROW": "Verb: {{verb}}",
     "EXAMPLES": "Examples",
     "LOADING_EXAMPLES": "Loading...",
-    "LOADING_EXAMPLES_ARIA": "Loading examples, please wait"
+    "LOADING_EXAMPLES_ARIA": "Loading examples, please wait",
+    "FILTER_LABEL": "Filter list",
+    "FILTER_ARIA": "Filter the verbs table by any form",
+    "SORT_LABEL": "Sort by column",
+    "SORT_ARIA": "Choose which column to sort the table by"
   },
   "VERB_EXAMPLES": {
     "FORM_VERB": "verb",

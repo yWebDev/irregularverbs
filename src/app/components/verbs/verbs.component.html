@@ -114,13 +114,40 @@
     @if (error()) {
       <p class="error" role="alert">{{ error() }}</p>
     }
+    @if (!loading() && !error() && verbs().length) {
+      <div class="verbs-toolbar">
+        <mat-form-field appearance="outline" class="verbs-toolbar__field">
+          <mat-label>{{ 'VERBS.FILTER_LABEL' | translate }}</mat-label>
+          <input
+            matInput
+            type="search"
+            [value]="tableFilter()"
+            (input)="tableFilter.set($any($event.target).value)"
+            [attr.aria-label]="'VERBS.FILTER_ARIA' | translate"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="verbs-toolbar__field">
+          <mat-label>{{ 'VERBS.SORT_LABEL' | translate }}</mat-label>
+          <mat-select
+            [value]="sortKey()"
+            (selectionChange)="setSortKey($event.value)"
+            [attr.aria-label]="'VERBS.SORT_ARIA' | translate"
+          >
+            <mat-option value="base">{{ 'VERBS.COL_BASE' | translate }}</mat-option>
+            <mat-option value="pastSimple">{{ 'VERBS.COL_PAST' | translate }}</mat-option>
+            <mat-option value="pastParticiple">{{ 'VERBS.COL_PART' | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    }
     @if (!loading() && !error() && isNarrowLayout() && verbs().length) {
       <div
         class="verbs-cards"
         role="list"
         [attr.aria-label]="'VERBS.CARDS_ARIA' | translate"
       >
-        @for (element of verbs(); track element.base) {
+        @for (element of displayedVerbs(); track element.base) {
           <ng-container
             *ngTemplateOutlet="verbCard; context: { $implicit: element }"
           />
@@ -132,7 +159,7 @@
         <div class="overlay"></div>
         <table
           mat-table
-          [dataSource]="verbs()"
+          [dataSource]="displayedVerbs()"
           multiTemplateDataRows
           class="mat-elevation-z8 verbs-table"
           [attr.aria-label]="'VERBS.TABLE_ARIA' | translate"

@@ -5,8 +5,11 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
 import { VerbsComponent } from './verbs.component';
+import { LevenshteinWasmService } from '../../services/levenshtein-wasm/levenshtein-wasm.service';
 import { VerbsService } from '../../services/verbs/verbs.service';
+import { VerbsTableWorkerService } from '../../services/verbs-table-worker/verbs-table-worker.service';
 import { testingTranslateProviders } from '../../testing/testing-translate.providers';
+import { levenshteinDistance } from '../../utils/functional';
 
 const mockInitialState = {
   auth: { username: null, isAuthorized: false },
@@ -34,6 +37,18 @@ describe('VerbsComponent', () => {
         provideAnimations(),
         provideMockStore({ initialState: mockInitialState }),
         { provide: VerbsService, useValue: verbsServiceSpy },
+        {
+          provide: VerbsTableWorkerService,
+          useValue: {
+            processVerbs: (o: { verbs: unknown[] }) => Promise.resolve(o.verbs),
+          },
+        },
+        {
+          provide: LevenshteinWasmService,
+          useValue: {
+            getDistanceFn: () => Promise.resolve(levenshteinDistance),
+          },
+        },
         {
           provide: BreakpointObserver,
           useValue: {
