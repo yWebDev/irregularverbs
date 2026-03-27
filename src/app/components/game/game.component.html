@@ -59,6 +59,10 @@
                 >close</mat-icon
               >
             }
+          } @else {
+            <span class="drop-zone-placeholder">{{
+              getZonePlaceholder(key)
+            }}</span>
           }
         </div>
       }
