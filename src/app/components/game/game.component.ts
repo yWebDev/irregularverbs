@@ -221,6 +221,15 @@ export class GameComponent implements OnInit, OnDestroy {
     });
   }
 
+  protected getZonePlaceholder(key: keyof VerbDetails): string {
+    const labels: Record<string, string> = {
+      base: this.translate.instant('GAME.ZONE_BASE'),
+      pastSimple: this.translate.instant('GAME.ZONE_PAST'),
+      pastParticiple: this.translate.instant('GAME.ZONE_PART'),
+    };
+    return labels[key as string] ?? String(key);
+  }
+
   protected getDropZoneLabel(key: keyof VerbDetails): string {
     const labels: Record<string, string> = {
       base: this.translate.instant('GAME.DROP_BASE'),
