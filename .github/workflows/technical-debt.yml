@@ -2,8 +2,8 @@ name: Technical debt (audit & outdated)
 
 on:
   schedule:
-    # Mondays 06:00 UTC — dependency and audit visibility without blocking deploys
-    - cron: "0 6 * * 1"
+    # Monthly at 06:00 UTC on day 1 — dependency and audit visibility without blocking deploys
+    - cron: "0 6 1 * *"
   workflow_dispatch:
 
 permissions:

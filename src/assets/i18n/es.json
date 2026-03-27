@@ -65,7 +65,11 @@
     "VERB_ROW": "Verbo: {{verb}}",
     "EXAMPLES": "Ejemplos",
     "LOADING_EXAMPLES": "Cargando...",
-    "LOADING_EXAMPLES_ARIA": "Cargando ejemplos, espera por favor"
+    "LOADING_EXAMPLES_ARIA": "Cargando ejemplos, espera por favor",
+    "FILTER_LABEL": "Filtrar lista",
+    "FILTER_ARIA": "Filtra la tabla por cualquier forma verbal",
+    "SORT_LABEL": "Ordenar por columna",
+    "SORT_ARIA": "Elige la columna para ordenar la tabla"
   },
   "VERB_EXAMPLES": {
     "FORM_VERB": "verbo",
