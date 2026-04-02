@@ -55,3 +55,8 @@ handlers:
     http_headers:
       Cache-Control: "no-cache, no-store, must-revalidate"
       X-Frame-Options: SAMEORIGIN
+
+# Prevent GAE Cloud Build from running `npm run build` — the app is already
+# compiled by the GitHub Actions workflow before `gcloud app deploy` is called.
+build_env_variables:
+  GOOGLE_NODE_RUN_SCRIPTS: ""
