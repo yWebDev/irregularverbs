@@ -1,12 +1,11 @@
-# Default service: Angular SSR (Express) + static browser assets from dist/browser.
+# Default service: Angular static SPA served entirely from dist/browser.
 # API traffic is routed to the `api` service via dispatch.yaml (*/api/*).
+# For SSR deployment use client-ssr.yaml instead.
 runtime: nodejs20
 service: default
 
-entrypoint: node dist/server/server.mjs
-
 handlers:
-  # Bot / SEO files (short cache; served from disk without hitting SSR)
+  # Bot / SEO files (short cache)
   - url: /robots\.txt
     static_files: dist/browser/robots.txt
     upload: dist/browser/robots.txt
@@ -25,26 +24,34 @@ handlers:
     http_headers:
       Cache-Control: "no-cache, no-store, must-revalidate"
 
-  # Hashed bundles, images, fonts, etc. (long cache; same as express.static in server.ts)
+  # index.html and favicon.ico are NOT content-hashed → must be declared before
+  # the long-cache assets handler so they never get a stale 1-year cache.
+  - url: /index\.html
+    static_files: dist/browser/index.html
+    upload: dist/browser/index.html
+    secure: always
+    http_headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+      X-Frame-Options: SAMEORIGIN
+
+  - url: /favicon\.ico
+    static_files: dist/browser/favicon.ico
+    upload: dist/browser/favicon.ico
+    http_headers:
+      Cache-Control: "public, max-age=86400"
+
+  # Hashed bundles, images, fonts, WASM, i18n JSON, etc. (long cache)
   - url: /(.*\..+)$
     static_files: dist/browser/\1
     upload: dist/browser/(.*\..+)$
     http_headers:
       Cache-Control: "public, max-age=31536000"
 
-  # HTML routes, SSR, and anything else → Node (AngularNodeAppEngine)
+  # All SPA routes (no extension) → serve index.html (client-side routing)
   - url: /.*
-    script: auto
+    static_files: dist/browser/index.html
+    upload: dist/browser/index.html
     secure: always
-
-build_env_variables:
-  GOOGLE_NODE_RUN_SCRIPTS: ""
-
-inbound_services:
-  - warmup
-
-automatic_scaling:
-  min_instances: 0
-  max_instances: 3
-  target_cpu_utilization: 0.65
-  target_throughput_utilization: 0.75
+    http_headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+      X-Frame-Options: SAMEORIGIN

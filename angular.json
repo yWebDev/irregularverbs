@@ -95,6 +95,11 @@
               "server": false,
               "ssr": false
             },
+            "production-static": {
+              "outputMode": "static",
+              "server": false,
+              "ssr": false
+            },
             "production": {
               "fileReplacements": [
                 {

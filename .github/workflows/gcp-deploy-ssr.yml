@@ -1,0 +1,61 @@
+name: Deploy to Google App Engine (GAE) — SSR (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Reason for SSR deployment"
+        required: false
+        default: "Manual SSR deployment"
+
+jobs:
+  build-and-deploy-ssr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Cache Angular CLI build cache
+        uses: actions/cache@v4
+        with:
+          path: .angular/cache
+          key: ${{ runner.os }}-angular-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-angular-
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Skip Piscina-based route discovery during build. On some Linux/CI runners the worker can
+      # reject with a non-Error value, which triggers Angular's assertIsError and fails the build
+      # with "catch clause variable is not an Error instance". Runtime still builds the route tree
+      # on first request (see ServerRouter.from when manifest.routes is undefined).
+      - name: Build SSR app
+        env:
+          NG_BUILD_PARTIAL_SSR: "true"
+        run: npm run build:prod
+
+      - name: Create assets/config.json
+        run: |
+          mkdir -p dist/browser/assets
+          echo '{"API_KEY": "${{ secrets.API_SECRET_KEY }}"}' > dist/browser/assets/config.json
+
+      - name: Google Cloud Auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.GCP_SA_KEY }}"
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Set up Cloud SDK
+        uses: "google-github-actions/setup-gcloud@v2"
+
+      - name: Deploy SSR to Google App Engine
+        run: |
+          gcloud app deploy client-ssr.yaml dispatch.yaml --quiet --no-cache
