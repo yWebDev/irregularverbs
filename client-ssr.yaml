@@ -1,0 +1,51 @@
+# SSR service: Angular SSR (Express) + static browser assets from dist/browser.
+# API traffic is routed to the `api` service via dispatch.yaml (*/api/*).
+# Deploy manually on demand: gcloud app deploy client-ssr.yaml dispatch.yaml
+runtime: nodejs20
+service: default
+
+entrypoint: node dist/server/server.mjs
+
+handlers:
+  # Bot / SEO files (short cache; served from disk without hitting SSR)
+  - url: /robots\.txt
+    static_files: dist/browser/robots.txt
+    upload: dist/browser/robots.txt
+    http_headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+
+  - url: /ads\.txt
+    static_files: dist/browser/ads.txt
+    upload: dist/browser/ads.txt
+    http_headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+
+  - url: /sitemap\.xml
+    static_files: dist/browser/sitemap.xml
+    upload: dist/browser/sitemap.xml
+    http_headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+
+  # Hashed bundles, images, fonts, etc. (long cache; same as express.static in server.ts)
+  - url: /(.*\..+)$
+    static_files: dist/browser/\1
+    upload: dist/browser/(.*\..+)$
+    http_headers:
+      Cache-Control: "public, max-age=31536000"
+
+  # HTML routes, SSR, and anything else → Node (AngularNodeAppEngine)
+  - url: /.*
+    script: auto
+    secure: always
+
+build_env_variables:
+  GOOGLE_NODE_RUN_SCRIPTS: ""
+
+inbound_services:
+  - warmup
+
+automatic_scaling:
+  min_instances: 0
+  max_instances: 3
+  target_cpu_utilization: 0.65
+  target_throughput_utilization: 0.75
